@@ -2,7 +2,3 @@
 <p>
     {{ $greeting }} {{ $name or '' }} Welcome Back~
 </p>
-asd
-sadsad
-asdfasdf
-asdfasdffsad
