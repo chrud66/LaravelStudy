@@ -14,3 +14,52 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('hello', function () {
+    return 'Hello';
+});
+
+/*
+Route::get('hello/world', function () {
+    return 'Hello World';
+});
+*/
+
+Route::get('hello/world/{name?}', function ($name = 'testname') {
+    //return 'Hello World ' . $name;
+    return response('Hello World ' . $name, 200)
+        ->header('Content-Type', 'text/plain')
+        ->header('Cache-Control', 'max-age=' . 60*60 . ', must-revalidate');
+});
+
+Route::get('hello/world/{name}/{val}', function ($name, $val) {
+    return 'Hello World ' . $name . ' : ' . $val;
+});
+
+route::get('hello/json', function () {
+    $data = ['name' => 'My Name', 'Age' => '30'];
+
+    return response()->json($data);
+});
+
+Route::get('/hello/html', function () {
+    $content = <<<HTML
+    <!doctype html>
+    <html lang="ko">
+        <head>
+            <meta charset="UTF-8">
+            <title>Ok</title>
+        </head>
+        <body>
+            <h1>라라벨이란?</h1>
+            <h3>라라벨은 가장 모던하고 세련된 PHP 프레임워크이며, 유연하고 세련된 기능을 제공합니다. </h3>
+        </body>
+    </html>
+HTML;
+
+    return $content;
+});
+
+route::post('/hello', function() {
+    return 'hello world';
+});
