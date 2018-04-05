@@ -82,3 +82,7 @@ Route::get('hello/calc/{num}', function ($num) {
 route::post('/hello', function() {
     return 'hello world';
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
