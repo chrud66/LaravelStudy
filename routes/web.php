@@ -82,10 +82,38 @@ Route::get('hello/task/loop', function() {
     $tasks = [
         ['name' => 'Response 클래스 분석', 'due_date' => '2015-06-01 11:22:33'],
         ['name' => '블레이드 예제 작성', 'due_date' => '2015-06-03 15:21:13'],
+        ['name' => 'kck', 'due_date' => '2018-04-09 15:22:13'],
     ];
-    return view('hello.task2')->with('tasks', $tasks);
+    $tasks2 = [
+        ['name' => '클래스 분석', 'due_date' => '2015-06-01 11:22:33'],
+        ['name' => '작성', 'due_date' => '2015-06-03 15:21:13'],
+        ['name' => 'kcdcccsack', 'due_date' => '2018-04-09 15:22:13'],
+    ];
+    return view('hello.task2')
+                ->with('tasks', $tasks)
+                ->with('tasks2', $tasks2);
 });
 
-route::post('/hello', function() {
+Route::get('hello/task3', function() {
+    $tasks = [
+        ['name' => 'Response 클래스 분석', 'due_date' => '2015-06-01 11:22:33'],
+        ['name' => '블레이드 예제 작성', 'due_date' => '2015-06-03 15:21:13'],
+        ['name' => 'kck', 'due_date' => '2018-04-09 15:22:13'],
+    ];
+    $tasks2 = [
+        ['name' => '클래스 분석', 'due_date' => '2015-06-01 11:22:33'],
+        ['name' => '작성', 'due_date' => '2015-06-03 15:21:13'],
+        ['name' => 'kcdcccsack', 'due_date' => '2018-04-09 15:22:13'],
+    ];
+    return view('hello.task3')
+                ->with('tasks', $tasks)
+                ->with('tasks2', $tasks2);
+});
+
+Route::post('/hello', function() {
     return 'hello world';
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
