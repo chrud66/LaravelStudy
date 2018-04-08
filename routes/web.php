@@ -1,5 +1,7 @@
 <?php
 
+use Symfony\Component\Routing\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -77,6 +79,14 @@ Route::get('hello/task', function () {
 
 Route::get('hello/calc/{num}', function ($num) {
     return view('hello.calc')->with('num', $num);
+});
+
+Route::get('hello/task/loop', function() {
+    $tasks = [
+        ['name' => 'Response 클래스 분석', 'due_date' => '2015-06-01 11:22:33'],
+        ['name' => '블레이드 예제 작성', 'due_date' => '2015-06-03 15:21:13'],
+    ];
+    return view('hello.task2')->with('tasks', $tasks);
 });
 
 route::post('/hello', function() {
