@@ -4,6 +4,7 @@
 @endsection
 
 @section('content')
+    <!--img src="/152308678670347.gif" style="min-width:100px; min-height:100px; max-width:11000px; max-height:10000px;"/-->
     <table class="table">
         <thead>
             <tr>

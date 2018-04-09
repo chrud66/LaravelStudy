@@ -105,9 +105,14 @@ Route::get('hello/task3', function() {
         ['name' => '작성', 'due_date' => '2015-06-03 15:21:13'],
         ['name' => 'kcdcccsack', 'due_date' => '2018-04-09 15:22:13'],
     ];
+
+    //$img = \Image::make(public_path().'/152308678670347.gif');
+    //$img = \Image::make('../public/152308678670347.gif')->resize(100, 50)->save('resize_152308678670347.gif');
+
     return view('hello.task3')
                 ->with('tasks', $tasks)
                 ->with('tasks2', $tasks2);
+                //->with('img', $img);
 });
 
 Route::post('/hello', function() {

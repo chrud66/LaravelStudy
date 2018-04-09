@@ -1,4 +1,5 @@
 <?php
+use DebugBar\DebugBar;
 
 return [
 
@@ -62,7 +63,7 @@ return [
     | Here you may specify the default timezone for your application, which
     | will be used by the PHP date and date-time functions. We have gone
     | ahead and set this to a sensible default for you out of the box.
-    | 
+    |
     */
 
     'timezone' => 'Asia/Seoul',
@@ -160,6 +161,15 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * DebugBar
+         */
+        Barryvdh\Debugbar\ServiceProvider::class,
+        /*
+         * Intervention Image 서비스 프로바이더 등록
+        */
+        Intervention\Image\ImageServiceProvider::class,
+
     ],
 
     /*
@@ -208,7 +218,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];
