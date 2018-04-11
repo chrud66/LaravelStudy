@@ -9,7 +9,6 @@
         "barryvdh/laravel-debugbar": "^3.1",
         "fideloper/proxy": "^4.0",
         "intervention/image": "^2.4",
-        "jithinjose2/websocket": "^2.0",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0"
     },
