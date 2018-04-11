@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "97ec0f97c2a76c0c707abbba32f0eba7",
+    "content-hash": "79f7b927aa02fb5da728539528de19f4",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -655,6 +655,55 @@
                 }
             ],
             "time": "2015-04-20T18:58:01+00:00"
+        },
+        {
+            "name": "jithinjose2/websocket",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jithinjose2/websocket.git",
+                "reference": "b45351363a769126e20f7c5dad7365face457d89"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jithinjose2/websocket/zipball/b45351363a769126e20f7c5dad7365face457d89",
+                "reference": "b45351363a769126e20f7c5dad7365face457d89",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/config": "~5.0",
+                "illuminate/support": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "JithinJose2\\WebSocket\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JithinJose2\\WebSocket\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jithin Jose",
+                    "email": "jithinjose2@gmail.com"
+                }
+            ],
+            "description": "Websocket module to used with laravel",
+            "homepage": "https://github.com/jithinjose2/websocket",
+            "time": "2017-08-31T16:40:56+00:00"
         },
         {
             "name": "laravel/framework",

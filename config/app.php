@@ -169,6 +169,10 @@ return [
          * Intervention Image 서비스 프로바이더 등록
         */
         Intervention\Image\ImageServiceProvider::class,
+        /*
+         * Laravel Socket 서비스 프로바이더 등록
+        */
+        JithinJose2\WebSocket\ServiceProvider::class,
 
     ],
 
