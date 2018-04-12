@@ -94,6 +94,10 @@ Route::get('hello/task/loop', function() {
                 ->with('tasks2', $tasks2);
 });
 
+Route::get('hello/task3', 'TaskController@list3');
+
+Route::get('hello/param/{id?}/{arg?}', 'TaskController@param');
+/*
 Route::get('hello/task3', function() {
     $tasks = [
         ['name' => 'Response 클래스 분석', 'due_date' => '2015-06-01 11:22:33'],
@@ -113,7 +117,9 @@ Route::get('hello/task3', function() {
                 ->with('tasks', $tasks)
                 ->with('tasks2', $tasks2);
                 //->with('img', $img);
+
 });
+*/
 
 Route::post('/hello', function() {
     return 'hello world';
