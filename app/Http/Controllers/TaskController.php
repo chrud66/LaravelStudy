@@ -10,10 +10,10 @@ class TaskController extends Controller
     //
 
     /**
-        * 할 일 목록 출력
-        *
-        * @return Response
-        */
+    * 할 일 목록 출력
+    *
+    * @return Response
+    */
     public function list3() {
         $tasks = [
             ['name' => 'Response 클래스 분석', 'due_date' => '2015-06-01 11:22:33'],
@@ -29,7 +29,19 @@ class TaskController extends Controller
                     ->with('tasks2', $tasks2);
     }
 
-    public function param($id = 0, $arg = 'argument') {
+    public function param(Request $request, $id = 0, $arg = 'argument') {
+
+        dump( ['path' => $request->path(),
+              'url' => $request->url(),
+              'fullUrl' => $request->fullUrl(),
+              'method' => $request->method(),
+              'name' => $request->get('name'),
+              'ajax' => $request->ajax(),
+              'header' => $request->header(),
+        ]);
+        dump( ['all' => $request->all()
+        ]);
+
         return ['id' => $id, 'arg' => $arg];
     }
 }
