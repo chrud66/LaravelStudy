@@ -97,6 +97,13 @@ Route::get('hello/task/loop', function() {
 Route::get('hello/task3', 'TaskController@list3');
 
 Route::get('hello/param/{id?}/{arg?}', 'TaskController@param');
+
+Route::resource('impl', 'ImplicitController');
+
+Route::group(['middleware' => ['web']], function () {
+    Route::resource('orders', 'OrderController');
+});
+
 /*
 Route::get('hello/task3', function() {
     $tasks = [
