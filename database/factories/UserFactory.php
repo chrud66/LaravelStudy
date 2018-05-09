@@ -21,3 +21,29 @@ $factory->define(App\User::class, function (Faker $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Project::class, function(Faker $faker) {
+    $min = App\User::min('id');
+    $max = App\User::max('id');
+
+    return[
+        'user_id' => $faker->numberBetween($min, $max),
+        'name' => $faker->word,
+        'created_at' => $faker->dateTimeBetween($startDate = '-2 years', $endDate = '-1 years'),
+        'updated_at' => $faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now'),
+    ];
+});
+
+$factory->define(App\Task::class, function (Faker $faker) {
+    $min = App\Project::min('id');
+    $max = App\Project::max('id');
+
+    return[
+        'project_id' => $faker->numberBetween($min, $max),
+        'name' => substr($faker->sentence, 0, 49),
+        'description' => $faker->text,
+        'created_at' =>  $faker->dateTimeBetween($startDate = '-2 years', $endDate = '-1 years'),
+        'updated_at' => $faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now'),
+        'due_date' => $faker->dateTimeBetween($startDate = '-2 weeks', $endDate = '+1 months'),
+    ];
+});
