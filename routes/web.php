@@ -100,6 +100,10 @@ Route::get('hello/param/{id?}/{arg?}', 'TaskController@param');
 
 Route::resource('impl', 'ImplicitController');
 
+Route::resource('orm', 'OrmController')->names([
+    'whereIn' => 'orm.whereIn'
+]);
+
 Route::group(['middleware' => ['web']], function () {
     Route::resource('orders', 'OrderController');
 });
