@@ -176,10 +176,23 @@ class OrmController extends Controller
         return response()->json(['ret' => $ret], 200, [], JSON_PRETTY_PRINT);
         */
 
+        /*
         //소프트 삭제된 데이터 영구삭제
         $ret = Task::withTrashed()->find(108)->forceDelete();
 
         return response()->json(['ret' => $ret], 200, [], JSON_PRETTY_PRINT);
+        */
+
+        //https://atom.io/packages/php-integrator-base-legacy-php56
+        //->여기 들어가서 한국어 번역으로 보고 패키지 설치할거 더 설치하기
+ 
+        //쿼리 스코프 사용
+        $tasks = Task::dueIn7Days()
+                ->take(5)
+                ->orderBy('due_date', 'desc')
+                ->get();
+
+        return response()->json($tasks, 200, [], JSON_PRETTY_PRINT);
 
         //return $tasks;
     }

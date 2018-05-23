@@ -17,4 +17,15 @@ class Task extends Model
 
     //블랙 리스트 방식
     //protected $guarded = ['description'];
+
+    /**
+     * 쿼리 스코프 추가
+     * 완료 기한이 7일 이내인 할 일만 조회
+     *
+     * @return \Illuminate\Database\Eloquent\builder
+    */
+    public function scopeDueIn7Days($query)
+    {
+        return $query->where('due_date', '>', \Carbon\Carbon::now()->subDays(7));
+    }
 }
