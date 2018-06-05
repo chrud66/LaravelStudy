@@ -28,4 +28,16 @@ class Task extends Model
     {
         return $query->where('due_date', '>', \Carbon\Carbon::now()->subDays(7));
     }
+
+    /**
+     * 쿼리 스코프 추가
+     * 완료 기한이 days 이내인 할 일만 조회
+     *
+     * @return \Illuminate\Database\Eloquent\builder
+    */
+    public function scopeDueInDays($query, $days)
+    {
+        //return $query->where('due_date', '>', \Carbon\Carbon::now()->subDays(7));
+        return $query->where('due_date', '>', \Carbon\Carbon::now()->subDays($days));
+    }
 }

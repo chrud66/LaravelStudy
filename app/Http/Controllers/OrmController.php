@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Task;
 use App\Project;
+use App\Role;
 
 class OrmController extends Controller
 {
@@ -185,14 +186,53 @@ class OrmController extends Controller
 
         //https://atom.io/packages/php-integrator-base-legacy-php56
         //->여기 들어가서 한국어 번역으로 보고 패키지 설치할거 더 설치하기
- 
+
         //쿼리 스코프 사용
+        /*
         $tasks = Task::dueIn7Days()
-                ->take(5)
+                ->take(100)
                 ->orderBy('due_date', 'desc')
                 ->get();
 
         return response()->json($tasks, 200, [], JSON_PRETTY_PRINT);
+
+        $tasks = Task::dueInDays(1000)
+                ->take(100)
+                ->orderBy('due_date', 'desc')
+                ->get();
+
+        return response()->json($tasks, 200, [], JSON_PRETTY_PRINT);
+        */
+
+        /*
+        //모델 이벤트 자동 account 암호화
+        $user = \App\User::create([
+            'name' => 'Test',
+            'account' => '1234567890',
+            'email' => 'abc@gmail.com',
+            'password'=>'abc',
+        ]);
+        return response()->json($user, 200, [], JSON_PRETTY_PRINT);
+        */
+
+        /*
+        // 입력시 mutator 자동 호출
+        $u1 = \App\User::create([
+            'name' => 'Test',
+            'account' => '123456789011111',
+            'email' => 'abcd@gmail.com',
+            'password'=>'abc',
+        ]);
+
+        dump($u1);
+
+        $u2 = \App\User::find($u1->id);
+        // accessor 호출
+        dump($u2->account);
+        */
+
+        $users = Role::findOrFail(2)->users()->orderBy('name')->get();
+        dd($users);
 
         //return $tasks;
     }
