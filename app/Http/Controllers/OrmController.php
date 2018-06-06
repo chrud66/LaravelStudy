@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Task;
 use App\Project;
 use App\Role;
+use App\User;
+use App\Picture;
 
 class OrmController extends Controller
 {
@@ -31,6 +33,7 @@ class OrmController extends Controller
         echo $count . '<br/>' . $sum . '<br/>' . $max . '<br/>' . $min;
         */
 
+        /*
         $sql = Task::where('id', '>', 10)
                 ->where('id', '<', 20)
                 ->where('name', 'like', 'Ta%')
@@ -49,6 +52,7 @@ class OrmController extends Controller
                 ->take(3)
                 ->getBindings();
         //dump($bind);
+        */
 
         /*$tasks = Task::where('id', '>', 10)
                 ->where('id', '<', 20)
@@ -231,8 +235,25 @@ class OrmController extends Controller
         dump($u2->account);
         */
 
+        /*
+        //Many To Many
         $users = Role::findOrFail(2)->users()->orderBy('name')->get();
         dd($users);
+        */
+
+        /*
+        //Has Many Through
+        $tasks = User::findOrFail(10)->tasks()->orderBy('created_at')->get();
+        dump($tasks);
+        */
+
+        /*$pic = Picture::find(2);
+        $imageable = $pic->imageable;
+        dump($imageable);*/
+
+        $task = new \App\Task(['name' => 'example task']);
+        $prj = \App\Project::find(8);
+        $task = $prj->tasks()->save($task);
 
         //return $tasks;
     }

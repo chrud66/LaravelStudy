@@ -49,4 +49,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class);
     }
+
+    public function tasks()
+    {
+        return $this->hasManyThrough(Task::class, Project::class);
+    }
+
+    public function pictures()
+    {
+        return $this->morphMany(Picture::class, 'imageable');
+    }
 }
