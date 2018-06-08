@@ -23,7 +23,7 @@ $factory->define(App\User::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(App\Project::class, function(Faker $faker) {
+$factory->define(App\Project::class, function (Faker $faker) {
     $min = App\User::min('id');
     $max = App\User::max('id');
 
