@@ -14,7 +14,8 @@ class TaskController extends Controller
     *
     * @return Response
     */
-    public function list3() {
+    public function list3()
+    {
         $tasks = [
             ['name' => 'Response 클래스 분석', 'due_date' => '2015-06-01 11:22:33'],
             ['name' => '블레이드 예제 작성', 'due_date' => '2015-06-03 15:21:13'],
@@ -29,18 +30,17 @@ class TaskController extends Controller
                     ->with('tasks2', $tasks2);
     }
 
-    public function param(Request $request, $id = 0, $arg = 'argument') {
-
-        dump( ['path' => $request->path(),
-              'url' => $request->url(),
-              'fullUrl' => $request->fullUrl(),
-              'method' => $request->method(),
-              'name' => $request->get('name'),
-              'ajax' => $request->ajax(),
-              'header' => $request->header(),
+    public function param(Request $request, $id = 0, $arg = 'argument')
+    {
+        dump(['path' => $request->path(),
+            'url' => $request->url(),
+            'fullUrl' => $request->fullUrl(),
+            'method' => $request->method(),
+            'name' => $request->get('name'),
+            'ajax' => $request->ajax(),
+            'header' => $request->header(),
         ]);
-        dump( ['all' => $request->all()
-        ]);
+        dump(['all' => $request->all()]);
 
         return ['id' => $id, 'arg' => $arg];
     }

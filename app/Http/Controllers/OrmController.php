@@ -251,20 +251,53 @@ class OrmController extends Controller
         $imageable = $pic->imageable;
         dump($imageable);*/
 
+        /*
+        //참조키 자동 삽입
         $task = new \App\Task(['name' => 'example task']);
         $prj = \App\Project::find(8);
         $task = $prj->tasks()->save($task);
+        */
 
+        /*
+        //참조키 자동 삽입 여러개
+        $tasks = [
+            new Task(['name' => 'example task 4']),
+            new Task(['name' => 'example task 5']),
+            new Task(['name' => 'example task 6']),
+        ];
 
+        $prj = Project::find(7);
+
+        $tasks = $prj->tasks()->saveMany($tasks);
+        */
+
+        /*
+        //다대다 관계삽입
+        $user = User::find(1);
+        //현재 권한 출력
+        $role_users = $user->roles()->get()->toArray();
+        dump($role_users);
+
+        //새로운 역할 모델 조회
+        $role = Role::where('name', 'like', 'devel%')->first();
+
+        //사용자에게 역할 부여
+        $user->roles()->attach($role->id);
+
+        //변경된 권한 출력
+        dump(User::find(7)->roles()->get()->toArray());
+        */
+
+        User::find(1)->roles()->attach(10);
 
         //return $tasks;
     }
 
-    private function findWhereIn() {
+    private function findWhereIn()
+    {
         echo 'findWhereIn';
         $tasks = Task::whereIn('id', [1, 5, 7])
                 ->get();
-
         dump(response()->json($tasks, 200, [], JSON_PRETTY_PRINT));
         //return response()->json($tasks, 200, [], JSON_PRETTY_PRINT);
     }
@@ -298,18 +331,17 @@ class OrmController extends Controller
      */
     public function show($id)
     {
-        //
-        switch ($id){
-          case 'whereIn':
-            echo $id . '<br/><br/>';
-           $this->findWhereIn();
-           break;
-          case 'bar':
-           $this->bar();
-           break;
-         default:
-           abort(404,'bad request');
-           break;
+        switch ($id) {
+            case 'whereIn':
+                echo $id . '<br/><br/>';
+                $this->findWhereIn();
+                break;
+            case 'bar':
+                $this->bar();
+                break;
+            default:
+                abort(404, 'bad request');
+                break;
         }
     }
 

@@ -16,7 +16,6 @@ $factory->define(App\Role::class, function (Faker $faker) {
 });
 
 $factory->define(App\RoleUser::class, function (Faker $faker) {
-
     $user_id_min = App\User::min('id');
     $user_id_max = App\User::max('id');
     $role_id_min = App\Role::min('id');
@@ -31,7 +30,7 @@ $factory->define(App\RoleUser::class, function (Faker $faker) {
 });
 
 
-$factory->define(App\Product::class, function($faker) {
+$factory->define(App\Product::class, function ($faker) {
     return [
         'name' => $faker->sentence,
         'price' => $faker->randomNumber(5),
@@ -40,9 +39,8 @@ $factory->define(App\Product::class, function($faker) {
     ];
 });
 
-$factory->define(App\Picture::class, function($faker) {
-
-    if(rand(0,1) == 0) :
+$factory->define(App\Picture::class, function ($faker) {
+    if (rand(0, 1) == 0) :
         $type = 'App\User';
         $min = App\User::min('id');
         $max = App\User::max('id');
