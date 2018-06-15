@@ -78,7 +78,7 @@ Route::get('hello/calc/{num}', function ($num) {
     return view('hello.calc')->with('num', $num);
 });
 
-Route::get('hello/task/loop', function() {
+Route::get('hello/task/loop', function () {
     $tasks = [
         ['name' => 'Response 클래스 분석', 'due_date' => '2015-06-01 11:22:33'],
         ['name' => '블레이드 예제 작성', 'due_date' => '2015-06-03 15:21:13'],
@@ -132,10 +132,49 @@ Route::get('hello/task3', function() {
 });
 */
 
-Route::post('/hello', function() {
+Route::post('/hello', function () {
     return 'hello world';
 });
 
-Auth::routes();
+Route::get('hello/tasks', function () {
+    DB::listen(function ($event) {
+        dump($event->sql);
+        dump($event->bindings);
+        dump($event->time);
+    });
+
+    //Eager 로딩 -> with() 메소드 사용
+    //$tasks = \App\Task::with('project')->get();
+
+    //Lazy Eager 로딩 -> load() 메소드 사용
+    $tasks = \App\Task::paginate(5);
+    $tasks->load('project');
+
+    //dd($tasks);
+
+    return view('hello.tasks', compact('tasks'));
+});
+
+Route::get('mail', function () {
+    //메일 발송 테스트
+    $to = 'chrud66@naver.com';
+    $subject = 'Studying sending email in Laravel';
+
+    $data = [
+        'title' => 'Hi there',
+        'body' => 'This is the body of an email message',
+        'user' => App\User::find(1)
+    ];
+
+    return Mail::send('emails.welcom', $data, function ($message) use ($to, $subject){
+        $message->to($to)->subject($subject);
+    });
+
+    //메일발송 queue 이용 테스트
+    //Mail::to('chrud66@naver.com')->queue(new \App\Mail\WelcomMail);
+});
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Auth::routes();
