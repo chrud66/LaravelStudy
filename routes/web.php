@@ -166,7 +166,7 @@ Route::get('mail', function () {
         'user' => App\User::find(1)
     ];
 
-    return Mail::send('emails.welcom', $data, function ($message) use ($to, $subject){
+    return Mail::send('emails.welcom', $data, function ($message) use ($to, $subject) {
         $message->to($to)->subject($subject);
     });
 
@@ -175,6 +175,48 @@ Route::get('mail', function () {
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//error 발생 테스트 1
+Route::get('errorTest', function () {
+    throw new Exception('Some bad thing happend');
+});
+//error 발생 테스트 2
+Route::get('errorTest2', function () {
+    abort(404, 'String Error Message');
+});
+//error 발생 테스트 3
+Route::get('errorTest3', function () {
+    return App\Project::findOrFail(10000);
+});
+
+//Markdown 테스트
+Route::get('markdown', function () {
+    $text = <<<EOT
+**Note** To make lists look nice, you can wrap items with hanging indents:
+    -   Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+        Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,
+        viverra nec, fringilla in, laoreet vitae, risus.
+    -   Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
+        Suspendisse id sem consectetuer libero luctus adipiscing.
+EOT;
+
+    return app(ParsedownExtra::class)->text($text);
+});
+
+//Markdown File 테스트
+/*
+Route::get('docs/{file?}', function ($file = null) {
+    $text = (new App\Document)->get($file);
+
+    return app(ParsedownExtra::class)->text($text);
+});
+*/
+
+Route::get('docs/{file?}', [
+    'as' => 'documents.show',
+    'uses' => 'DocumentsController@show'
+]);
+
 
 
 Auth::routes();
