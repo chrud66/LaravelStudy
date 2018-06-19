@@ -217,6 +217,8 @@ Route::get('docs/{file?}', [
     'uses' => 'DocumentsController@show'
 ]);
 
-
+Route::get('info', function () {
+    phpinfo();
+});
 
 Auth::routes();
