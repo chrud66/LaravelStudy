@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-<header class="page-header">
+<header class="page-header pb-2 mt-4 mb-2 border-bottom">
     Documents Viewer
 </header>
 
@@ -14,7 +14,7 @@
 </div>
 
 <div class="col-md-9 article__documents">
-    <article>
+    <article id="article">
         {!! $content !!}
     </article>
 </div>

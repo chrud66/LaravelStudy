@@ -1,5 +1,6 @@
-<?php
+![](./01-welcome-image-03.png)
 
+```php
 namespace App\Http\Controllers;
 
 use App\Document;
@@ -55,4 +56,4 @@ class DocumentsController extends Controller
             'Etag'          => $genEtag,
         ]);
     }
-}
+```

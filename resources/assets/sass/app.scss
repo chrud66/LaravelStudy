@@ -8,7 +8,21 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// Bootstrap -v 4.1.1
+//@import "node_modules/bootstrap/scss/bootstrap";
+// Bootstrap -v 3.3.7
+//@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap.scss";
+// FontAwesome
+@import "node_modules/font-awesome/scss/font-awesome";
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+/*
+.page-header {
+  padding-bottom: 9px;
+  margin: 40px 0 20px;
+  border-bottom: 1px solid #eee;
+}
+*/

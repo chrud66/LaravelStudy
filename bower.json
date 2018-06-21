@@ -1,0 +1,22 @@
+{
+  "name": "laravel",
+  "homepage": "https://github.com/chrud66/LaravelStudy",
+  "authors": [
+    "chrud66 <chrud66@gmail.com>"
+  ],
+  "description": "laravel study",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "bootstrap-sass": "^3.3.7",
+    "font-awesome": "^5.0.13"
+  }
+}
