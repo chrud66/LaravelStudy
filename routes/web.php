@@ -28,7 +28,7 @@ Route::get('hello/world/{name?}', function ($name = 'testname') {
     //return 'Hello World ' . $name;
     return response('Hello World ' . $name, 200)
         ->header('Content-Type', 'text/plain')
-        ->header('Cache-Control', 'max-age=' . 60*60 . ', must-revalidate');date("Y-m-d A h:i:s");
+        ->header('Cache-Control', 'max-age=' . 60*60 . ', must-revalidate');
 });
 
 Route::get('hello/world/{name}/{val}', function ($name, $val) {
