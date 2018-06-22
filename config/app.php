@@ -161,14 +161,19 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        /*
+        /**
          * DebugBar
          */
         Barryvdh\Debugbar\ServiceProvider::class,
-        /*
+        /**
          * Intervention Image 서비스 프로바이더 등록
         */
         Intervention\Image\ImageServiceProvider::class,
+
+        /**
+         * Laracasts/flash
+         */
+        Laracasts\Flash\FlashServiceProvider::class,
 
     ],
 
@@ -218,8 +223,18 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        /**
+         * DebugBar
+         */
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        /**
+         * Intervention Image 서비스 프로바이더 등록
+         */
         'Image' => Intervention\Image\Facades\Image::class,
+        /**
+         * Laracasts/flash
+         */
+        'Flash' => Laracasts\Flash\Flash::class,
     ],
 
 ];
