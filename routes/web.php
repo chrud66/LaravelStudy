@@ -17,7 +17,7 @@ Route::get('/', function () {
 */
 
 Route::get('test', function () {
-    return $errors->has();
+    return view('test');
 });
 
 Route::get('/', [

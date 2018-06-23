@@ -9,7 +9,7 @@
 </div>
 @endif
 
-@if ($errors->has())
+@if ($errors->has(null))
 <div class="alert alert-danger alert-dismissable flash-message" role="alert">
     <button type="button" class="close" data-dismiss="alert">
         <span aria-hidden="true">&times;</span>
