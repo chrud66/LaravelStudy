@@ -1,5 +1,4 @@
-<!-- resources/views/auth/password/reset.blade.php -->
-@extends('layouts.master')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
