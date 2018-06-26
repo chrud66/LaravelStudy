@@ -62,14 +62,6 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="account" class="col-md-4 col-form-label text-md-right">{{ __('account') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="account" type="number" class="form-control" name="account" min="1" required>
-                            </div>
-                        </div>
-
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

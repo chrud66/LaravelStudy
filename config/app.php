@@ -175,6 +175,10 @@ return [
          */
         Laracasts\Flash\FlashServiceProvider::class,
 
+        /**
+         * Laravel/socialite
+         */
+        Laravel\Socialite\SocialiteServiceProvider::class,
     ],
 
     /*
@@ -235,6 +239,10 @@ return [
          * Laracasts/flash
          */
         'Flash' => Laracasts\Flash\Flash::class,
+        /**
+         * Laravel/socialite
+         */
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];

@@ -10,6 +10,9 @@
 |
 */
 
+Auth::routes();
+Route::get('home', 'HomeController@index')->name('home');
+
 /*
 Route::get('/', function () {
     return view('welcome');
@@ -25,5 +28,15 @@ Route::get('/', [
     'uses' => 'WelcomeController@index'
 ]);
 
-Auth::routes();
-Route::get('home', 'HomeController@index')->name('home');
+Route::group(['prefix' => 'login', 'as' => 'login.'], function () {
+    /* Social Login */
+    Route::get('github', [
+        'as' => 'github.login',
+        'uses' => 'Auth\LoginController@redirectToProvider'
+    ]);
+
+    Route::get('github/callback', [
+        'as' => 'github.callback',
+        'uses' => 'Auth\LoginController@handleProviderCallback'
+    ]);
+});
