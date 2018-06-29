@@ -57,24 +57,32 @@ class LoginController extends Controller
     /**
      * SocialLogin
      */
-    public function redirectToProvider()
+    public function redirectToProvider($social)
     {
-        return Socialite::driver('github')->redirect();
+        if ($social === 'naver') {
+            return Socialite::with($social)->redirect();
+        } else {
+            return Socialite::driver($social)->redirect();
+        }
     }
 
-    public function handleProviderCallback()
+    public function handleProviderCallback($social)
     {
-        $user = Socialite::driver('github')->user();
-        //dd($user);
+        $user = Socialite::driver($social)->user();
 
-        $user = User::firstOrCreate([
-            'email' => $user->getEmail(),
-        ],
-        [
-            'name' => $user->getName(),
-            'password' => '',
-            'email' => $user->getEmail(),
-        ]);
+        $email = $user->getEmail();
+        $name = $social === 'naver' ? $user->user['name'] : $user->getName();
+
+        $user = User::firstOrCreate(
+            [
+                'email' => $email,
+            ],
+            [
+                'name' => $name,
+                'password' => '',
+                'email' => $email,
+            ]
+        );
 
         auth()->login($user, true);
 

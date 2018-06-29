@@ -30,6 +30,7 @@ Route::get('/', [
 
 Route::group(['prefix' => 'login', 'as' => 'login.'], function () {
     /* Social Login */
+    /*
     Route::get('github', [
         'as' => 'github.login',
         'uses' => 'Auth\LoginController@redirectToProvider'
@@ -39,4 +40,25 @@ Route::group(['prefix' => 'login', 'as' => 'login.'], function () {
         'as' => 'github.callback',
         'uses' => 'Auth\LoginController@handleProviderCallback'
     ]);
+    */
+
+    Route::get('{social?}', [
+        'as' => 'social.login',
+        'uses' => 'Auth\LoginController@redirectToProvider'
+    ]);
+
+    Route::get('{social?}/callback', [
+        'as' => 'social.callback',
+        'uses' => 'Auth\LoginController@handleProviderCallback'
+    ]);
+});
+
+/* 개인정보처리방침 */
+Route::get('privacy', function () {
+    return '개인정보처리방침';
+});
+
+/* 서비스약관 */
+Route::get('policy', function () {
+    return '서비스약관';
 });

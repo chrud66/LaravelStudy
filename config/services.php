@@ -36,9 +36,28 @@ return [
     ],
 
     'github' => [
-        'client_id' => '15af3567d83d682ff288',
-        'client_secret' => '2d664a538497de1de7bb3c281a29f342f15f346a',
-        'redirect' => '/login/github/callback',
+        'client_id' => env('GITHUB_CLIENT_ID'),
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),
+        'redirect' => env('GITHUB_CLIENT_REDIRECT'),
     ],
+
+    'facebook' => [
+        'client_id' => env('FACEBOOK_CLIENT_ID'),
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
+        'redirect' => env('FACEBOOK_CLIENT_REDIRECT'),
+    ],
+
+    'naver' => [
+        'client_id' => env('NAVER_CLIENT_ID'),
+        'client_secret' => env('NAVER_CLIENT_SECRET'),
+        'redirect' => env('NAVER_CLIENT_REDIRECT'),
+    ],
+
+    'kakao' => [
+        'client_id' => env('KAKAO_CLIENT_ID'),
+        'client_secret' => env('KAKAO_CLIENT_SECRET'),
+        'redirect' => env('KAKAO_CLIENT_REDIRECT'),
+    ],
+
 
 ];
