@@ -180,6 +180,11 @@ return [
          */
         //Laravel\Socialite\SocialiteServiceProvider::class,
         SocialiteProviders\Manager\ServiceProvider::class,
+        /**
+         * spatie/laravel-permission
+         * 권한관리
+         */
+        Spatie\Permission\PermissionServiceProvider::class,
     ],
 
     /*

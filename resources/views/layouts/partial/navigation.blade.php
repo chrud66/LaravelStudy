@@ -2,7 +2,7 @@
 <header>
     <nav class="navbar navbar-expand-md navbar-light box-shadow d-flex p-3 px-md-4 mb-3 bg-white border-bottom fixed-top">
         <div class="container">
-            <a href="{{ route('home') }}" class="navbar-brand">
+            <a href="{{ Auth::check() ? route('home') : route('root') }}" class="navbar-brand">
                 <img src="/images/logo-laravel-3.png" style="display: inline-block; height: 2rem;"/>
             </a>
             <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
