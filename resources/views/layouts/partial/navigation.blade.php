@@ -10,28 +10,28 @@
                 <span class="sr-only">Toggle Navigation</span>
             </button>
 
-            <div class="navbar-collapse collapse" id="navbarCollapse" style="">
+            <div class="navbar-collapse collapse" id="navbarCollapse">
                 <ul class="navbar-nav ml-auto justify-content-end">
                     @if(!Auth::check())
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}"><i class="fa fa-sign-in icon"></i> Login</a>
+                        <a class="nav-link" href="{{ route('login') }}">{!! icon('login') !!} {{ __('auth.title_login') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}"><i class="fa fa-certificate icon"></i> Sign up</a>
+                        <a class="nav-link" href="{{ route('register') }}">{!! icon('certificate') !!} {{ __('auth.title_signup') }}</a>
                     </li>
                     @else
                     <li class="nav-item">
-                        <a class="nav-link" href="{-- route(document.show) --}"><i class="fa"></i> Document Viewer</a>
+                        <a class="nav-link" href="{-- route(document.show) --}">{!! icon('document') !!} Document Viewer</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fa fa-weixin icon"></i> Forum</a>
+                        <a class="nav-link" href="{{ route('articles.index')}}">{!! icon('forum') !!} Forum</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-user icon"></i> {{ Auth::user()->name }} <b class="caret"></b>
+                            {!! icon('user') !!} {{ Auth::user()->name }} <b class="caret"></b>
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); $('#logout-form').submit();"><i class="fa fa-sign-out icon"></i>Logout</a>
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); $('#logout-form').submit();">{!! icon('logout') !!} {{ __('auth.title_logout') }}</a>
 
                             <form action="{{ route('logout') }}" id="logout-form" method="POST" style="display: none">
                                 {{ csrf_field() }}

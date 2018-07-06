@@ -17,12 +17,12 @@ $factory->define(App\User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+        'password' => bcrypt(str_random(10)), // secret
         'remember_token' => str_random(10),
-        'account' => '1234567890',
     ];
 });
 
+/*
 $factory->define(App\Project::class, function (Faker $faker) {
     $min = App\User::min('id');
     $max = App\User::max('id');
@@ -48,3 +48,4 @@ $factory->define(App\Task::class, function (Faker $faker) {
         'due_date' => $faker->dateTimeBetween($startDate = '-2 weeks', $endDate = '+1 months'),
     ];
 });
+*/

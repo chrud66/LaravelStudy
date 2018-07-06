@@ -1,6 +1,47 @@
 <?php
 
 use Faker\Generator as Faker;
+
+$factory->define(App\User::class, function (Faker $faker) {
+    return [
+        'name'  => $faker->name,
+        'email' => $faker->email,
+        'password' => bcrypt(str_random(10)),
+        'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(App\Article::class, function (Faker $faker) {
+    return [
+        'title' => substr($faker->sentence, 0, 150),
+        'content' => $faker->paragraph,
+    ];
+});
+
+$factory->define(App\Comment::class, function (Faker $faker) {
+    return [
+        'title' => substr($faker->sentence, 0, 150),
+        'content' => $faker->paragraph,
+    ];
+});
+
+$factory->define(App\Tag::class, function (Faker $faker) {
+    $name = ucfirst($faker->optional(0.9, 'Laravel')->word);
+
+    return [
+        'name' => $name,
+        'slug' => str_slug($name),
+    ];
+});
+
+$factory->define(App\Attachment::class, function (Faker $faker) {
+
+    return [
+        'name' => sprintf("%s.%s", str_random(), $faker->randomElement(['png', 'jpg'])),
+    ];
+});
+
+/*
 use App\Product;
 use App\Picture;
 
@@ -58,3 +99,4 @@ $factory->define(App\Picture::class, function ($faker) {
         'updated_at' => $faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now'),
     ];
 });
+*/

@@ -35,5 +35,6 @@ class ResetPasswordController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        parent::__construct();
     }
 }

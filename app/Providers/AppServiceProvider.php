@@ -16,6 +16,10 @@ class AppServiceProvider extends ServiceProvider
     {
         //기본 스트링 길이 지정
         Schema::defaultStringLength(191);
+
+        if ($locale = request()->cookie('locale__Laravel')) {
+            app()->setLocale(\Crypt::decrypt($locale));
+        };
     }
 
     /**

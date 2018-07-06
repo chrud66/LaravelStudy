@@ -116,8 +116,8 @@
                         <div class="form-group social-login github">
                             <a href="{{ route('login.social.login', 'github') }}" class="btn btn-default btn-block btn-secondary" id="github-button">
                                 <strong>
-                                    <i class="fa fa-github icon"></i>
-                                     Login with Github
+                                    {!! icon('github') !!}
+                                    {{ __('auth.login_with_github') }}
                                 </strong>
                             </a>
                         </div>
@@ -125,8 +125,8 @@
                         <div class="form-group social-login facebook">
                             <a href="{{ route('login.social.login', 'facebook') }}" class="btn btn-default btn-block btn-secondary">
                                 <strong>
-                                    <i class="fa fa-facebook icon"></i>
-                                     Login with Facebook
+                                    {!! icon('facebook') !!}
+                                    {{ __('auth.login_with_facebook') }}
                                 </strong>
                             </a>
                         </div>
@@ -135,13 +135,14 @@
                             <a href="{{ route('login.social.login', 'naver') }}" class="btn btn-default btn-block btn-secondary">
                                 <strong>
                                     <img src="/images/naver_logo.png" alt="naver">
-                                     Login with Naver
+                                    {{ __('auth.login_with_naver') }}
                                 </strong>
                             </a>
                         </div><div class="form-group social-login kakao">
                             <a href="{{ route('login.social.login', 'naver') }}" class="btn btn-default btn-block btn-secondary">
                                 <strong>
-                                    <img src="/images/kakaolink_btn_small.png" alt="naver"> Login with Kakao
+                                    <img src="/images/kakaolink_btn_small.png" alt="naver">
+                                    {{ __('auth.login_with_kakao') }}
                                 </strong>
                             </a>
                         </div>
@@ -151,7 +152,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('auth.email_address') }}</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
@@ -165,7 +166,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('auth.password') }}</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
@@ -182,7 +183,7 @@
                             <div class="col-md-6 offset-md-4">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Remember Me') }}
+                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('auth.remember_me') }}
                                     </label>
                                 </div>
                             </div>
@@ -191,11 +192,11 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
+                                    {{ __('auth.title_login') }}
                                 </button>
 
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
+                                    {{ __('auth.button_remind_password') }}
                                 </a>
                             </div>
                         </div>

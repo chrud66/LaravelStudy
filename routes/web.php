@@ -53,6 +53,13 @@ Route::group(['prefix' => 'login', 'as' => 'login.'], function () {
     ]);
 });
 
+Route::get('locale', [
+    'as' => 'locale',
+    'uses' => 'WelcomeController@locale'
+]);
+
+Route::resource('articles', 'ArticlesController');
+
 /* 개인정보처리방침 */
 Route::get('privacy', function () {
     return '개인정보처리방침';

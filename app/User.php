@@ -28,41 +28,21 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-
-    /**
-        * 입력한 account 컬럼을 암호화
-        * @param type $value 계좌 정보 컬럼
-    */
-    /*
-    public function setAccountAttribute($value)
+    /* Auth */
+    public function isAdmin()
     {
-        $this->attributes['account'] = \Crypt::encrypt($value);
-    }
-    */
-    /**
-        * 암호화된 account 컬럼을 복호화
-        * @param type $value 암호화된 컬럼
-        * @return type 복호화된 컬럼
-    */
-    /*
-    public function getAccountAttribute($value)
-    {
-        return \Crypt::decrypt($value);
+        return $this->roles()->whereName('admin')->exists();
     }
 
-    public function roles()
+    /* Relationships */
+
+    public function articles()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->hasMany(Article::class, 'author_id');
     }
 
-    public function tasks()
+    public function comments()
     {
-        return $this->hasManyThrough(Task::class, Project::class);
+        return $this->hasMany(Comment::class, 'author_id');
     }
-
-    public function pictures()
-    {
-        return $this->morphMany(Picture::class, 'imageable');
-    }
-    */
 }
