@@ -18,7 +18,7 @@ class CanAccessArticle
         $user = $request->user();
         $articleId = $request->route('articles');
 
-        if(!\App\Article::whereId($articleId)->whereAuthorId($user->id)->exists() and !$user->isAdmin()) {
+        if (!\App\Article::whereId($articleId)->whereAuthorId($user->id)->exists() and !$user->isAdmin()) {
             flash()->error(__('errors.forbidden') . ' : '. __('errors.forbidden_description'));
 
             return back();

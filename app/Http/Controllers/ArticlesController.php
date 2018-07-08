@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 use App\Http\Requests\ArticlesRequest;
 use App\Article;
 
@@ -38,7 +38,7 @@ class ArticlesController extends Controller
     {
         $article = new Article;
 
-        return view('article.create', compact('article'));
+        return view('articles.create', compact('article'));
     }
 
     /**
@@ -49,6 +49,8 @@ class ArticlesController extends Controller
      */
     public function store(ArticlesRequest $request)
     {
+        $request->request->add(['author_id' => \Auth::user()->id]);
+        $request->input('notification') ? 1 :$request->request->add(['notification' => 0]);
         $article = Article::create($request->all());
 
         flash()->success(__('forum.created'));
@@ -66,7 +68,7 @@ class ArticlesController extends Controller
     {
         $article = Article::with('comments', 'author', 'tags')->findOrFail($id);
 
-        return view('articles.show', compact($article));
+        return view('articles.show', compact('article'));
     }
 
     /**
@@ -79,7 +81,7 @@ class ArticlesController extends Controller
     {
         $article = Article::findOrFail($id);
 
-        return view('articles.edit', compact($article));
+        return view('articles.edit', compact('article'));
     }
 
     /**
@@ -92,6 +94,7 @@ class ArticlesController extends Controller
     public function update(ArticlesRequest $request, $id)
     {
         $article = Article::findOrFail($id);
+        $request->input('notification') ? 1 : $request->request->add(['notification' => 0]);
         $article->update($request->except('_token', '_method'));
         flash()->success(__('forum.updated'));
 

@@ -9,6 +9,7 @@ return [
     'reply'            => '답글하기',
     'sort_by'          => '정렬하기',
     'notice'           => '공지사항',
+    'close'            => '닫기',
     'cheat_sheet'      => '마크다운 도우미',
     'markdown_preview' => '여기에 변환된 미리보기가 표시됩니다.',
     'search'           => '검색',

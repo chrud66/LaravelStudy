@@ -2,9 +2,9 @@
 @extends('layouts.master')
 
 @section('content')
-    <div class="pb-2 mt-4 mb-2 border-bottom">
-        <h4>
-            Forum
+    <div class="pb-2 mt-4 mb-2 border-bottom clearfix">
+        <h4 class="pull-left">
+            {{ __('forum.title_forum') }}
         </h4>
 
         <a href="{{ route('articles.create') }}" class="btn btn-primary pull-right">
@@ -22,13 +22,18 @@
 
         <div class="col-md-9">
             <article>
-                @forelse($articles as $article)
-                    @include('articles.partial.article', ['article' => $article])
-                @empty
-                    <p class="text-center">
-                        {{ __('errors.not_found_description') }}
-                    </p>
-                @endforelse
+                <ul class="list-unstyled mt-3">
+                    @forelse($articles as $article)
+                        <li class="mb-3 border-bottom pb-3">
+                            @include('articles.partial.article', ['article' => $article])
+                        </li>
+                    @empty
+                        <li>
+                            <p class="text-center">
+                                {{ __('errors.not_found_description') }}
+                            </p>
+                        </li>
+                    @endforelse
 
                 <div class="text-center">
                     {!! $articles->appends(Request::except('page'))->render() !!}
@@ -36,4 +41,10 @@
             </article>
         </div>
     </div>
+@endsection
+
+@section('script')
+<script>
+    $('.pagination').addClass('justify-content-center');
+</script>
 @endsection

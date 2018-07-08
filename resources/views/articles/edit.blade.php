@@ -19,7 +19,7 @@
 </div>
 
 <div class="container__forum">
-    <form action="{{ route('articles.update', $article->id)" method="POST" role="form" class="form_forum">
+    <form action="{{ route('articles.update', $article->id) }}" method="POST" role="form" class="form_forum">
         {!! csrf_field() !!}
         {!! method_field('PUT') !!}
 

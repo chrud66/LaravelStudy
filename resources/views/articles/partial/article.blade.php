@@ -1,24 +1,25 @@
 <!-- resources/views/articles/partial/article.blade.php -->
-<div class="media">
+<div class="media ">
     @include('users.partial.avatar', ['user' => $article->author])
 
-    <div class="media-body">
+    <div class="media-body pl-3">
         <h4 class="media-heading">
-            {{ $article->title }}
+            <a href="{{ route('articles.show', $article->id) }}">
+                {{ $article->title }}
 
-            <a href="{{ route('articles.show', $article->id) }}"></a>
-            @if($commentCount = $article->comments->count())
-                {!! icon('comments') !!} {{ $commentCount }}
-            @endif
+                @if($commentCount = $article->comments->count())
+                    {!! icon('comments') !!} {{ $commentCount }}
+                @endif
 
-            @if($article->solution_id)
-            <span class="badge">
-                {!! icon('check') !!} {{ __('forum.solved') }}
-            </span>
-            @endif
+                @if($article->solution_id)
+                <span class="badge">
+                    {!! icon('check') !!} {{ __('forum.solved') }}
+                </span>
+                @endif
+            </a>
         </h4>
 
-        <p class="text-muted">
+        <p class="text-muted mb-0">
             <a href="{{ gravatar_profile_url($article->author->email) }}" style="margin-right: 1rem;">
                 {!! icon('user') !!} {{ $article->author->name }}
             </a>

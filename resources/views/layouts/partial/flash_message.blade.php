@@ -18,7 +18,7 @@
             <span aria-hidden="true">&times;</span>
             <span class="sr-only">Close</span>
         </button>
-        {{ trans('common.msg_whoops') }}
+        {{ __('common.msg_whoops') }}
     </div>
 </div>
 @endif

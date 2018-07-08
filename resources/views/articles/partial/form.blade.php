@@ -13,7 +13,7 @@
     <label for="content">
         {{ __('forum.content') }}
     </label>
-    <textarea name="content" id="content" rows="10" class="form-control">{{ odl('content', $article->content) }}</textarea>
+    <textarea name="content" id="content" rows="10" class="form-control">{{ old('content', $article->content) }}</textarea>
 
     {!! $errors->first('content', '<span class="invalid-feedback">:message</span>') !!}
 </div>
@@ -25,7 +25,7 @@
 <div class="form-group">
     <div class="checkbox">
         <label>
-            <input type="checkbox" name="notification" checked="{{ $article->notification ?: 'checked' }}">
+            <input type="checkbox" name="notification" {{ $article->notification == 0 ?: 'checked' }} value="1">
 
             {{ __('forum.notification') }}
         </label>

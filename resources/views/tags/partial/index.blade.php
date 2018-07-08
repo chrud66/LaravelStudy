@@ -9,7 +9,7 @@
         <a href="#">
             {{ $tag->name }}
             @if($tagCount = $tag->articles->count())
-                <span class="badge badge-default">
+                <span class="badge badge-pill badge-secondary">
                     {{ $tagCount }}
                 </span>
             @endif
