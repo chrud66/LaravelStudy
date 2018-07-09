@@ -16,12 +16,12 @@ class CanAccessArticle
     public function handle($request, Closure $next)
     {
         $user = $request->user();
-        $articleId = $request->route('articles');
+        $articleId = $request->route('article');
 
         if (!\App\Article::whereId($articleId)->whereAuthorId($user->id)->exists() and !$user->isAdmin()) {
             flash()->error(__('errors.forbidden') . ' : '. __('errors.forbidden_description'));
 
-            return back();
+            return back()->withInput();
         }
         return $next($request);
     }

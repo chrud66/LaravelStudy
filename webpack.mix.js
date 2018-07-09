@@ -13,6 +13,7 @@ let mix = require('laravel-mix');
 
 mix.js(['resources/assets/js/app.js',
         'node_modules/google-code-prettify/src/run_prettify.js',
+        'node_modules/select2/src/js/jquery.select2.js',
         ], 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
     .version();

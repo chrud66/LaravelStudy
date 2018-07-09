@@ -58,6 +58,11 @@ Route::get('locale', [
     'uses' => 'WelcomeController@locale'
 ]);
 
+Route::get('tags/{id}/articles', [
+    'as' => 'tags.articles.index',
+    'uses' => 'ArticlesController@index'
+]);
+
 Route::resource('articles', 'ArticlesController');
 
 /* 개인정보처리방침 */

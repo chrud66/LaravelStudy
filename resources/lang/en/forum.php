@@ -4,6 +4,9 @@ return [
 
     'title_forum'        => 'Forum',
     'create'             => 'New Forum',
+    'created'            => 'Success Created',
+    'updated'            => 'Success Updated',
+    'deleted'            => 'Success Deleted',
     'button_toc'         => 'Forum Tags',
     'solved'             => 'Solved',
     'title'              => 'Title',

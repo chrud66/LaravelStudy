@@ -25,7 +25,8 @@
 <div class="form-group">
     <div class="checkbox">
         <label>
-            <input type="checkbox" name="notification" {{ $article->notification == 0 ?: 'checked' }} value="1">
+            <input type="checkbox" name="notification"
+            @if ($article->notification == 1 or old('notification') == 1) checked @endif value="1">
 
             {{ __('forum.notification') }}
         </label>

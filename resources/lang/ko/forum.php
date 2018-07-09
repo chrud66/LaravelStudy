@@ -4,6 +4,9 @@ return [
 
     'title_forum'        => '포럼',
     'create'             => '새 포럼 쓰기',
+    'created'            => '글 작성이 완료되었습니다.',
+    'updated'            => '글 수정이 완료되었습니다.',
+    'deleted'            => '글 삭제가 완료되었습니다.',
     'button_toc'         => '포럼 메뉴',
     'solved'             => '답변됨',
     'title'              => '제목',

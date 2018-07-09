@@ -12,7 +12,7 @@ class ArticlesController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
-        $this->middleware('accessible', ['except' => ['index', 'show', 'create']]);
+        $this->middleware('accessible', ['except' => ['index', 'show', 'create', 'store']]);
         view()->share('allTags', \App\Tag::with('articles')->get());
         parent::__construct();
     }
@@ -22,9 +22,11 @@ class ArticlesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id = null)
     {
-        $articles = Article::with('comments', 'author', 'tags')->latest()->paginate(5);
+        //$articles = Article::with('comments', 'author', 'tags')->latest()->paginate(5);
+        $query = $id ? \App\Tag::find($id)->articles() : new Article;
+        $articles = $query->with('comments', 'author', 'tags')->latest()->paginate(5);
 
         return view('articles.index', compact('articles'));
     }
@@ -50,12 +52,20 @@ class ArticlesController extends Controller
     public function store(ArticlesRequest $request)
     {
         $request->request->add(['author_id' => \Auth::user()->id]);
-        $request->input('notification') ? 1 :$request->request->add(['notification' => 0]);
-        $article = Article::create($request->all());
+        //$request->input('notification') ? 1 : //$request->request->add(['notification' => 0]);
+
+        $payload = array_merge($request->except('_token'), [
+            'notification' => $request->has('notification')
+        ]);
+
+        $article = $request->user()->articles()->create($payload);
+        $article->tags()->sync($request->input('tags'));
+
+        //$article = Article::create($request->all());
 
         flash()->success(__('forum.created'));
 
-        return redirect(route('articles.index'));
+        return redirect(route('articles.index'))->withInput();
     }
 
     /**
@@ -93,12 +103,19 @@ class ArticlesController extends Controller
      */
     public function update(ArticlesRequest $request, $id)
     {
+        $payload = array_merge($request->except('_token'), [
+            'notification' => $request->has('notification')
+        ]);
+
         $article = Article::findOrFail($id);
-        $request->input('notification') ? 1 : $request->request->add(['notification' => 0]);
-        $article->update($request->except('_token', '_method'));
+        $article->update($payload);
+        $article->tags()->sync($request->input('tags'));
+
+        //$request->input('notification') ? 1 : $request->request->add(['notification' => 0]);
+        //$article->update($request->except('_token', '_method'));
         flash()->success(__('forum.updated'));
 
-        return redirect(route('articles.index'));
+        return redirect(route('articles.index'))->withInput();
     }
 
     /**
