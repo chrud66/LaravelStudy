@@ -187,6 +187,11 @@ return [
          * 권한관리
          */
         Spatie\Permission\PermissionServiceProvider::class,
+        /**
+         * laravelcollective/html
+         * 폼 편하게 쓰는거
+         */
+        Collective\Html\HtmlServiceProvider::class,
     ],
 
     /*
@@ -252,6 +257,12 @@ return [
          * Laravel/socialite
          */
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        /**
+         * laravelcollective/html
+         * 폼 편하게 쓰는거
+         */
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
     ],
 
 ];

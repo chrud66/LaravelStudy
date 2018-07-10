@@ -20,7 +20,8 @@ Route::get('/', function () {
 */
 
 Route::get('test', function () {
-    return view('test');
+    dd(phpinfo());
+    //return view('test');
 });
 
 Route::get('/', [
@@ -58,12 +59,17 @@ Route::get('locale', [
     'uses' => 'WelcomeController@locale'
 ]);
 
+/* tag search */
 Route::get('tags/{id}/articles', [
     'as' => 'tags.articles.index',
     'uses' => 'ArticlesController@index'
 ]);
 
+/* Forum Route */
 Route::resource('articles', 'ArticlesController');
+
+/* File Upload */
+Route::resource('files', 'AttachmentsController', ['only' => 'store', 'destory']);
 
 /* 개인정보처리방침 */
 Route::get('privacy', function () {

@@ -51,9 +51,10 @@ class ArticlesController extends Controller
      */
     public function store(ArticlesRequest $request)
     {
-        $request->request->add(['author_id' => \Auth::user()->id]);
         //$request->input('notification') ? 1 : //$request->request->add(['notification' => 0]);
+        //$article = Article::create($request->all());
 
+        $request->request->add(['author_id' => \Auth::user()->id]);
         $payload = array_merge($request->except('_token'), [
             'notification' => $request->has('notification')
         ]);
@@ -61,7 +62,13 @@ class ArticlesController extends Controller
         $article = $request->user()->articles()->create($payload);
         $article->tags()->sync($request->input('tags'));
 
-        //$article = Article::create($request->all());
+        if ($request->has('attachments')) {
+            $attachments = \App\Attachment::whereIn('id', $request->input('attachments'))->get();
+            $attachments->each(function ($attachment) use ($article) {
+                $attachment->article()->associate($article);
+                $attachment->save();
+            });
+        };
 
         flash()->success(__('forum.created'));
 
