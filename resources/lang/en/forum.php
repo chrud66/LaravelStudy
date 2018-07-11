@@ -7,6 +7,7 @@ return [
     'created'            => 'Success Created',
     'updated'            => 'Success Updated',
     'deleted'            => 'Success Deleted',
+    'deleted_file'       => 'Success File Deleted',
     'button_toc'         => 'Forum Tags',
     'solved'             => 'Solved',
     'title'              => 'Title',

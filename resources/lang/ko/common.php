@@ -14,6 +14,7 @@ return [
     'markdown_preview' => '여기에 변환된 미리보기가 표시됩니다.',
     'search'           => '검색',
     'confirm_delete'   => '삭제할까요?',
+    'confirm_delete_file' => '첨부파일을 삭제할까요?',
     'msg_reload'       => '페이지를 다시 읽어 옵니다.',
     'created'          => '새 글이 저장되었습니다.',
     'updated'          => '수정 되었습니다.',

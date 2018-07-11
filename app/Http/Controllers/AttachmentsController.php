@@ -16,7 +16,12 @@ class AttachmentsController extends Controller
         $name = time() . '_' . str_replace(' ', '_', $file->getClientOriginalName());
         $file->move(attachment_path(), $name);
 
-        $attachment = \App\Attachment::create(['name' => $name]);
+        $articleId = $request->input('articleId');
+        $createData = ['name' => $name];
+
+        $attachment = $articleId
+        ? \App\Article::findOrFail($articleId)->attachments()->create($createData)
+        : \App\Attachment::create($createData);
 
         return response()->json([
             'id'    => $attachment->id,
@@ -28,5 +33,21 @@ class AttachmentsController extends Controller
 
     public function destroy($id)
     {
+        $attachment = \App\Attachment::findOrFail($id);
+
+        $path = attachment_path($attachment->name);
+        if (\File::exists($path)) {
+            \File::delete($path);
+        };
+
+        $attachment->delete();
+
+        if (\Request::ajax()) {
+            return response()->json(['status' => 'ok']);
+        };
+
+        flash()->success(__('forum.deleted_file'));
+
+        return back();
     }
 }

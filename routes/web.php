@@ -18,11 +18,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 */
-
+/*
 Route::get('test', function () {
     dd(phpinfo());
     //return view('test');
 });
+*/
 
 Route::get('/', [
     'as' => 'root',
@@ -69,14 +70,14 @@ Route::get('tags/{id}/articles', [
 Route::resource('articles', 'ArticlesController');
 
 /* File Upload */
-Route::resource('files', 'AttachmentsController', ['only' => 'store', 'destory']);
+Route::resource('files', 'AttachmentsController')->only('store', 'destroy');
 
 /* 개인정보처리방침 */
-Route::get('privacy', function () {
+/*Route::get('privacy', function () {
     return '개인정보처리방침';
-});
+});*/
 
 /* 서비스약관 */
-Route::get('policy', function () {
+/*Route::get('policy', function () {
     return '서비스약관';
-});
+});*/

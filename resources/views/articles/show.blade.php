@@ -26,6 +26,7 @@
             <article class="bg-white p-3">
                 @include('articles.partial.article', ['article' => $article])
 
+                @include('attachments.partial.list', ['attachments' => $article->attachments])
                 <p>
                     {!! markdown($article->content) !!}
                 </p>

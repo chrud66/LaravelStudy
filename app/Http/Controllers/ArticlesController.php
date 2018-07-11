@@ -96,9 +96,30 @@ class ArticlesController extends Controller
      */
     public function edit($id)
     {
-        $article = Article::findOrFail($id);
+        $article = Article::with('attachments')->findOrFail($id);
 
-        return view('articles.edit', compact('article'));
+        $filesInfo = [];
+
+        foreach($article->attachments as $attachment)
+        {
+            unset($obj);
+            $path = attachment_path($attachment->name);
+            if (\File::exists($path)) {
+                $obj['id']      = $attachment->id;
+                $obj['name']    = $attachment->name;
+                $obj['size']    = \File::size($path);
+                $obj['type']    = \File::mimeType($path);
+                $obj['url']     = sprintf("/attachments/%s", $attachment->name);
+
+                $filesInfo[] = $obj;
+                //dump($obj);
+            };
+        };
+        $filesInfo = json_encode($filesInfo);
+        //dump($filesInfo);
+        //exit;
+
+        return view('articles.edit', compact('article', 'filesInfo'));
     }
 
     /**
@@ -133,7 +154,17 @@ class ArticlesController extends Controller
      */
     public function destroy($id)
     {
-        Article::findOrFail($id)->delete();
+        //Article::findOrFail($id)->delete();
+        $article = Article::with('attachments')->findOrFail($id);
+
+        foreach($article->attachments as $attachment)
+        {
+            \File::delete(attachment_path($attachment->name));
+            $attachment->delete();
+        };
+
+        $article->delete();
+
         flash()->success(__('forum.deleted'));
 
         return redirect(route('articles.index'));

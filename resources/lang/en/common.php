@@ -14,6 +14,7 @@ return [
     'markdown_preview' => 'Converted preview will be shown here.',
     'search'           => 'Search',
     'confirm_delete'   => 'Are you sure to delete this article?',
+    'confirm_delete_file' => 'Are you sure to delete this file?',
     'msg_reload'       => 'The page will reload.',
     'created'          => 'Saved !',
     'updated'          => 'Updated !',
