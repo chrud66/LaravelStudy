@@ -70,7 +70,7 @@
             </article>
 
             <article class="bg-white mt-4 mb-4 p-2">
-                Comment here
+                @include('comments.index')
             </article>
         </div>
     </div>

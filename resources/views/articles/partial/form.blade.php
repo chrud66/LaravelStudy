@@ -90,24 +90,22 @@
         init: function () {
             thisDropzone = this;
             $.each(oldFilesInfo, function (key, file) {
-                var mockFile = { _id: file.id, name: file.name, _name: file.name, size: file.size, type: file.size, _url: file.url };
-
+                var mockFile = { _id: file.id, name: file.name, _name: file.name, size: file.size, type: file.size, _url: file.url, dataURL: file.url };
 
                 // Call the default addedfile event handler
                 thisDropzone.emit("addedfile", mockFile);
 
                 // And optionally show the thumbnail of the file:
                 //thisDropzone.emit("thumbnail", mockFile, file.url);
-                //thisDropzone.createThumbnailFromUrl(mockFile, '/attachments/' + file.url);
+                thisDropzone.createThumbnailFromUrl(mockFile, thisDropzone.options.thumbnailWidth, thisDropzone.options.thumbnailHeight,thisDropzone.options.thumbnailMethod, true, function (thumbnail) {
+                    thisDropzone.emit('thumbnail', mockFile, thumbnail);
+                });
                 thisDropzone.emit('complete', mockFile);
                 thisDropzone.emit('processing', mockFile);
                 thisDropzone.emit('success', mockFile);
 
                 thisDropzone.files.push(mockFile);
-                //thisDropzone.options.addedfile.call(thisDropzone, mockFile);
-                //thisDropzone.options.thumbnail.call(thisDropzone, mockFile, file.url);
-                //this.addFile.call(this, mockFile);
-                //this.options.thumbnail.call(this, mockFile, file.url);
+
             });
         },
         /*headers: {

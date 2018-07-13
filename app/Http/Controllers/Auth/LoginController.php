@@ -54,39 +54,4 @@ class LoginController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
-
-    /**
-     * SocialLogin
-     */
-    public function redirectToProvider($social)
-    {
-        if ($social === 'naver') {
-            return Socialite::with($social)->redirect();
-        } else {
-            return Socialite::driver($social)->redirect();
-        }
-    }
-
-    public function handleProviderCallback($social)
-    {
-        $user = Socialite::driver($social)->user();
-
-        $email = $user->getEmail();
-        $name = $social === 'naver' ? $user->user['name'] : $user->getName();
-
-        $user = User::firstOrCreate(
-            [
-                'email' => $email,
-            ],
-            [
-                'name' => $name,
-                'password' => '',
-                'email' => $email,
-            ]
-        );
-
-        auth()->login($user, true);
-
-        return redirect(route('home'));
-    }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -54,6 +55,39 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
+    }
+
+    public function store(Request $request)
+    {
+        if ($user = User::whereEmail($request->input('email'))->wherePassword('')->first()) {
+            return $this->syncAccountInfo($request, $user);
+        }
+
+        return $this->register($request);
+    }
+
+    protected function syncAccountInfo(Request $request, User $user)
+    {
+        $validator = Validator::make($request->except('_token'), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+
+        if($validator->fails()) {
+            return back()->withInput()->withErrors($validator);
+        }
+
+        $user->update([
+            'name' => $request->input('name'),
+            'password' => bcrypt($request->input('password'))
+        ]);
+
+        $this->guard()->login($user);
+        flash(__('auth.welcome', ['name' => $user->name]));
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
     }
 
     /**

@@ -18,42 +18,28 @@ Route::get('/', function () {
     return view('welcome');
 });
 */
-/*
+
 Route::get('test', function () {
-    dd(phpinfo());
+    echo env('APP_URL');
     //return view('test');
 });
-*/
+
 
 Route::get('/', [
     'as' => 'root',
     'uses' => 'WelcomeController@index'
 ]);
 
-Route::group(['prefix' => 'login', 'as' => 'login.'], function () {
-    /* Social Login */
-    /*
-    Route::get('github', [
-        'as' => 'github.login',
-        'uses' => 'Auth\LoginController@redirectToProvider'
-    ]);
+/* Social Register Or Login */
+Route::get('social/{provider}', [
+    'as' => 'social.login',
+    'uses' => 'Auth\SocialController@execute'
+]);
 
-    Route::get('github/callback', [
-        'as' => 'github.callback',
-        'uses' => 'Auth\LoginController@handleProviderCallback'
-    ]);
-    */
-
-    Route::get('{social?}', [
-        'as' => 'social.login',
-        'uses' => 'Auth\LoginController@redirectToProvider'
-    ]);
-
-    Route::get('{social?}/callback', [
-        'as' => 'social.callback',
-        'uses' => 'Auth\LoginController@handleProviderCallback'
-    ]);
-});
+Route::post('register', [
+    'as' => 'register',
+    'uses' => 'Auth\RegisterController@store'
+]);
 
 Route::get('locale', [
     'as' => 'locale',
@@ -71,6 +57,8 @@ Route::resource('articles', 'ArticlesController');
 
 /* File Upload */
 Route::resource('files', 'AttachmentsController')->only('store', 'destroy');
+
+Route::resource('comments', 'CommentsController')->only('store', 'update', 'destroy');
 
 /* 개인정보처리방침 */
 /*Route::get('privacy', function () {

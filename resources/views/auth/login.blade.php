@@ -114,7 +114,7 @@
                         @csrf
 
                         <div class="form-group social-login github">
-                            <a href="{{ route('login.social.login', 'github') }}" class="btn btn-default btn-block btn-secondary" id="github-button">
+                            <a href="{{ route('social.login', 'github') }}" class="btn btn-default btn-block btn-secondary" id="github-button">
                                 <strong>
                                     {!! icon('github') !!}
                                     {{ __('auth.login_with_github') }}
@@ -123,7 +123,7 @@
                         </div>
 
                         <div class="form-group social-login facebook">
-                            <a href="{{ route('login.social.login', 'facebook') }}" class="btn btn-default btn-block btn-secondary">
+                            <a href="{{ route('social.login', 'facebook') }}" class="btn btn-default btn-block btn-secondary">
                                 <strong>
                                     {!! icon('facebook') !!}
                                     {{ __('auth.login_with_facebook') }}
@@ -132,14 +132,14 @@
                         </div>
 
                         <div class="form-group social-login naver">
-                            <a href="{{ route('login.social.login', 'naver') }}" class="btn btn-default btn-block btn-secondary">
+                            <a href="{{ route('social.login', 'naver') }}" class="btn btn-default btn-block btn-secondary">
                                 <strong>
                                     <img src="/images/naver_logo.png" alt="naver">
                                     {{ __('auth.login_with_naver') }}
                                 </strong>
                             </a>
                         </div><div class="form-group social-login kakao">
-                            <a href="{{ route('login.social.login', 'naver') }}" class="btn btn-default btn-block btn-secondary">
+                            <a href="{{ route('social.login', 'kakao') }}" class="btn btn-default btn-block btn-secondary">
                                 <strong>
                                     <img src="/images/kakaolink_btn_small.png" alt="naver">
                                     {{ __('auth.login_with_kakao') }}

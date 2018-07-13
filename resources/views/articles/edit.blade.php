@@ -10,7 +10,7 @@
             {{ __('forum.title_forum') }}
         </a>
         <small> / </small>
-        <a href="{{ route('articles.edit', $article->id) }}">
+        <a href="{{ route('articles.show', $article->id) }}">
             {{ $article->title }}
         </a>
         <small> / </small>

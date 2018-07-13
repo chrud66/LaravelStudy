@@ -84,8 +84,14 @@ class ArticlesController extends Controller
     public function show($id)
     {
         $article = Article::with('comments', 'author', 'tags')->findOrFail($id);
+        $commentsCollection = $article->comments()->with('replies', 'author')->whereNull('parent_id')->latest()->get();
 
-        return view('articles.show', compact('article'));
+        return view('articles.show', [
+            'article'           => $article,
+            'comments'          => $commentsCollection,
+            'commentableType'   => Article::class,
+            'commentableId'     => $article->id,
+        ]);
     }
 
     /**
@@ -100,8 +106,7 @@ class ArticlesController extends Controller
 
         $filesInfo = [];
 
-        foreach($article->attachments as $attachment)
-        {
+        foreach ($article->attachments as $attachment) {
             unset($obj);
             $path = attachment_path($attachment->name);
             if (\File::exists($path)) {
@@ -157,8 +162,7 @@ class ArticlesController extends Controller
         //Article::findOrFail($id)->delete();
         $article = Article::with('attachments')->findOrFail($id);
 
-        foreach($article->attachments as $attachment)
-        {
+        foreach ($article->attachments as $attachment) {
             \File::delete(attachment_path($attachment->name));
             $attachment->delete();
         };

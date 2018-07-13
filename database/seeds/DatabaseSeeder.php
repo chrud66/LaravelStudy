@@ -81,7 +81,7 @@ class DatabaseSeeder extends Seeder
             $article->comments()->save(
                 factory(App\Comment::class)->make([
                     'author_id' => $faker->randomElement($users->pluck('id')->toArray()),
-                    'parent_id' => $article->id
+                    //'parent_id' => $article->id
                 ])
             );
         });
