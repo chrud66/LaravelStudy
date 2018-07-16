@@ -34,7 +34,7 @@
             @include('comments.partial.create', ['parentId' => $comment->id])
         @endif
 
-        @forelse ($comment->replies as $reply)
+        @forelse ($comment->replies()->latest()->get() as $reply)
             @include('comments.partial.comment', ['comment' => $reply])
         @empty
         @endforelse

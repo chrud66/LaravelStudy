@@ -6,6 +6,11 @@
     div.media__edit {
       display: none;
     }
+
+    .none-after::after {
+        content: "";
+        border: 0px;
+    }
   </style>
 @endsection
 

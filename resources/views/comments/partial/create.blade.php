@@ -1,7 +1,9 @@
 <!-- resources/views/comments/partial/create.blade.php -->
 
-<div class="media media__create mb-4" style="{{ isset($parentId) ? 'display:none;' : 'display:block;' }}">
-    @include('users.partial.avatar', ['user' => $currentUser])
+<div class="media media__create mb-4 pb-3 border-bottom" style="{{ isset($parentId) ? 'display:none;' : 'display:block;' }}">
+    @php
+        #@include('users.partial.avatar', ['user' => $currentUser])
+    @endphp
     <div class="media-body">
         <form action="{{ route('comments.store') }}" method="post" role="form" class="form-horizontal form-create-comment">
             {!! csrf_field() !!}
@@ -13,8 +15,8 @@
 
 
             <div class="form-group {{ $errors->has('content') ? 'has-error' : '' }}" style="width:100%; margin: auto;">
-                <textarea name="content" class="form-control forum__content">{{ old('content') }}</textarea>
-                {!! $errors->first('content', '<span class="form-error">:message</span>') !!}
+                <textarea name="content" class="form-control forum__content{{ $errors->has('content') ? ' is-invalid' : '' }}">{{ old('content') }}</textarea>
+                {!! $errors->first('content', '<span class="form-error invalid-feedback"><strong>:message</strong></span>') !!}
                 <!--
                 <div class="preview__forum">{{ markdown(old('content', __('common.markdown_preview'))) }}</div>
                 -->

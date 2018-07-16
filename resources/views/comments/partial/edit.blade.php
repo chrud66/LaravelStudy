@@ -1,6 +1,6 @@
 <!-- resources/views/comments/partial/edit.blade.php -->
 
-<div class="media media__edit">
+<div class="media media__edit mb-4 border-bottom">
     <div class="media-body">
         <form action="{{ route('comments.update', $comment->id) }}" method="post" role="form" class="form-horizontal">
             {!! csrf_field() !!}
