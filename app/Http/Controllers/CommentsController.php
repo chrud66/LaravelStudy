@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Comment;
 
 class CommentsController extends Controller
 {
@@ -90,7 +91,12 @@ class CommentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, ['content' => 'required']);
+
+        Comment::findOrFail($id)->update($request->only('content'));
+        flash()->success(__('forum.comment_edit'));
+
+        return back();
     }
 
     /**
@@ -99,8 +105,31 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $comment = Comment::find($id);
+        $this->recursiveDestroy($comment);
+
+        if ($request->ajax()) {
+            return response()->json('', 204);
+        }
+
+        flash()->success(__('forum.deleted'));
+        return back();
+    }
+
+    public function recursiveDestroy(Comment $comment)
+    {
+        if ($comment->replies->count()) {
+            $comment->replies->each(function ($reply) {
+                if ($reply->replies->count()) {
+                    $this->recursiveDestroy($reply);
+                } else {
+                    $reply->delete();
+                };
+            });
+        };
+
+        $comment->delete();
     }
 }

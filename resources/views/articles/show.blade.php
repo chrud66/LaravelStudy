@@ -22,8 +22,8 @@
             </aside>
         </div>
 
-        <div class="col-md-9">
-            <article class="bg-white p-3">
+        <div class="col-md-9 bg-white">
+            <article class="p-3">
                 @include('articles.partial.article', ['article' => $article])
 
                 @include('attachments.partial.list', ['attachments' => $article->attachments])
@@ -69,7 +69,7 @@
                 @endif
             </article>
 
-            <article class="bg-white mt-4 mb-4 p-2">
+            <article class="mt-4 mb-4 p-2">
                 @include('comments.index')
             </article>
         </div>

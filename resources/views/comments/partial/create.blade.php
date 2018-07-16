@@ -1,6 +1,6 @@
 <!-- resources/views/comments/partial/create.blade.php -->
 
-<div class="media media__create">
+<div class="media media__create mb-4" style="{{ isset($parentId) ? 'display:none;' : 'display:block;' }}">
     @include('users.partial.avatar', ['user' => $currentUser])
     <div class="media-body">
         <form action="{{ route('comments.store') }}" method="post" role="form" class="form-horizontal form-create-comment">
@@ -15,7 +15,9 @@
             <div class="form-group {{ $errors->has('content') ? 'has-error' : '' }}" style="width:100%; margin: auto;">
                 <textarea name="content" class="form-control forum__content">{{ old('content') }}</textarea>
                 {!! $errors->first('content', '<span class="form-error">:message</span>') !!}
+                <!--
                 <div class="preview__forum">{{ markdown(old('content', __('common.markdown_preview'))) }}</div>
+                -->
             </div>
 
             <p class="text-right" style="margin:0;">

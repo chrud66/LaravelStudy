@@ -7,7 +7,7 @@
         <a href="/attachments/{{ $attachment->name }}">
             {{ $attachment->name }}
         </a>
-        @if(auth()->user()->isAdmin() or $article->isAuthor())
+        @if(auth()->user() and (auth()->user()->isAdmin() or $article->isAuthor()))
         <form action="{{ route('files.destroy', $attachment->id) }}" method="POST" style="display: inline;">
             {!! csrf_field() !!}
             {!! method_field('DELETE') !!}

@@ -12,9 +12,8 @@ class ArticlesController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
-        $this->middleware('accessible', ['except' => ['index', 'show', 'create', 'store']]);
+        $this->middleware('author:article', ['except' => ['index', 'show', 'create', 'store']]);
         view()->share('allTags', \App\Tag::with('articles')->get());
-        parent::__construct();
     }
 
     /**
@@ -108,6 +107,7 @@ class ArticlesController extends Controller
 
         foreach ($article->attachments as $attachment) {
             unset($obj);
+            $obj = [];
             $path = attachment_path($attachment->name);
             if (\File::exists($path)) {
                 $obj['id']      = $attachment->id;
@@ -120,7 +120,7 @@ class ArticlesController extends Controller
                 //dump($obj);
             };
         };
-        $filesInfo = json_encode($filesInfo);
+        $filesInfo = json_encode($filesInfo ? $filesInfo : '{}');
         //dump($filesInfo);
         //exit;
 
@@ -160,12 +160,16 @@ class ArticlesController extends Controller
     public function destroy($id)
     {
         //Article::findOrFail($id)->delete();
-        $article = Article::with('attachments')->findOrFail($id);
+        $article = Article::with('attachments', 'comments')->findOrFail($id);
 
         foreach ($article->attachments as $attachment) {
             \File::delete(attachment_path($attachment->name));
-            $attachment->delete();
         };
+
+        $article->attachments()->delete();
+        $article->comments->each(function($comment) {
+            app(\App\Http\Controllers\CommentsController::class)->recursiveDestroy($comment);
+        });
 
         $article->delete();
 

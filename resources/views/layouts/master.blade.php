@@ -33,6 +33,7 @@
 
     @include('layouts.partial.footer')
     <script src="{{ mix('js/app.js') }}"></script>
+    <script src="/js/helper.js"></script>
     @yield('script')
 </body>
 </html>

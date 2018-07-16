@@ -4,14 +4,14 @@
     <span class="dropdown-toggle btn btn-default btn-xs" type="button" data-toggle="dropdown">
         {!! icon('dropdown') !!}
     </span>
-    <ul class="dropdown-menu" role="menu">
+    <ul class="dropdown-menu dropdown-menu-right" role="menu">
         <li role="presentation">
-            <a role="menuitem" tabindex="-1" alt="Edit" title="Edit" class="btn btn__edit">
+            <a role="menuitem" tabindex="-1" alt="Edit" title="Edit" class="btn btn-block text-left btn__edit">
                 {!! icon('update') !!} Edit
             </a>
         </li>
         <li role="presentation">
-            <a role="menuitem" tabindex="-1" alt="Delete" title="Delete" class="btn btn__delete">
+            <a role="menuitem" tabindex="-1" alt="Delete" title="Delete" class="btn btn-block text-left btn__delete">
                 {!! icon('delete') !!} Delete
             </a>
         </li>

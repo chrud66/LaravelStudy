@@ -1,19 +1,28 @@
 <div class="media media__item" data-id="{{ $comment->id }}">
     @include('users.partial.avatar', ['user' => $comment->author])
 
-    <div class="media-body">
+    <div class="media-body pl-3">
         @if($currentUser and ($comment->isAuthor() or $currentUser->isAdmin()))
             @include('comments.partial.control')
         @endif
 
         <h4 class="media-heading">
             <!-- Gravatar and comment generated time are presented here -->
+            <a href="{{ gravatar_profile_url($comment->author->email) }}">
+                {{ $comment->author->name }}
+            </a>
+            <small>
+                {{ $comment->created_at->diffForHumans() }}
+            </small>
         </h4>
         <p>{!! markdown($comment->content) !!}</p>
 
         @if($currentUser)
             <p class="text-right">
                 <!-- "Reply" button is presented here -->
+                <button type="button" class="btn btn-info btn-sm btn__reply">
+                {!! icon('reply') !!} {{ __('common.reply') }}
+                </button>
             </p>
         @endif
 
@@ -22,7 +31,7 @@
         @endif
 
         @if ($currentUser)
-            @include('comments.partial.create', ['parentId' => $comment->id]);
+            @include('comments.partial.create', ['parentId' => $comment->id])
         @endif
 
         @forelse ($comment->replies as $reply)

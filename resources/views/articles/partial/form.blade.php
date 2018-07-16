@@ -74,7 +74,7 @@
         dzControl.fadeToggle(0);
     });
 
-    var oldFilesInfo = JSON.parse('{!! $filesInfo !!}');
+    var oldFilesInfo = JSON.parse('{!! isset($filesInfo) ? $filesInfo : "{}" !!}');
     Dropzone.autoDiscover = false;
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     var myDropzone = new Dropzone("div#my-dropzone", {
@@ -154,8 +154,8 @@
             type: "POST",
             url: "/files/" + file._id,
             data: {
-            _method: "DELETE",
-            _token: CSRF_TOKEN,
+                _method: "DELETE",
+                _token: CSRF_TOKEN,
             },
             success: function(file, data) {
                 handleImage('content', file._url, true);

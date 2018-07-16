@@ -22,6 +22,12 @@ class Comment extends Model
         'parent_id',
     ];
 
+    /* Auth */
+    public function isAuthor()
+    {
+        return $this->author->id == auth()->user()->id;
+    }
+
     /* Relationships */
 
     public function author()
