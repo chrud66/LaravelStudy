@@ -3,7 +3,7 @@
     {!! Html::style('/css/dropzone/dropzone.css') !!}
 @endsection
 
-<div class="form-group">
+<div class="form-group {{ $errors->has('title') ? 'has-error is-invalid' : '' }}">
     <label for="title">
         {{ __('forum.title') }}
     </label>
@@ -12,18 +12,36 @@
     {!! $errors->first('title', '<span class="invalid-feedback">:message</span>') !!}
 </div>
 
-<div class="form-group">
+<div class="form-group {{ $errors->has('content') ? 'has-error is-invalid' : '' }}">
+
+    <a href="#" class="help-block pull-right hidden-xs" id="md-caller">
+        <small>
+            {!! icon('preview') !!} {{ __('common.cheat_sheet') }}
+        </small>
+    </a>
     <label for="content">
         {{ __('forum.content') }}
     </label>
     <textarea name="content" id="content" rows="10" class="form-control" placeholder="{{ __('forum.content') }}" required>{{ old('content', $article->content) }}</textarea>
 
     {!! $errors->first('content', '<span class="invalid-feedback">:message</span>') !!}
+
+    <div class="preview__forum">{{ markdown(old('content', __('common.markdown_preview'))) }}</div>
 </div>
 
 <div class="form-group">
-    <label for="my-dropzone">Files</label>
-    <div id="my-dropzone" class="dropzone"></div>
+    <label for="my-dropzone">
+        Files
+        <small class="text-muted">
+            Click to attach files
+            <i class="fa fa-chevron-down"></i>
+        </small>
+        <small class="text-muted" style="display: none;">
+            Click to close pane
+            <i class="fa fa-chevron-up"></i>
+        </small>
+    </label>
+    <div id="my-dropzone" class="dropzone" style="display: none;"></div>
 </div>
 
 <div class="form-group">
@@ -52,11 +70,18 @@
     </div>
 </div>
 
-
+@include('layouts.partial.markdown')
 
 @section('script')
 {!! Html::script('/js/dropzone/dropzone.js') !!}
 <script>
+    /* Modal window for Markdown Cheatsheet */
+    $("#md-caller").on("click", function(e) {
+        e.preventDefault();
+        $("#md-modal").modal();
+        return false;
+    });
+
     $("select#tags").select2({
         placeholder: "{{ __('forum.tags_help') }}",
         maximumSelectionLength: 3,

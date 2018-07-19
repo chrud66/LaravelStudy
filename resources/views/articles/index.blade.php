@@ -10,12 +10,25 @@
         <a href="{{ route('articles.create') }}" class="btn btn-primary pull-right">
             {!! icon('forum') !!} {{ __('forum.create') }}
         </a>
+
+        <div class="btn-group pull-right sort__forum">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                {!! icon('sort') !!} Sort by <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                @foreach (['created_at' => 'Age' , 'view_count' => 'View'] as $column => $name)
+                <li class="dropdown-item {{ Request::input('s') == $column ? 'active' : '' }}">
+                    {!! link_for_sort($column, $name) !!}
+                </li>
+                @endforeach
+            </ul>
+        </div>
     </div>
 
     <div class="row container__forum">
         <div class="col-md-3 sidebar__forum">
             <aside>
-                @include('layouts.partial.search')
+                @include('articles.partial.search')
                 @include('tags.partial.index')
             </aside>
         </div>
@@ -24,7 +37,7 @@
             <article>
                 <ul class="list-unstyled mt-3">
                     @forelse($articles as $article)
-                        <li class="mb-3 border-bottom pb-3">
+                        <li class="mb-3 border-bottom">
                             @include('articles.partial.article', ['article' => $article])
                         </li>
                     @empty
@@ -40,6 +53,10 @@
                 </div>
             </article>
         </div>
+    </div>
+
+    <div class="nav__forum">
+        <a type="button" role="button" class="btn btn-sm btn-danger text-white">{{ __('forum.button_toc') }}</a>
     </div>
 @endsection
 

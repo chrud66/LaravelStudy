@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\User;
 use Socialite;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -52,5 +54,10 @@ class LoginController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        event('users.login', [Auth::user()]);
     }
 }

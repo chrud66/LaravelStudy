@@ -23,6 +23,17 @@ class EventServiceProvider extends ServiceProvider
             NaverExtendSocialite::class,
             KakaoExtendSocialite::class,
         ],
+        \App\Events\ArticleConsumed::class => [
+            \App\Listeners\ViewCountHandler::class
+        ],
+    ];
+    /**
+     * The subscriber classes to register.
+     *
+     * @var array
+     */
+    protected $subscribe = [
+        'App\Listeners\UserEventsHandler',
     ];
 
     /**

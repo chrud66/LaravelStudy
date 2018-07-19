@@ -51,4 +51,16 @@ class Article extends Model
     {
         return $this->hasMany(Attachment::class);
     }
+
+    /* Query Scope */
+    public function scopeNoComment($query)
+    {
+        return $query->has('comments', '<', 1);
+    }
+
+    public function scopeNotSolved($query)
+    {
+        return $query->whereNull('solution_id');
+    }
+
 }

@@ -11,6 +11,7 @@ return [
     'notice'           => '공지사항',
     'close'            => '닫기',
     'cheat_sheet'      => '마크다운 도우미',
+    'preview_title'     => '미리보기',
     'markdown_preview' => '여기에 변환된 미리보기가 표시됩니다.',
     'search'           => '검색',
     'confirm_delete'   => '삭제할까요?',

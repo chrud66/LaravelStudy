@@ -15,7 +15,8 @@
                 {{ $comment->created_at->diffForHumans() }}
             </small>
         </h4>
-        <p>{!! markdown($comment->content) !!}</p>
+
+        {!! markdown($comment->content) !!}
 
         @if($currentUser)
             <p class="text-right">

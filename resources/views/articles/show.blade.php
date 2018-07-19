@@ -17,7 +17,7 @@
     <div class="row container__forum">
         <div class="col-md-3 sidebar__forum">
             <aside>
-                @include('layouts.partial.search')
+                @include('articles.partial.search')
                 @include('tags.partial.index')
             </aside>
         </div>

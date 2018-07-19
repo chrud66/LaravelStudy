@@ -27,7 +27,6 @@
 
 @section('script')
 <script>
-    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     $("button.btn__reply").on("click", function(e) {
         // 3. 'Reply' 버튼을 클릭하면 해당 댓글 아래에 대댓글 작성 폼이 토글(표시/숨김) 된다.
         // 해당 댓글에 수정 폼이 표시되어 있다면 숨긴다.
@@ -58,8 +57,7 @@
                 type: "POST",
                 url: "/comments/" + commentId,
                 data: {
-                    _method: "DELETE",
-                    _token: CSRF_TOKEN,
+                    _method: "DELETE"
                 },
                 success : function(data) {
                     flash('success', 'Deleted ! The page will reload in 3 secs.', 2500);

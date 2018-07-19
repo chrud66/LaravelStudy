@@ -21,6 +21,7 @@ return [
     'clip'        => 'fa fa-paperclip',
     'download'    => 'fa fa-cloud-download',
     'dropdown'    => 'fa fa-chevron-down',
+    'edit'        => 'fa fa-edit',
     'update'      => 'fa fa-paragraph',
     'reply'       => 'fa fa-reply',
     'preview'     => 'fa fa-code',

@@ -17,3 +17,16 @@
     </li>
     @endforeach
 </ul>
+
+<p class="lead">
+    {!! icon('filter') !!} Filters
+</p>
+<ul class="list-unstyled">
+    @foreach (['nocomment' => 'No Comment', 'notsolved' => 'Not Solved'] as $filter => $name)
+    <li class="{{ (Request::input('f') == $filter) ? 'active' : '' }}">
+        <a href="{{ route('articles.index', ['f' => $filter]) }}">
+            {{ $name }}
+        </a>
+    </li>
+    @endforeach
+</ul>

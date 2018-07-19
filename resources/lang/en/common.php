@@ -10,6 +10,7 @@ return [
     'sort_by'          => 'Sort by',
     'notice'           => 'Notice',
     'close'            => 'Close',
+    'preview_title'    => 'Preview',
     'cheat_sheet'      => 'Markdown Cheatsheet',
     'markdown_preview' => 'Converted preview will be shown here.',
     'search'           => 'Search',

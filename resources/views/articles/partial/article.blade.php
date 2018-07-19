@@ -23,7 +23,13 @@
             <a href="{{ gravatar_profile_url($article->author->email) }}" style="margin-right: 1rem;">
                 {!! icon('user') !!} {{ $article->author->name }}
             </a>
-            {!! icon('clock') !!} {{ $article->created_at->diffForHumans() }}
+            <span style="margin-right: 1rem;">
+                {!! icon('clock') !!} {{ $article->created_at->diffForHumans() }}
+            </span>
+
+            <span style="margin-right: 1rem;">
+                {!! icon('view_count') !!} {{ number_format($article->view_count) }}
+            </span>
         </p>
 
         @include('tags.partial.list', ['tags' => $article->tags])
