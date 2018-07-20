@@ -38,6 +38,14 @@ if (!function_exists('gravatar_url')) {
     };
 };
 
+if (!function_exists('taggable')) {
+    function taggable()
+    {
+        return !in_array(config('cache.default'), ['file', 'database']);
+    };
+};
+
+
 if (!function_exists('link_for_sort')) {
     function link_for_sort($column, $text, $params = [])
     {

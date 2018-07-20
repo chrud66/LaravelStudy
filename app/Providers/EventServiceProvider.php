@@ -26,6 +26,9 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\ArticleConsumed::class => [
             \App\Listeners\ViewCountHandler::class
         ],
+        \App\Events\ModelChanged::class => [
+            \App\Listeners\CacheHandler::class
+        ]
     ];
     /**
      * The subscriber classes to register.
@@ -45,6 +48,8 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        //
+        Event::listen('comments.*', \App\Listeners\CommentsHandler::class);
+        //Event::listen('comments.created', \App\Listeners\CommentsHandler::class);
+        //Event::listen('comments.updated', \App\Listeners\CommentsHandler::class);
     }
 }

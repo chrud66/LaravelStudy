@@ -75874,8 +75874,8 @@ if (typeof module !== 'undefined' && typeof exports === 'object') {
 
     App.manipulateUi = function () {
         /* At the time of page loading, remove any element having flash-message class in 5 secs */
-        if ($(".flash-message")) {
-            $(".flash-message").delay(5000).fadeOut();
+        if ($(".flash_message")) {
+            $(".flash_message").delay(5000).fadeOut();
         }
 
         if ($("#flash-overlay-modal")) {

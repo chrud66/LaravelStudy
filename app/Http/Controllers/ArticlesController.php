@@ -7,6 +7,7 @@ use App\Http\Requests\ArticlesRequest;
 use App\Http\Requests\FilterArticlesRequest;
 use App\Article;
 use App\Events\ArticleConsumed;
+use App\Events\ModelChanged;
 
 class ArticlesController extends Controller
 {
@@ -27,7 +28,10 @@ class ArticlesController extends Controller
     {
         $query = $id ? \App\Tag::findOrFail($id)->articles() : new Article;
 
-        $query = $query->with('comments', 'author', 'tags', 'solution', 'attachments');
+        //$query = $query->with('comments', 'author', 'tags', 'solution', 'attachments');
+        $query = taggable()
+            ? $query = $query->with('comments', 'author', 'tags', 'attachments')->remember(5)->cacheTags('articles')
+            : $query = $query->with('comments', 'author', 'tags', 'solution', 'attachments')->remember(5);
         $articles = $this->filter($request, $query)->paginate(10);
 
         return view('articles.index', compact('articles'));
@@ -100,6 +104,8 @@ class ArticlesController extends Controller
                 $attachment->save();
             });
         };
+
+        event(new ModelChanged(['articles', 'tags']));
 
         flash()->success(__('forum.created'));
 
@@ -179,6 +185,9 @@ class ArticlesController extends Controller
 
         //$request->input('notification') ? 1 : $request->request->add(['notification' => 0]);
         //$article->update($request->except('_token', '_method'));
+
+        event(new ModelChanged(['articles', 'tags']));
+
         flash()->success(__('forum.updated'));
 
         return redirect(route('articles.index'))->withInput();
@@ -200,11 +209,13 @@ class ArticlesController extends Controller
         };
 
         $article->attachments()->delete();
-        $article->comments->each(function($comment) {
+        $article->comments->each(function ($comment) {
             app(\App\Http\Controllers\CommentsController::class)->recursiveDestroy($comment);
         });
 
         $article->delete();
+
+        event(new ModelChanged('articles'));
 
         flash()->success(__('forum.deleted'));
 

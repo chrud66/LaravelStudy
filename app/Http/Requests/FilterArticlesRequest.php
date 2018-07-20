@@ -27,7 +27,8 @@ class FilterArticlesRequest extends FormRequest
             'f' => 'in:nocomment,notsolved',
             's' => 'in:created_at,view_count',
             'd' => 'in:asc,desc',
-            'q' => 'alpha_dash'
+            //'q' => 'alpha_dash'
+            'q' => 'string'
         ];
     }
 }
