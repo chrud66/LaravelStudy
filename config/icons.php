@@ -2,8 +2,8 @@
 
 return [
 
-    'login'       => 'fa fa-sign-in',
-    'github'      => 'fa fa-github',
+    'login'       => 'fas fa-sign-in-alt',
+    'github'      => 'fab fa-github',
     'book'        => 'fa fa-book',
     'locale'      => 'fa fa-language',
     'certificate' => 'fa fa-certificate',
@@ -36,6 +36,6 @@ return [
     'notice'      => 'fa fa-bullhorn',
     'pin'         => 'fa fa-thumb-tack',
     'document'    => 'fa fa-file',
-    'facebook'    => 'fa fafa-facebook',
+    'facebook'    => 'fab fa-facebook-square',
     'pick'        => 'far fa-thumbs-up',
 ];
