@@ -23,7 +23,7 @@
         </div>
 
         <div class="col-md-9 bg-white">
-            <article class="p-3">
+            <article id="article__article" class="p-3" data-id="{{ $article->id }}">
                 @include('articles.partial.article', ['article' => $article])
 
                 @include('attachments.partial.list', ['attachments' => $article->attachments])
@@ -69,8 +69,12 @@
                 @endif
             </article>
 
+            @if ($article->solution)
+                @include('comments.partial.best', ['comment' => $article->solution])
+            @endif
+
             <article class="mt-4 mb-4 p-2">
-                @include('comments.index')
+                @include('comments.index', ['solved' => $article->solution, 'owner' => $currentUser && $article->isAuthor()])
             </article>
         </div>
     </div>

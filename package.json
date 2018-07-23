@@ -28,5 +28,7 @@
         "select2": "^4.0.6-rc.1",
         "vue": "^2.5.7"
     },
-    "dependencies": {}
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.1.1"
+    }
 }

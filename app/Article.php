@@ -11,6 +11,7 @@ class Article extends Model
         'title',
         'content',
         'notification',
+        'solution_id',
     ];
 
     protected $hidden = [

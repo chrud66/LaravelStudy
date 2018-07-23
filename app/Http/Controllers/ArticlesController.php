@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 use App\Http\Requests\ArticlesRequest;
 use App\Http\Requests\FilterArticlesRequest;
 use App\Article;
@@ -191,6 +191,21 @@ class ArticlesController extends Controller
         flash()->success(__('forum.updated'));
 
         return redirect(route('articles.index'))->withInput();
+    }
+
+    //public function pickBest(Request $request, $id, $solution_id)
+    public function pickBest(Request $request, $id)
+    {
+        $this->validate($request, [
+            'solution_id' => 'required|numeric|exists:comments,id',
+        ]);
+
+        Article::findOrFail($id)->update([
+            'solution_id' => $request->input('solution_id'),
+            //'solution_id' => $solution_id,
+        ]);
+
+        return response()->json('', 204);
     }
 
     /**

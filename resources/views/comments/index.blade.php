@@ -37,6 +37,26 @@
         el__create.toggle("fast").end().find('textarea').focus();
     });
 
+    $("button.btn__pick").on("click", function (e) {
+        var articleId = $("#article__article").data("id"),
+            commentId = $(this).closest(".media__item").data("id");
+
+        if (confirm("{{ __('forum.msg_pick_best') }}")) {
+            $.ajax({
+               type: "POST",
+               url: "/articles/" + articleId + "/pick",
+               data: {
+                   _method: "PUT",
+                   solution_id: commentId
+               },
+               success: function(data) {
+                   flash("success", "{{ __('common.updated') }} {{ __('common.msg_reload') }}", 1500);
+                   reload(3000);
+               }
+            });
+        }
+    });
+
     $("a.btn__edit").on("click", function(e) {
         // 4. 'comments.partial.control' 조각 뷰에서 수정을 선택하면 해당 댓글 수정 폼이 표시된다.
         // 해당 댓글에 대댓글 작성폼이 표시되어 있다면 숨긴다.

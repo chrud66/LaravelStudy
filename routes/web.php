@@ -53,12 +53,27 @@ Route::get('tags/{id}/articles', [
 ]);
 
 /* Forum Route */
+
+Route::put('articles/{article}/pick', [
+    'as' => 'articles.pick-best-comment',
+    'uses' => 'ArticlesController@pickBest'
+]);
 Route::resource('articles', 'ArticlesController');
 
 /* File Upload */
 Route::resource('files', 'AttachmentsController')->only('store', 'destroy');
 
 Route::resource('comments', 'CommentsController')->only('store', 'update', 'destroy');
+
+Route::get('download/{fileName}', function ($fileName) {
+    $path = attachment_path($fileName);
+    if (\File::exists($path)) {
+        return response()->download($path);
+    } else {
+        flash()->error('File Not Exists');
+        return back();
+    }
+})->name('download');
 
 /* 개인정보처리방침 */
 /*Route::get('privacy', function () {

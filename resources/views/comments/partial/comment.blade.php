@@ -20,6 +20,11 @@
 
         @if($currentUser)
             <p class="text-right">
+                @if (! $solved && $owner)
+                    <button type="button" class="btn btn-default btn-sm btn__pick bg-white border" title="{{ __('forum.msg_pick_help') }}">
+                        {!! icon('pick', false) !!}
+                    </button>
+                @endif
                 <!-- "Reply" button is presented here -->
                 <button type="button" class="btn btn-info btn-sm btn__reply">
                 {!! icon('reply') !!} {{ __('common.reply') }}

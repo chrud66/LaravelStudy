@@ -4,7 +4,7 @@
     @foreach($attachments as $attachment)
     <li class="label label-default mb-2">
         {!! icon('download') !!}
-        <a href="/attachments/{{ $attachment->name }}">
+        <a href="{{ route('download', $attachment->name) }}">
             {{ $attachment->name }}
         </a>
         @if(auth()->user() and (auth()->user()->isAdmin() or $article->isAuthor()))

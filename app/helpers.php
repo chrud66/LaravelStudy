@@ -3,7 +3,8 @@
 if (!function_exists('markdown')) {
     function markdown($text)
     {
-        return app(ParsedownExtra::class)->text($text);
+        //return app(ParsedownExtra::class)->text($text);
+        return app(App\Services\Markdown::class)->text($text);
     };
 };
 
