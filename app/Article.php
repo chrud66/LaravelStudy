@@ -2,23 +2,33 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+
 //use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'author_id',
         'title',
         'content',
         'notification',
         'solution_id',
+        'pin',
     ];
 
     protected $hidden = [
         'author_id',
         'solution_id',
         'notification',
+        'deleted_at',
+        'pin',
     ];
+
+    protected $dates = ['deleted_at'];
 
     /* Auth */
     public function isAuthor()

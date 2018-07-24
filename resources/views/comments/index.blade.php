@@ -20,7 +20,11 @@
     @endif
 
     @forelse($comments as $comment)
-        @include('comments.partial.comment', ['parentId' => $comment->id])
+        @include('comments.partial.comment', [
+            'parentId' => $comment->id,
+            'hasChild' => count($comment->replies),
+            'isTrashed' => $comment->trashed()
+        ])
     @empty
     @endforelse
 </div>
@@ -85,6 +89,27 @@
                 }
             });
         };
+    });
+
+    $("button.btn__vote").on("click", function () {
+        var self = $(this),
+            commentId = $(this).closest(".media__item").data("id");
+
+        $.ajax({
+            type: "POST",
+            url: "/comments/" + commentId + "/vote",
+            data: {
+                vote: self.data("vote")
+            },
+            success: function(data) {
+                self.find("span").html(data.value);
+                self.attr("disabled", "disabled");
+                self.siblings().attr("disabled", "disabled");
+            },
+            error: function() {
+                flash("danger", "{{ __('common.msg_whoops') }}", 2500);
+            }
+        });
     });
 </script>
 @endsection

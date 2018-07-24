@@ -15,7 +15,7 @@ class CreateAttachmentsTable extends Migration
     {
         Schema::create('attachments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('article_id')->unsinged()->index();
+            $table->integer('article_id')->nullable()->unsinged()->index();
             $table->string('name');
             $table->timestamps();
 

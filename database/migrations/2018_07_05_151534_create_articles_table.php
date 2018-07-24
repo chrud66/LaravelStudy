@@ -20,11 +20,16 @@ class CreateArticlesTable extends Migration
             $table->longText('content');
             $table->integer('solution_id')->unsigned()->nullable();
             $table->boolean('notification')->default(1);
+            $table->tinyInteger('view_count')->default(0);
+            $table->boolean('pin')->default(0);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('solution_id')->references('id')->on('comments');
         });
+
+        DB::statement('ALTER TABLE articles ADD FULLTEXT search(title, content)');
     }
 
     /**

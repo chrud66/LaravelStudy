@@ -63,6 +63,8 @@ Route::resource('articles', 'ArticlesController');
 /* File Upload */
 Route::resource('files', 'AttachmentsController')->only('store', 'destroy');
 
+/* Comments */
+Route::post('comments/{id}/vote', 'CommentsController@vote');
 Route::resource('comments', 'CommentsController')->only('store', 'update', 'destroy');
 
 Route::get('download/{fileName}', function ($fileName) {

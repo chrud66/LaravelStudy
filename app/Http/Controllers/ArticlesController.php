@@ -63,7 +63,8 @@ class ArticlesController extends Controller
         // 'd' 필드가 있으면 사용하고, 없으면 desc 를 기본값으로 사용한다.
         $direction = $request->input('d', 'desc');
 
-        return $query->orderBy($sort, $direction);
+        //return $query->orderBy($sort, $direction);
+        return $query->orderBy('pin', 'desc')->orderBy($sort, $direction);
     }
 
     /**
@@ -90,9 +91,7 @@ class ArticlesController extends Controller
         //$article = Article::create($request->all());
 
         $request->request->add(['author_id' => \Auth::user()->id]);
-        $payload = array_merge($request->except('_token'), [
-            'notification' => $request->has('notification')
-        ]);
+        $payload = $this->getBooleanColumn($request);
 
         $article = $request->user()->articles()->create($payload);
         $article->tags()->sync($request->input('tags'));
@@ -121,7 +120,8 @@ class ArticlesController extends Controller
     public function show($id)
     {
         $article = Article::with('comments', 'author', 'tags')->findOrFail($id);
-        $commentsCollection = $article->comments()->with('replies', 'author')->whereNull('parent_id')->latest()->get();
+        $commentsCollection = $article->comments()->with('replies', 'author')->withTrashed()->whereNull('parent_id')->latest()->get();
+
         event(new ArticleConsumed($article));
 
         return view('articles.show', [
@@ -175,9 +175,7 @@ class ArticlesController extends Controller
      */
     public function update(ArticlesRequest $request, $id)
     {
-        $payload = array_merge($request->except('_token'), [
-            'notification' => $request->has('notification')
-        ]);
+        $payload = $this->getBooleanColumn($request);
 
         $article = Article::findOrFail($id);
         $article->update($payload);
@@ -235,5 +233,12 @@ class ArticlesController extends Controller
         flash()->success(__('forum.deleted'));
 
         return redirect(route('articles.index'));
+    }
+
+    protected function getBooleanColumn(ArticlesRequest $request) {
+        return array_merge($request->except('_token'), [
+            'notification' => $request->has('notification'),
+            'pin' => $request->has('pin')
+        ]);
     }
 }

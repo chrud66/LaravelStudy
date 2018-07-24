@@ -70,6 +70,17 @@
     </div>
 </div>
 
+@if ($currentUser and $currentUser->isAdmin())
+<div class="form-group">
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" name="pin" {{ $article->pin ? 'checked="checked"' : '' }}>
+            {{ __('forum.pin') }}
+        </label>
+    </div>
+</div>
+@endif
+
 @include('layouts.partial.markdown')
 
 @section('script')
