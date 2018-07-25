@@ -19,14 +19,17 @@ class AppServiceProvider extends ServiceProvider
 
         if ($locale = request()->cookie('locale__Laravel')) {
             app()->setLocale(\Crypt::decrypt($locale));
-        };
+        }
 
-        view()->composer('*', function ($view) {
-            $view->with('currentLocale', app()->getLocale());
-            $view->with('currentUser', auth()->user());
-            $view->with('currentRouteName', \Route::currentRouteName());
-            $view->with('currentUrl', \Request::fullUrl());
-        });
+
+        if (! is_api_request()) {
+            view()->composer('*', function ($view) {
+                $view->with('currentLocale', app()->getLocale());
+                $view->with('currentUser', auth()->user());
+                $view->with('currentRouteName', \Route::currentRouteName());
+                $view->with('currentUrl', \Request::fullUrl());
+            });
+        }
     }
 
     /**

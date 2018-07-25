@@ -15,5 +15,20 @@ use Illuminate\Http\Request;
 
 /*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});*/
+
+Route::group(['domain' => env('API_DOMAIN'), 'as' => 'api.', 'namespace' => 'Api'], function() {
+    Auth::routes();
+
+    Route::get('/', [
+        'as'    => 'index',
+        'uses'  => 'WelcomeController@index'
+    ]);
+
+    Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function() {
+        Route::get('/', [
+            'as'    => 'v1.index',
+            'uses'  => 'WelcomeController@index'
+        ]);
+    });
 });
-*/

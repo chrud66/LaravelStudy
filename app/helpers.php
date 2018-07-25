@@ -46,6 +46,17 @@ if (!function_exists('taggable')) {
     };
 };
 
+if (! function_exists('is_api_request')) {
+    /**
+     * Determine if the current request is for HTTP api.
+     *
+     * @return bool
+     */
+    function is_api_request()
+    {
+        return starts_with(request()->getHttpHost(), env('API_DOMAIN'));
+    }
+}
 
 if (!function_exists('link_for_sort')) {
     function link_for_sort($column, $text, $params = [])

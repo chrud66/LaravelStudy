@@ -30,7 +30,7 @@
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                             {!! icon('user') !!} {{ Auth::user()->name }} <b class="caret"></b>
                         </a>
-                        <div class="dropdown-menu">
+                        <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); $('#logout-form').submit();">{!! icon('logout') !!} {{ __('auth.title_logout') }}</a>
 
                             <form action="{{ route('logout') }}" id="logout-form" method="POST" style="display: none">

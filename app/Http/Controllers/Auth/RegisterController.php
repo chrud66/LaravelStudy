@@ -74,7 +74,8 @@ class RegisterController extends Controller
         ]);
 
         if($validator->fails()) {
-            return back()->withInput()->withErrors($validator);
+            //return back()->withInput()->withErrors($validator);
+            return $this->respondValidationError($validator);
         }
 
         $user->update([
@@ -85,8 +86,22 @@ class RegisterController extends Controller
         $this->guard()->login($user);
         flash(__('auth.welcome', ['name' => $user->name]));
 
-        return $this->registered($request, $user)
-                        ?: redirect($this->redirectPath());
+        //return $this->registered($request, $user) ?: redirect($this->redirectPath());
+
+        return $this->respondCreated($user);
+    }
+
+    protected function respondValidationError(Validator $validator)
+    {
+        return back()->withInput()->withErrors($validator);
+    }
+
+    protected function respondCreated(User $user)
+    {
+        \Auth::login($user);
+        flash(__('auth.welcome', ['name' => $user->name]));
+
+        return redirect(route('home'));
     }
 
     /**

@@ -19,7 +19,7 @@ return [
     'pencil'      => 'far fa-edit',
     'delete'      => 'far fa-trash-alt',
     'clip'        => 'fa fa-paperclip',
-    'download'    => 'fa fa-cloud-download',
+    'download'    => 'fas fa-cloud-download-alt',
     'dropdown'    => 'fa fa-chevron-down',
     'edit'        => 'fa fa-edit',
     'update'      => 'fa fa-paragraph',
