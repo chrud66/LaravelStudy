@@ -63,5 +63,8 @@ class Kernel extends HttpKernel
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         //Other Route Middlewares
         'author' => \App\Http\Middleware\AuthorOnly::class,
+        //jwt api 인증
+        'jwt.auth' => \App\Http\Middleware\GetUserFromToken::class,
+        'jwt.refresh' => \App\Http\Middleware\RefreshToken::class,
     ];
 }

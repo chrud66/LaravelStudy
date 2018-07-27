@@ -83,22 +83,19 @@ class RegisterController extends Controller
             'password' => bcrypt($request->input('password'))
         ]);
 
-        $this->guard()->login($user);
-        flash(__('auth.welcome', ['name' => $user->name]));
-
         //return $this->registered($request, $user) ?: redirect($this->redirectPath());
 
         return $this->respondCreated($user);
     }
 
-    protected function respondValidationError(Validator $validator)
+    protected function respondValidationError(\Illuminate\Contracts\Validation\Validator $validator)
     {
         return back()->withInput()->withErrors($validator);
     }
 
     protected function respondCreated(User $user)
     {
-        \Auth::login($user);
+        $this->guard()->login($user);
         flash(__('auth.welcome', ['name' => $user->name]));
 
         return redirect(route('home'));

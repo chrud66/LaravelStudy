@@ -192,6 +192,16 @@ return [
          * 폼 편하게 쓰는거
          */
         Collective\Html\HtmlServiceProvider::class,
+        /**
+         * JWT Auth
+         * 제이슨 웹 토큰 API 인증시 사용
+         */
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        /**
+         * appkr/api
+         * 공부하는거
+         */
+        Appkr\Api\ApiServiceProvider::class,
     ],
 
     /*
@@ -263,6 +273,12 @@ return [
          */
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        /**
+         * JWT Auth
+         * 제이슨 웹 토큰 API 인증시 사용
+         */
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
     ],
 
 ];
