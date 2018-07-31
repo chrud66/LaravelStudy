@@ -66,5 +66,7 @@ class Kernel extends HttpKernel
         //jwt api 인증
         'jwt.auth' => \App\Http\Middleware\GetUserFromToken::class,
         'jwt.refresh' => \App\Http\Middleware\RefreshToken::class,
+        //API 요청 수 제한
+        'throttle.api' => \App\Http\Middleware\ThrottleApiRequests::class,
     ];
 }

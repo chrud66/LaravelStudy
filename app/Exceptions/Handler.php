@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
@@ -80,7 +81,7 @@ class Handler extends ExceptionHandler
 
             return json()->setStatusCode($code ? : 400)->error($message);
         } else { // 일반 페이지의 경우
-            if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException or $exception instanceof NotFoundHttpException) {
+            if ($exception instanceof ModelNotFoundException or $exception instanceof NotFoundHttpException) {
                 return response(view('errors.notice', [
                     'title' => 'Page Not Fount',
                     'description' => 'Sorry, the page or resource trying to view does not exist.'

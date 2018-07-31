@@ -3,20 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 use App\Http\Requests\ArticlesRequest;
 use App\Http\Requests\FilterArticlesRequest;
 use App\Article;
 use App\Events\ArticleConsumed;
 use App\Events\ModelChanged;
+use App\Tag;
 
 class ArticlesController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
-        $this->middleware('author:article', ['except' => ['index', 'show', 'create', 'store']]);
-        view()->share('allTags', \App\Tag::with('articles')->get());
+        $this->middleware('author:article', ['only' => ['update', 'destroy', 'pickBest']]);
+
+        if  (! is_api_request()) {
+            // \App\Http\Controllers\Api\V1\ArticlesController 에서 이 컨트롤러를 상속할 것이므로,
+            // API 에 필요 없는 부분은 (! is_api_request()) 로 제외 시켰다.
+            $this->middleware('auth', ['except' => ['index', 'show']]);
+
+            view()->share('allTags', Tag::with('articles')->get());
+        }
     }
 
     /**
@@ -32,9 +41,10 @@ class ArticlesController extends Controller
         $query = taggable()
             ? $query = $query->with('comments', 'author', 'tags', 'attachments')->remember(5)->cacheTags('articles')
             : $query = $query->with('comments', 'author', 'tags', 'solution', 'attachments')->remember(5);
-        $articles = $this->filter($request, $query)->paginate(10);
+        $articles = $this->filter($request, $query)->paginate(3);
 
-        return view('articles.index', compact('articles'));
+        //return view('articles.index', compact('articles'));
+        return $this->respondCollection($articles);
     }
 
     protected function filter($request, $query)
@@ -106,9 +116,9 @@ class ArticlesController extends Controller
 
         event(new ModelChanged(['articles', 'tags']));
 
-        flash()->success(__('forum.created'));
-
-        return redirect(route('articles.index'))->withInput();
+        //flash()->success(__('forum.created'));
+        //return redirect(route('articles.index'))->withInput();
+        return $this->respondCreated($article);
     }
 
     /**
@@ -124,12 +134,14 @@ class ArticlesController extends Controller
 
         event(new ArticleConsumed($article));
 
-        return view('articles.show', [
+        /*return view('articles.show', [
             'article'           => $article,
             'comments'          => $commentsCollection,
             'commentableType'   => Article::class,
             'commentableId'     => $article->id,
-        ]);
+        ]);*/
+
+        return $this->respondItem($article, $commentsCollection);
     }
 
     /**
@@ -179,16 +191,19 @@ class ArticlesController extends Controller
 
         $article = Article::findOrFail($id);
         $article->update($payload);
-        $article->tags()->sync($request->input('tags'));
+        // If Check 가 추가되었다. tags 필드를 넘기지 않으면 에러가 나므로...
+        if ($request->has('tags')) {
+            $article->tags()->sync($request->input('tags'));
+        }
 
         //$request->input('notification') ? 1 : $request->request->add(['notification' => 0]);
         //$article->update($request->except('_token', '_method'));
 
         event(new ModelChanged(['articles', 'tags']));
 
-        flash()->success(__('forum.updated'));
-
-        return redirect(route('articles.index'))->withInput();
+        //flash()->success(__('forum.updated'));
+        //return redirect(route('articles.index'))->withInput();
+        return $this->respondUpdated($article);
     }
 
     //public function pickBest(Request $request, $id, $solution_id)
@@ -230,9 +245,9 @@ class ArticlesController extends Controller
 
         event(new ModelChanged('articles'));
 
-        flash()->success(__('forum.deleted'));
-
-        return redirect(route('articles.index'));
+        //flash()->success(__('forum.deleted'));
+        //return redirect(route('articles.index'));
+        return $this->respondDeleted($article);
     }
 
     protected function getBooleanColumn(ArticlesRequest $request) {
@@ -240,5 +255,38 @@ class ArticlesController extends Controller
             'notification' => $request->has('notification'),
             'pin' => $request->has('pin')
         ]);
+    }
+
+    protected function respondCollection(LengthAwarePaginator $articles)
+    {
+        return view('articles.index', compact('articles'));
+    }
+
+    protected function respondCreated(Article $article)
+    {
+        flash()->success(__('forum.created'));
+        return redirect(route('articles.index'))->withInput();
+    }
+
+    protected function respondItem(Article $article, Collection $commentsCollection = null)
+    {
+        return view('articles.show', [
+            'article'           => $article,
+            'comments'          => $commentsCollection,
+            'commentableType'   => Article::class,
+            'commentableId'     => $article->id,
+        ]);
+    }
+
+    protected function respondUpdated(Article $article)
+    {
+        flash()->success(__('forum.updated'));
+        return redirect(route('articles.index'))->withInput();
+    }
+
+    protected function respondDeleted(Article $article)
+    {
+        flash()->success(__('forum.deleted'));
+        return redirect(route('articles.index'));
     }
 }
