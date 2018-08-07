@@ -47,8 +47,10 @@ class ArticleTransformer extends TransformerAbstract
      */
     public function transform(Article $article)
     {
+        $id = optimus((int) $article->id);
+
         $payload = [
-            'id' => (int) $article->id, //정수형으로 캐스팅
+            'id' => $id,
             'title' => $article->title,
             'content_raw' => strip_tags($article->content), //HTML 태그 제거
             'content_html' => markdown($article->content), //마크다운으로 컴파일
@@ -56,7 +58,7 @@ class ArticleTransformer extends TransformerAbstract
             'view_count' => (int) $article->view_count,
             'link' => [
                  'rel' => 'self',
-                 'href' => route('api.v1.articles.show', $article->id), // URL
+                 'href' => route('api.v1.articles.show', $id), // URL
             ],
             'comments' => (int) $article->comments->count(), // 댓글 수
             'author' => sprintf('%s <%s>', $article->author->name, $article->author->email),

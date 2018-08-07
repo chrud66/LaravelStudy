@@ -20,8 +20,8 @@ Route::get('/', function () {
 */
 
 Route::get('test', function () {
-    echo env('APP_URL');
-    //return view('test');
+    //echo env('APP_URL');
+    return view('test');
 });
 
 

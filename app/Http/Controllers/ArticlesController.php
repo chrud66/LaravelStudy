@@ -14,18 +14,25 @@ use App\Tag;
 
 class ArticlesController extends Controller
 {
+    protected $cache;
 
     public function __construct()
     {
         $this->middleware('author:article', ['only' => ['update', 'destroy', 'pickBest']]);
 
-        if  (! is_api_request()) {
+        if (! is_api_request()) {
             // \App\Http\Controllers\Api\V1\ArticlesController 에서 이 컨트롤러를 상속할 것이므로,
             // API 에 필요 없는 부분은 (! is_api_request()) 로 제외 시켰다.
             $this->middleware('auth', ['except' => ['index', 'show']]);
 
             view()->share('allTags', Tag::with('articles')->get());
         }
+
+        // taggable() Helper 를 이용하여 기본 쿼리를 만든다.
+        // .env 에 CACHE_DRIVER= 값이 file 이나 database 이면 Cache Tag 를 쓸 수 없다.
+        $this->cache = taggable()
+            ? app('cache')->tags('articles')
+            : app('cache');
     }
 
     /**
@@ -37,19 +44,20 @@ class ArticlesController extends Controller
     {
         $query = $id ? \App\Tag::findOrFail($id)->articles() : new Article;
 
-        //$query = $query->with('comments', 'author', 'tags', 'solution', 'attachments');
-        $query = taggable()
-            ? $query = $query->with('comments', 'author', 'tags', 'attachments')->remember(5)->cacheTags('articles')
-            : $query = $query->with('comments', 'author', 'tags', 'solution', 'attachments')->remember(5);
-        $articles = $this->filter($request, $query)->paginate(3);
+        // cache_key() Helper 를 이용해 캐시에 사용할 고유한 key 를 만든다.
+        $cacheKey = cache_key('articles.index');
+
+        $articles = $this->cache->remember($cacheKey, 5, function() use ($query, $request) {
+            return $this->filter($query)->paginate($request->input('pp', 5));
+        });
 
         //return view('articles.index', compact('articles'));
         return $this->respondCollection($articles);
     }
 
-    protected function filter($request, $query)
+    protected function filter($query)
     {
-        if ($filter = $request->input('f')) {
+        if ($filter = request()->input('f')) {
             // 'f' 쿼리 스트링 필드가 있으면, 그 값에 따라 쿼리를 분기한다.
             switch ($filter) {
                 case 'nocomment':
@@ -61,7 +69,7 @@ class ArticlesController extends Controller
             }
         }
 
-        if ($keyword = $request->input('q')) {
+        if ($keyword = request()->input('q')) {
             // 이번에도 'q' 필드가 있으면 풀텍스트 검색 쿼리를 추가한다.
             $raw = 'MATCH(title,content) AGAINST(? IN BOOLEAN MODE)';
             $query->whereRaw($raw, [$keyword]);
@@ -69,9 +77,9 @@ class ArticlesController extends Controller
 
 
         // 's' 필드가 있으면 사용하고, 없으면 created_at 을 기본값으로 사용한다.
-        $sort = $request->input('s', 'created_at');
+        $sort = request()->input('s', 'created_at');
         // 'd' 필드가 있으면 사용하고, 없으면 desc 를 기본값으로 사용한다.
-        $direction = $request->input('d', 'desc');
+        $direction = request()->input('d', 'desc');
 
         //return $query->orderBy($sort, $direction);
         return $query->orderBy('pin', 'desc')->orderBy($sort, $direction);
@@ -129,19 +137,23 @@ class ArticlesController extends Controller
      */
     public function show($id)
     {
-        $article = Article::with('comments', 'author', 'tags')->findOrFail($id);
-        $commentsCollection = $article->comments()->with('replies', 'author')->withTrashed()->whereNull('parent_id')->latest()->get();
 
-        event(new ArticleConsumed($article));
+        $cacheKey = cache_key("articles.show.{$id}");
+        $secondKey = cache_key("articles.show.{$id}.comments");
 
-        /*return view('articles.show', [
-            'article'           => $article,
-            'comments'          => $commentsCollection,
-            'commentableType'   => Article::class,
-            'commentableId'     => $article->id,
-        ]);*/
+        $article = $this->cache->remember($cacheKey, 5, function () use ($id) {
+            return Article::with('comments', 'tags', 'attachments', 'solution')->findOrFail($id);
+        });
 
-        return $this->respondItem($article, $commentsCollection);
+        $commentsCollection = $this->cache->remember($secondKey, 5, function () use ($article) {
+            return $article->comments()->with('replies')->withTrashed()->whereNull('parent_id')->latest()->get();
+        });
+
+        if (! is_api_request()) {
+            event(new ArticleConsumed($article));
+        }
+
+        return $this->respondItem($article, $commentsCollection, $cacheKey.$secondKey);
     }
 
     /**
@@ -268,7 +280,7 @@ class ArticlesController extends Controller
         return redirect(route('articles.index'))->withInput();
     }
 
-    protected function respondItem(Article $article, Collection $commentsCollection = null)
+    protected function respondItem(Article $article, Collection $commentsCollection = null, $cacheKey = null)
     {
         return view('articles.show', [
             'article'           => $article,

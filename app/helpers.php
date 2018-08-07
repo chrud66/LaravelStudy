@@ -39,13 +39,6 @@ if (!function_exists('gravatar_url')) {
     };
 };
 
-if (!function_exists('taggable')) {
-    function taggable()
-    {
-        return !in_array(config('cache.default'), ['file', 'database']);
-    };
-};
-
 if (! function_exists('is_api_request')) {
     /**
      * Determine if the current request is for HTTP api.
@@ -55,6 +48,19 @@ if (! function_exists('is_api_request')) {
     function is_api_request()
     {
         return starts_with(request()->getHttpHost(), env('API_DOMAIN'));
+    }
+}
+
+if (! function_exists('optimus')) {
+    function optimus($id = null)
+    {
+        $factory = app(\Jenssegers\Optimus\Optimus::class);
+
+        if (func_num_args() === 0) {
+            return $factory;
+        }
+
+        return $factory->encode($id);
     }
 }
 
@@ -93,4 +99,31 @@ if (!function_exists('link_for_sort')) {
             $text
         );
     };
+}
+
+if (! function_exists('taggable')) {
+    function taggable()
+    {
+        return !in_array(config('cache.default'), ['file', 'database']);
+    };
+};
+
+if (! function_exists('cache_key')) {
+    /**
+     * Generate key for caching.
+     *
+     * Note. Even though the request endpoints are the same,
+     *       the response body should be different because of the query string.
+     *
+     * @param $base
+     * @return string
+     */
+    function cache_key($base)
+    {
+        $key = ($uri = request()->fullUrl())
+            ? $base . '.' . urlencode($uri)
+            : $base;
+
+        return md5($key);
+    }
 }

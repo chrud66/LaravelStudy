@@ -46,8 +46,10 @@ class TagTransformer extends TransformerAbstract {
      */
     public function transform(Tag $tag)
     {
+        $id = optimus((int)$tag->id);
+
         $payload = [
-            'id' => (int) $tag->id,
+            'id' => $id,
             'slug' => $tag->slug,
             'created' => $tag->created_at->toIso8601String(),
             'link' => [

@@ -30,8 +30,9 @@ class AttachmentTransformer extends TransformerAbstract
      */
     public function transform(Attachment $attachment)
     {
+        $id = optimus((int) $attachment->id);
         $payload = [
-            'id' => (int) $attachment->id,
+            'id' => (int) $id,
             'name' => $attachment->name,
             'created' => $attachment->created_at->toIso8601String(),
             'link' => [

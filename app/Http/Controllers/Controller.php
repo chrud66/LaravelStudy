@@ -15,4 +15,15 @@ class Controller extends BaseController
     {
         //
     }
+
+    public function etags($collection, $cacheKey = null)
+    {
+        $etag = '';
+
+        foreach($collection as $instance) {
+            $etag .= $instance->etag();
+        }
+
+        return md5($etag.$cacheKey);
+    }
 }

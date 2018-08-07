@@ -74,4 +74,15 @@ class Article extends Model
         return $query->whereNull('solution_id');
     }
 
+    /* helpers */
+    public function etag($cacheKey = null)
+    {
+        $etag = $this->getTable() . $this->getKey();
+
+        if($this->usesTimestamps()) {
+            $etag .= $this->updated_at->timestamp;
+        }
+
+        return md5($etag.$cacheKey);
+    }
 }

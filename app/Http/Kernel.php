@@ -38,8 +38,10 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            'throttle:60,1',
+            //'throttle:60,1',
+            'throttle.api:60,1',
             'bindings',
+            'cors',
         ],
     ];
 
@@ -68,5 +70,9 @@ class Kernel extends HttpKernel
         'jwt.refresh' => \App\Http\Middleware\RefreshToken::class,
         //API 요청 수 제한
         'throttle.api' => \App\Http\Middleware\ThrottleApiRequests::class,
+        //ID값 숨기기 위해 난독화 한 ID값을 복호화하는것
+        'obfuscate' => \App\Http\Middleware\ObfuscateId::class,
+        //cors 처리
+        'cors' => \Barryvdh\Cors\HandleCors::class,
     ];
 }

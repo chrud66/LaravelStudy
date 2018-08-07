@@ -202,6 +202,10 @@ return [
          * 공부하는거
          */
         Appkr\Api\ApiServiceProvider::class,
+        /**
+         * CORS 처리
+         */
+        Barryvdh\Cors\ServiceProvider::class,
     ],
 
     /*
