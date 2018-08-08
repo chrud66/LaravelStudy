@@ -17,7 +17,18 @@ class LoginController extends ParentController
     {
         parent::__construct();
         // ParentController 의 미들웨어 정의 무력화.
-        $this->middleware = [];
+        //$this->middleware = [];
+        $this->middleware('jwt.refresh', ['only' => 'refresh']);
+    }
+
+    /**
+     * Blank method for token refresh.
+     *
+     * @return bool
+     */
+    public function refresh()
+    {
+        return true;
     }
 
     public function login(Request $request)

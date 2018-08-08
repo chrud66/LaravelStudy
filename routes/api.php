@@ -40,6 +40,11 @@ Route::group(['domain' => env('API_DOMAIN'), 'as' => 'api.', 'namespace' => 'Api
         'uses' => 'Auth\ForgotPasswordController@sendResetLinkEmail',
     ]);
 
+    Route::post('auth/refresh', [
+        'as' => 'sessions.refresh',
+        'uses' => 'Auth\LoginController@refresh',
+    ]);
+
     Route::group(['prefix' => 'v1', 'as' => 'v1.', 'namespace' => 'V1'], function () {
         Route::get('/', [
             //'as'    => 'v1.index',
