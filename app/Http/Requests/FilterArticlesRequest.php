@@ -23,12 +23,16 @@ class FilterArticlesRequest extends FormRequest
      */
     public function rules()
     {
+        $params = config('project.params');
+        $filters = implode(',', array_keys(config('project.filters.article')));
+
         return [
-            'f' => 'in:nocomment,notsolved',
-            's' => 'in:created_at,view_count',
-            'd' => 'in:asc,desc',
-            //'q' => 'alpha_dash'
-            'q' => 'string'
+            $params['filter']   => "in:{$filters}",
+            $params['limit']    => 'size:1,10',
+            $params['sort']     => 'in:created_at,view_count,created',
+            $params['order']    => 'in:asc,desc',
+            $params['search']   => 'string',
+            $params['page']     => '',
         ];
     }
 }

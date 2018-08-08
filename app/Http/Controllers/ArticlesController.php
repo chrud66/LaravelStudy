@@ -12,7 +12,7 @@ use App\Events\ArticleConsumed;
 use App\Events\ModelChanged;
 use App\Tag;
 
-class ArticlesController extends Controller
+class ArticlesController extends Controller implements Cacheable
 {
     protected $cache;
 
@@ -35,6 +35,11 @@ class ArticlesController extends Controller
             : app('cache');
     }
 
+    public function cacheKeys()
+    {
+        return 'articles';
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -43,46 +48,22 @@ class ArticlesController extends Controller
     public function index(FilterArticlesRequest $request, $id = null)
     {
         $query = $id ? \App\Tag::findOrFail($id)->articles() : new Article;
-
         // cache_key() Helper 를 이용해 캐시에 사용할 고유한 key 를 만든다.
         $cacheKey = cache_key('articles.index');
+        $query = $this->filter($query->orderBy('pin', 'desc'));
+        $param = $request->input(config('project.params.limit'), 5);
 
-        $articles = $this->cache->remember($cacheKey, 5, function() use ($query, $request) {
-            return $this->filter($query)->paginate($request->input('pp', 5));
-        });
+        $articles = $this->cache($cacheKey, 5, $query, 'paginate', $param);
 
+
+        //기존 코드
+        //$query = $id ? \App\Tag::findOrFail($id)->articles() : new Article;
+        //$articles = $this->cache->remember($cacheKey, 5, function() use ($query, $request) {
+        //    return $this->filter($query)->paginate($request->input('pp', 5));
+        //});
         //return view('articles.index', compact('articles'));
+
         return $this->respondCollection($articles);
-    }
-
-    protected function filter($query)
-    {
-        if ($filter = request()->input('f')) {
-            // 'f' 쿼리 스트링 필드가 있으면, 그 값에 따라 쿼리를 분기한다.
-            switch ($filter) {
-                case 'nocomment':
-                    $query->noComment();
-                    break;
-                case 'notsolved':
-                    $query->notSolved();
-                    break;
-            }
-        }
-
-        if ($keyword = request()->input('q')) {
-            // 이번에도 'q' 필드가 있으면 풀텍스트 검색 쿼리를 추가한다.
-            $raw = 'MATCH(title,content) AGAINST(? IN BOOLEAN MODE)';
-            $query->whereRaw($raw, [$keyword]);
-        }
-
-
-        // 's' 필드가 있으면 사용하고, 없으면 created_at 을 기본값으로 사용한다.
-        $sort = request()->input('s', 'created_at');
-        // 'd' 필드가 있으면 사용하고, 없으면 desc 를 기본값으로 사용한다.
-        $direction = request()->input('d', 'desc');
-
-        //return $query->orderBy($sort, $direction);
-        return $query->orderBy('pin', 'desc')->orderBy($sort, $direction);
     }
 
     /**
@@ -141,13 +122,20 @@ class ArticlesController extends Controller
         $cacheKey = cache_key("articles.show.{$id}");
         $secondKey = cache_key("articles.show.{$id}.comments");
 
-        $article = $this->cache->remember($cacheKey, 5, function () use ($id) {
+        $query = Article::with('comments', 'tags', 'attachments', 'solution')->findOrFail($id);
+        $article = $this->cache($cacheKey, 5, $query, 'findOrFail', $id);
+
+        $secondQuery = $article->comments()->with('replies')->withTrashed()->whereNull('parent_id')->latest();
+        $commentsCollection = $this->cache($secondKey, 5, $secondQuery, 'get');
+
+        /*$article = $this->cache->remember($cacheKey, 5, function () use ($id) {
             return Article::with('comments', 'tags', 'attachments', 'solution')->findOrFail($id);
         });
 
         $commentsCollection = $this->cache->remember($secondKey, 5, function () use ($article) {
             return $article->comments()->with('replies')->withTrashed()->whereNull('parent_id')->latest()->get();
         });
+        */
 
         if (! is_api_request()) {
             event(new ArticleConsumed($article));
@@ -269,7 +257,7 @@ class ArticlesController extends Controller
         ]);
     }
 
-    protected function respondCollection(LengthAwarePaginator $articles)
+    protected function respondCollection(LengthAwarePaginator $articles, $cacheKey = null)
     {
         return view('articles.index', compact('articles'));
     }

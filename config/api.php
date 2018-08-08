@@ -53,6 +53,12 @@ return [
         ],
     ],
 
+    'partial' => [
+        // Partial Response 에 사용할 쿼리스트링의 필드 이름을 바꿀 수 있다.
+        // 기본 값은 'fields' 이다.
+        'key' => 'fields',
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Transformer directory and namespace.

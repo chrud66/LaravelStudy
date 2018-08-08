@@ -31,7 +31,7 @@ class ArticlesController extends ParentController
         //베이스 클래스에서 만든 Collection에 대한 Etag 만들기
         $genEtag = $this->etags($articles, $cacheKey);
 
-        if (isset($reqEtag[0]) and $reqEtag[0] === $genEtag) {
+        if (config('project.cache') === true and isset($reqEtag[0]) and $reqEtag[0] and $reqEtag[0] === $genEtag) {
             // $reqEtag = ["65f8322657950bdccdc48df21dddfc33"] 이기 때문에 Array Access 해야 함.
             return $this->respondNotModified();
         }
@@ -53,7 +53,7 @@ class ArticlesController extends ParentController
         //단일 Instance에 대한 Etag 만들기
         $genEtag = $article->etag($cacheKey);
 
-        if (isset($reqEtag[0]) and $reqEtag[0] === $genEtag) {
+        if (config('project.cache') === true and isset($reqEtag[0]) and $reqEtag[0] === $genEtag) {
             return $this->respondNotModified();
         }
 

@@ -67,13 +67,15 @@ if (! function_exists('optimus')) {
 if (!function_exists('link_for_sort')) {
     function link_for_sort($column, $text, $params = [])
     {
-        // 현재 요청의 'd' 쿼리 파라미터가 asc 이면, $reverse 에 desc
-        $direction = Request::input('d');
+        $config = config('project.params');
+
+        $direction = request()->input($config['order']);
         $reverse = $direction == 'asc' ? 'desc' : 'asc';
 
         // 정렬을 위한 쿼리 파라미터(s) 의 값이 있으면,
         // 오름차순 또는 내림차순 아이콘을 함수의 인자로 넘겨 받은 $text 에 붙인다.
-        if (Request::input('s') == $column) {
+        //if (Request::input('s') == $column) {
+        if (request()->input($config['sort']) == $column) {
             $text = sprintf(
                 "%s %s",
                 $direction == 'asc' ? icon('asc') : icon('desc'),
@@ -85,8 +87,10 @@ if (!function_exists('link_for_sort')) {
         // 이 함수의 인자로 넘겨 받은 값들로 생성한 's', 'd' 등의 쿼리 스트링을 합쳐서
         // Anchor 태그의 href 속성 값에서 사용할 $queryString 생성한다.
         $queryString = http_build_query(array_merge(
-            Input::except(['page', 's', 'd']),
-            ['s' => $column, 'd' => $reverse],
+            //Input::except(['page', 's', 'd']),
+            //['s' => $column, 'd' => $reverse],
+            request()->except([$config['page'], $config['sort'], $config['order']]),
+            [$config['sort'] => $column, $config['order'] => $reverse],
             $params
         ));
 
@@ -94,7 +98,7 @@ if (!function_exists('link_for_sort')) {
         // 앞에서 만든 $queryString 문자열을 합쳐서 완전한 HTML <a> 태그를 생성한다.
         return sprintf(
             '<a href="%s?%s">%s</a>',
-            urldecode(Request::url()),
+            urldecode(request()->url()),
             $queryString,
             $text
         );
