@@ -31,6 +31,8 @@ class RegisterController extends ParentController
 
         event(new Registered($user = $this->create($request->all())));
 
+        $this->registered($request, $user);
+
         return $this->respondCreated($user);
     }
 

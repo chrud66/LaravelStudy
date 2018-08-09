@@ -115,4 +115,10 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    // Overriding
+    protected function registered(Request $request, $user)
+    {
+        $user->syncRoles(['member']);
+    }
 }

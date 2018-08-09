@@ -46,6 +46,7 @@ class SocialController extends Controller
         ]);
 
         auth()->login($user, true);
+        $user->syncRoles(['member']);
 
         return redirect(route('home'));
     }
