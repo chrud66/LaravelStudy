@@ -21,11 +21,10 @@
 @setup
   $username = 'deployer';                       // username at the server
   $remote = 'https://github.com/chrud66/laravel.git';
-  // $remote = 'git@github.com:appkr/envoy.git';   // github repository to clone
-  $base_dir = "/home/{$username}/www";          // document that holds projects
+  $base_dir = "/home/{$username}/www/laravel";          // document that holds projects
   $project_root = "{$base_dir}/envoy.vm";       // project root
-  $shared_dir = "{$base_dir}/shared";           // directory that will house shared dir/files
-  $release_dir = "{$base_dir}/releases";        // release directory
+  $shared_dir = "{$base_dir}/laravel/shared";           // directory that will house shared dir/files
+  $release_dir = "{$base_dir}/laravel/releases";        // release directory
   $distname = 'release_' . date('YmdHis');      // release name
 
   // ------------------------------------------------------------------
@@ -62,21 +61,6 @@
     [ ! -d {{ $dir }} ] && mkdir -p {{ $dir }};
   @endforeach
 
-  git pull origin {{ $branch }}
-
-  {{--Run composer install--}}
-  cd {{ $release_dir }}/{{ $distname }} && \
-    [ -f ./composer.json ] && \
-    composer install --prefer-dist --no-scripts --no-dev;
-
-  {{--Set permission and change owner--}}
-  [ -d {{ $shared_dir }}/storage ] && \
-    chmod -R 775 {{ $shared_dir }}/storage;
-  [ -d {{ $shared_dir }}/cache ] && \
-    chmod -R 775 {{ $shared_dir }}/cache;
-  chgrp -h -R www-data {{ $release_dir }}/{{ $distname }};
-
-  {{--Restart web server.--}}
-  sudo service nginx restart;
-  sudo service php7.0-fpm restart;
+  {{--Clone code from git--}}
+  cd {{ $release_dir }} && git clone -b master {{ $remote }} {{ $distname }};
 @endtask
