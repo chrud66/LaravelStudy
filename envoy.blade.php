@@ -22,7 +22,7 @@
   $username = 'deployer'; // username at the server
   $remote = 'https://github.com/chrud66/laravel.git';
   $base_dir = "/home/{$username}/www"; // document that holds projects
-  $appdir = '/home/deployer/www';
+  $appdir = '/home/deployer/www/laravel';
   $branch = 'master';
 @endsetup
 
@@ -40,13 +40,12 @@
 @task('deploy', ['on' => ['real']])
   echo 'Working on ' . `hostname`
   cd {{ $appdir }}
-  #php artisan down
+  php artisan down
   git pull origin {{ $branch }}
   composer install
   composer dump-autoload
-  php artisan optimize
   php artisan config:cache
-  #php artisan up
+  php artisan up
 
   sudo service apache2 restart;
   echo "rev hash :" `git rev-parse --verify HEAD`
