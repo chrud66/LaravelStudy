@@ -3,15 +3,15 @@
 
 @section('content')
     <div class="pb-2 mt-4 mb-2 border-bottom clearfix">
-        <h4 class="pull-left">
+        <h4 class="float-left">
             {{ __('forum.title_forum') }}
         </h4>
 
-        <a href="{{ route('articles.create') }}" class="btn btn-primary pull-right">
+        <a href="{{ route('articles.create') }}" class="btn btn-primary float-right">
             {!! icon('forum') !!} {{ __('forum.create') }}
         </a>
 
-        <div class="btn-group pull-right sort__forum">
+        <div class="btn-group float-right sort__forum">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                 {!! icon('sort') !!} Sort by <span class="caret"></span>
             </button>
