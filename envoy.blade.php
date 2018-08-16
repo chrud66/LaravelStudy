@@ -44,6 +44,7 @@
   git pull origin {{ $branch }}
   composer install
   composer dump-autoload
+  php artisan migrate
   php artisan config:cache
   php artisan up
 
