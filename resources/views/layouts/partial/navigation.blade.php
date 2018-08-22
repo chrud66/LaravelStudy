@@ -12,6 +12,9 @@
 
             <div class="navbar-collapse collapse" id="navbarCollapse">
                 <ul class="navbar-nav ml-auto justify-content-end">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('pdf-to-img.create') }}">{!! icon('change') !!} Pdf to image</a>
+                    </li>
                     @if(!Auth::check())
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">{!! icon('login') !!} {{ __('auth.title_login') }}</a>
@@ -20,9 +23,6 @@
                         <a class="nav-link" href="{{ route('register') }}">{!! icon('certificate') !!} {{ __('auth.title_signup') }}</a>
                     </li>
                     @else
-                    <li class="nav-item">
-                        <a class="nav-link" href="{-- route(document.show) --}">{!! icon('document') !!} Document Viewer</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('articles.index')}}">{!! icon('forum') !!} Forum</a>
                     </li>

@@ -77,6 +77,10 @@ Route::get('download/{fileName}', function ($fileName) {
     }
 })->name('download');
 
+/* pdf to image chang */
+Route::resource('pdf-to-img', 'PdfToImgController')->only('create', 'store');
+Route::resource('pdf-files', 'PdfFilesController')->only('store', 'destroy');
+
 /* 개인정보처리방침 */
 /*Route::get('privacy', function () {
     return '개인정보처리방침';

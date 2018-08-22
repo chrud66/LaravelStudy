@@ -25,6 +25,7 @@
         "socialiteproviders/kakao": "^3.0",
         "socialiteproviders/naver": "^3.0",
         "spatie/laravel-permission": "^2.12",
+        "spatie/pdf-to-image": "^1.8",
         "tymon/jwt-auth": "^0.5.12"
     },
     "require-dev": {

@@ -38,4 +38,5 @@ return [
     'document'    => 'fa fa-file',
     'facebook'    => 'fab fa-facebook-square',
     'pick'        => 'far fa-thumbs-up',
+    'change'      => 'fas fa-exchange-alt',
 ];
