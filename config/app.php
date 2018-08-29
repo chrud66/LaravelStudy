@@ -206,6 +206,10 @@ return [
          * CORS 처리
          */
         Barryvdh\Cors\ServiceProvider::class,
+        /**
+         * ZIP 파일 압축
+         */
+        Chumper\Zipper\ZipperServiceProvider::class
     ],
 
     /*
@@ -283,6 +287,10 @@ return [
          */
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        /**
+         * Zip 파일 압축
+         */
+        'Zipper' => Chumper\Zipper\Zipper::class,
     ],
 
 ];

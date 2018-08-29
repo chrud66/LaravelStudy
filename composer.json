@@ -9,6 +9,7 @@
         "appkr/api": "^3.0",
         "barryvdh/laravel-cors": "^0.11.0",
         "barryvdh/laravel-debugbar": "^3.1",
+        "chumper/zipper": "^1.0",
         "doctrine/dbal": "^2.7",
         "enyo/dropzone": "^5.1",
         "erusev/parsedown-extra": "^0.7.1",

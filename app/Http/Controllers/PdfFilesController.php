@@ -21,21 +21,20 @@ class PdfFilesController extends Controller
 
         $file = $request->file('file');
 
-        if (! $file->getClientOriginalExtension() === 'pdf' && ! $file->getClientMimeType() === 'application/pdf') {
+        if ($file->getClientOriginalExtension() !== 'pdf' && $file->getClientMimeType() !== 'application/pdf') {
             return response()->json('PDF 파일만 업로드 할 수 있습니다.', 406);
         };
 
         $name = time() . '_' . str_replace(' ', '_', $file->getClientOriginalName());
-        $detailPath = 'app' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'pdf' . DIRECTORY_SEPARATOR;
+        $detailPath = 'app' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'pdfs' . DIRECTORY_SEPARATOR;
         $file->move(storage_path($detailPath), $name);
 
         return response()->json([
+            'id'   => $name,
             'name' => $name,
             'type' => $file->getClientMimeType(),
             'url'  => Storage::url($detailPath . $name),
         ]);
-
-
     }
 
 
@@ -47,6 +46,18 @@ class PdfFilesController extends Controller
      */
     public function destroy($id)
     {
+        $deletePath = 'public' . DIRECTORY_SEPARATOR . 'pdfs' . DIRECTORY_SEPARATOR . $id;
 
+        if (Storage::exists($deletePath)) {
+            Storage::delete($deletePath);
+        };
+
+        if (\Request::ajax()) {
+            return response()->json(['status' => 'ok']);
+        };
+
+        flash()->success(__('forum.deleted_file'));
+
+        return back();
     }
 }

@@ -78,7 +78,9 @@ Route::get('download/{fileName}', function ($fileName) {
 })->name('download');
 
 /* pdf to image chang */
-Route::resource('pdf-to-img', 'PdfToImgController')->only('create', 'store');
+Route::get('pdf-to-img/download/{fileName}', 'PdfToImgController@download')->name('pdf-to-img.download');
+Route::post('pdf-to-img/all-download', 'PdfToImgController@allDownload')->name('pdf-to-img.allDownload');
+Route::resource('pdf-to-img', 'PdfToImgController')->only('index', 'show');
 Route::resource('pdf-files', 'PdfFilesController')->only('store', 'destroy');
 
 /* 개인정보처리방침 */

@@ -13,7 +13,7 @@
             <div class="navbar-collapse collapse" id="navbarCollapse">
                 <ul class="navbar-nav ml-auto justify-content-end">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('pdf-to-img.create') }}">{!! icon('change') !!} Pdf to image</a>
+                        <a class="nav-link" href="{{ route('pdf-to-img.index') }}">{!! icon('change') !!} Pdf to image</a>
                     </li>
                     @if(!Auth::check())
                     <li class="nav-item">
