@@ -1,6 +1,6 @@
 <!-- resources/views/comments/partial/controll.blade.php -->
 
-<div class="dropdown pull-right hidden-xs hidden-sm">
+<div class="dropdown float-right hidden-xs hidden-sm">
     <span class="dropdown-toggle btn btn-info btn-xs none-after" type="button" data-toggle="dropdown" style="padding-right: 0.2rem">{!! icon('dropdown') !!}</span>
     <ul class="dropdown-menu dropdown-menu-right" role="menu">
         <li role="presentation">

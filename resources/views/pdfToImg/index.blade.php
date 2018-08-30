@@ -67,10 +67,7 @@
             data: {
                 _method: "DELETE",
                 _token: CSRF_TOKEN,
-            },
-            success: function(file, data) {
-                handleImage('content', file._url, true);
-            },
+            }
         });
     });
 </script>

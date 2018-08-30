@@ -1,7 +1,7 @@
 <!-- resources/views/layouts/partial/footer.blade.php -->
 <footer class="footer d-flex p-4 mt-5 border-top text-muted">
         <div class="container">
-        <ul class="list-inline pull-right locale">
+        <ul class="list-inline float-right locale">
             <li class="list-inline-item">{!! icon('locale') !!}</li>
             @foreach (['ko' => '한국어', 'en' => 'English'] as $locale => $language)
             <li class="list-inline-item pl-2 pr-2 {{ ($locale == $currentLocale) ? 'bg-primary' : '' }}">
