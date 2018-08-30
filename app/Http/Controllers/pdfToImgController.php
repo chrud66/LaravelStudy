@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Storage;
 use \Spatie\PdfToImage\Pdf as Pdf;
 
-class pdfToImgController extends Controller
+class PdfToImgController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -130,25 +130,36 @@ class pdfToImgController extends Controller
             return back();
         };
 
-        $zipPath = 'storage' . DIRECTORY_SEPARATOR . 'pdfs' . DIRECTORY_SEPARATOR . 'zip' . DIRECTORY_SEPARATOR . time() . '_all_images.zip';
-
-        $folderPath = 'storage' . DIRECTORY_SEPARATOR . 'pdfs' . DIRECTORY_SEPARATOR . 'images';
+        //압축파일명
+        $zipName = time() . '_all_images.zip';
+        //공통 폴더 경로
+        $basePath = 'storage' . DIRECTORY_SEPARATOR . 'pdfs' . DIRECTORY_SEPARATOR;
+        //집파일 저장 경로
+        $zipPath = $basePath . 'zips' . DIRECTORY_SEPARATOR . $zipName;
+        //이미지 파일들 경로
+        $folderPath = $basePath . 'images' . DIRECTORY_SEPARATOR;
 
         $arrFilePaths = [];
 
+        //이미지 파일들 존재 여부 체크
         foreach ($fileNames as $fileName) {
-            $filePath = 'public' . DIRECTORY_SEPARATOR . 'pdfs' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . $fileName;
+            $filePath = $folderPath . $fileName;
 
-            if (! Storage::exists($filePath)) {
-                abort(404);
+            if (! \File::exists($filePath)) {
+                flash()->error('존재하지 않는 이미지 파일입니다.');
+                return back();
             };
 
-            $arrFilePaths[] = $folderPath . DIRECTORY_SEPARATOR . $fileName;
+            $arrFilePaths[] = $filePath;
         };
 
-        \Zipper::make($zipPath)->add($arrFilePaths);
+        \Zipper::make($zipPath)->add($arrFilePaths)->close();
 
-        //return response()->download(storage_path($downPath));
-        return null;
+        if (! \File::exists(public_path($zipPath))) {
+            flash()->error('압축파일 생성에 실패하였습니다.');
+            return back();
+        };
+
+        return response()->download(public_path($zipPath));
     }
 }

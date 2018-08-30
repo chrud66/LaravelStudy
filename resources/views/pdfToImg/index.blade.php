@@ -5,17 +5,27 @@
 @endsection
 
 @section('content')
-<form action="{{ route('pdf-to-img.show', '') }}" method="GET" role="form" class="form__pdf">
-    <div class="form-group">
-        <div id="my-dropzone" class="dropzone"></div>
+<div class="container bg-white clearfix pt-4 pb-4">
+    <div class="card mb-4">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <h4>PDF파일을 JPG이미지로 변환합니다.</h4>
+                <h6>-이미지 변환에는 PDF의 크기에 따라 많은 시간이 소요될 수 있으므로 변환 버튼 클릭 후 잠시 기다려주세요.</h6>
+            </div>
+        </div>
     </div>
+    <form action="{{ route('pdf-to-img.show', '') }}" method="GET" role="form" class="form__pdf">
+        <div class="form-group">
+            <div id="my-dropzone" class="dropzone"></div>
+        </div>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-lg btn-block">
-            변환 하기
-        </button>
-    </div>
-</form>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg btn-block">
+                변환 하기
+            </button>
+        </div>
+    </form>
+</div>
 @endsection
 
 
