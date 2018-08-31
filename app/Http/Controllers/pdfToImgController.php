@@ -127,7 +127,7 @@ class PdfToImgController extends Controller
 
         if (! count($fileNames)) {
             flash()->error('이미지 파일이 없습니다.');
-            return back();
+            return redirect(route('pdf-to-img.index'));
         };
 
         //압축파일명
@@ -157,7 +157,7 @@ class PdfToImgController extends Controller
 
         if (! \File::exists(public_path($zipPath))) {
             flash()->error('압축파일 생성에 실패하였습니다.');
-            return back();
+            return redirect(route('pdf-to-img.index'));
         };
 
         return response()->download(public_path($zipPath));
