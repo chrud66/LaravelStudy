@@ -147,7 +147,7 @@ class PdfToImgController extends Controller
 
             if (! \File::exists($filePath)) {
                 flash()->error('존재하지 않는 이미지 파일입니다.');
-                return back();
+                return redirect(route('pdf-to-img.index'));
             };
 
             $arrFilePaths[] = $filePath;
