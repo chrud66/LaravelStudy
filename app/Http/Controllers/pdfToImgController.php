@@ -63,8 +63,11 @@ class PdfToImgController extends Controller
         $pdf->setCompressionQuality(100);
 
         $arrImgName = [];
+
         foreach (range(1, $pdf->getNumberOfPages()) as $pageNum) {
-            $pdf->setPage($pageNum)->saveImage($imgSavePath . $fileName . '_page' . $pageNum . '.jpg');
+            if (! Storage::exists($basePath . 'images' . DIRECTORY_SEPARATOR . $fileName . '_page' . $pageNum . '.jpg')) {
+                $pdf->setPage($pageNum)->saveImage($imgSavePath . $fileName . '_page' . $pageNum . '.jpg');
+            }
 
             $arrImgName[] = $fileName . '_page' . $pageNum . '.jpg';
         };
