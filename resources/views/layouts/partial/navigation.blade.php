@@ -15,6 +15,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('pdf-to-img.index') }}">{!! icon('change') !!} Pdf to image</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('images-to-pdf.index') }}" class="nav-link">
+                            {!! icon('change') !!} Images to Pdf
+                        </a>
+                    </li>
                     @if(!Auth::check())
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">{!! icon('login') !!} {{ __('auth.title_login') }}</a>
