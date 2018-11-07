@@ -13,7 +13,7 @@
             </div>
         </div>
     </div>
-    <form action="{{ route('images-to-pdf.show', '') }}" method="GET" role="form" class="form__pdf">
+    <form action="{{ route('images-to-pdf.show', '/') }}" method="GET" role="form" class="form__pdf">
         <div class="form-group">
             <div id="my-dropzone" class="dropzone"></div>
         </div>
@@ -29,22 +29,59 @@
 
 @section('script') {!! Html::script('/js/dropzone/dropzone.js') !!}
 <script>
+    var $upFiles = new Array();
+
     var form = $("form.form__pdf").first(),
         dropzone  = $("div.dropzone");
         baseUrl = form.attr('action');
 
+    form.submit(function () {
+
+        if($upFiles.length <= 0) {
+            flash('danger', '첨부된 이미지가 없습니다.', 2500);
+            return false;
+        };
+
+        $filesJson = JSON.stringify($upFiles);
+
+        $.ajax({
+            type: "POST",
+            async: false,
+            dataType: "json",
+            url: "/images-to-pdf",
+            data: {
+                _token: "{{ csrf_token() }}",
+                fileList: $filesJson,
+            },
+            success: function (res) {
+                console.log(res);
+                if(res.status === 'success') {
+                    window.location.href = '/images-to-pdf/' + res.pdfName;
+                } else {
+                    flash('danger', '알 수 없는 에러가 발생했습니다.', 2500);
+                }
+            },
+            error: function(res, error) {
+                $resTxt = JSON.parse(res.responseText);
+                flash('danger', $resTxt.message, 2500);
+            }
+        });
+
+        return false;
+    });
+
     Dropzone.autoDiscover = false;
     var myDropzone = new Dropzone("div#my-dropzone", {
         url: "/images-to-pdf/file-upload",
+        parallelUploads: 1,
         params: {
             _token: "{{ csrf_token() }}",
         },
         dictDefaultMessage: "<div class=\"text-center text-muted\">" +
         "<h2>이미지 파일들을 끌어다 놓으세요.</h2>" +
-        "<p>(또는 여기를 클릭하여 파일을 선택하세요.)</p>" +
-        "<p>(1개의 PDF 파일만 업로드 하실 수 있습니다.)</p></div>",
+        "<p>(또는 여기를 클릭하여 파일을 선택하세요.)</p>",
         addRemoveLinks: true,
-        acceptedFiles: "application/pdf",
+        acceptedFiles: "image/png, image/jpg, image/jpeg",
     });
 
     myDropzone.on("success", function (file, data) {
@@ -52,17 +89,32 @@
         file._name = data.name;
         file._url = data.url;
 
-        form.attr('action', baseUrl + '/' + file._name);
+        $data = new Object();
+        $data.name = file._name;
+
+        $upFiles.push($data);
+
+        //console.log($upFiles);
+
+        //form.attr('action', baseUrl + '/' + file._name);
     });
 
     myDropzone.on("removedfile", function(file) {
+        $fileName = file._name;
         $.ajax({
             type: "POST",
-            url: "/images-to-pdf/file-destory",
+            url: "/images-to-pdf/file-destroy",
             data: {
                 _method: "DELETE",
                 _token: "{{ csrf_token() }}",
-                fileName: file._id;
+                fileName: $fileName,
+            },
+            success: function () {
+                $upFiles = $.grep($upFiles, function(value) {
+                    return value.name != $fileName;
+                });
+
+                //console.log($upFiles);
             }
         });
     });

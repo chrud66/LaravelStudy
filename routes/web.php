@@ -84,10 +84,10 @@ Route::resource('pdf-to-img', 'PdfToImgController')->only('index', 'show');
 Route::resource('pdf-files', 'PdfFilesController')->only('store', 'destroy');
 
 /* images to pdf convert */
-Route::resource('images-to-pdf', 'ImagesToPdfController')->only('index', 'show');
+Route::resource('images-to-pdf', 'ImagesToPdfController')->only('index', 'show', 'store');
 Route::get('images-to-pdf/download/{fileName}', 'ImagesToPdfController@download')->name('images-to-pdf.download');
 Route::post('images-to-pdf/file-upload', 'ImagesToPdfController@fileUpload')->name('images-to-pdf.file-upload');
-Route::post('images-to-pdf/file-destroy', 'ImagesToPdfController@fileDestroy')->name('images-to-pdf.file-destory');
+Route::delete('images-to-pdf/file-destroy', 'ImagesToPdfController@fileDestroy')->name('images-to-pdf.file-destory');
 
 /* 개인정보처리방침 */
 /*Route::get('privacy', function () {
