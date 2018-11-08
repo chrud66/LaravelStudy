@@ -82,7 +82,7 @@ class ImagesToPdfController extends Controller
     public function show($id)
     {
         $basePath = public_path('storage' . DIRECTORY_SEPARATOR . 'imgToPdfs' . DIRECTORY_SEPARATOR . 'pdfs' . DIRECTORY_SEPARATOR);
-        $filePath = $basePath . $id . 's';
+        $filePath = $basePath . $id;
 
         if (! File::exists($filePath)) {
             flash()->error('존재하지 않는 PDF 파일입니다.');
