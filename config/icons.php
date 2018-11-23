@@ -39,4 +39,9 @@ return [
     'facebook'    => 'fab fa-facebook-square',
     'pick'        => 'far fa-thumbs-up',
     'change'      => 'fas fa-exchange-alt',
+    'home'        => 'fas fa-home',
+    'indent'      => 'fas fa-indent',
+    'outdent'     => 'fas fa-outdent',
+    'menubar'     => 'fas fa-bars',
+    'arrow-right' => 'fas fa-angle-right',
 ];

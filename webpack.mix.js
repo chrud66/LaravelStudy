@@ -30,6 +30,8 @@ mix.js(['resources/assets/js/app.js',
 
     .sass('resources/assets/sass/app.scss', 'public/css/allsass.css')
 
+    .sass('resources/assets/sass/admin.scss', 'public/css')
+
     .styles(['resources/assets/vendor/earthsong.css',
         ], 'public/css/allstyles.css')
 

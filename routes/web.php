@@ -13,11 +13,9 @@
 Auth::routes();
 Route::get('home', 'HomeController@index')->name('home');
 
-/*
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
-*/
+});*/
 
 Route::get('test', function () {
     //echo env('APP_URL');
@@ -89,6 +87,20 @@ Route::get('images-to-pdf/download/{fileName}', 'ImagesToPdfController@download'
 Route::post('images-to-pdf/file-upload', 'ImagesToPdfController@fileUpload')->name('images-to-pdf.file-upload');
 Route::delete('images-to-pdf/file-destroy', 'ImagesToPdfController@fileDestroy')->name('images-to-pdf.file-destory');
 
+/* Admin Page */
+Route::name('admin.')->namespace('Admin')->prefix('Admin')->middleware(['auth'])->group(function () {
+    Route::get('/', function () {
+        return redirect()->route('admin.dashboard');
+    });
+
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+});
+/*Route::group(['middleware' => 'auth', 'namespace' => 'Admin','prefix' => 'Admin', 'as' => 'admin.'], function () {
+
+
+
+});
+*/
 /* 개인정보처리방침 */
 /*Route::get('privacy', function () {
     return '개인정보처리방침';

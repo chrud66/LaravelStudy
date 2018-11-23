@@ -56894,6 +56894,13 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./resources/assets/sass/admin.scss":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./resources/assets/sass/app.scss":
 /***/ (function(module, exports) {
 
@@ -56906,7 +56913,8 @@ module.exports = Component.exports
 
 __webpack_require__("./resources/assets/js/app.js");
 __webpack_require__("./node_modules/select2/src/js/jquery.select2.js");
-module.exports = __webpack_require__("./resources/assets/sass/app.scss");
+__webpack_require__("./resources/assets/sass/app.scss");
+module.exports = __webpack_require__("./resources/assets/sass/admin.scss");
 
 
 /***/ })
