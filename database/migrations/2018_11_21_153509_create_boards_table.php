@@ -19,6 +19,7 @@ class CreateBoardsTable extends Migration
             $table->unsignedInteger('user_id')->comment('작성자 고유번호')->unsigned()->index();
             $table->unsignedTinyInteger('is_notice')->comment('공지사항 여부 [ 0 : 공지 미적용, 1 : 공지적용 ]')->default(0);
             $table->unsignedTinyInteger('is_secret')->comment('비밀글 사용여부 [ 0 : 비밀글 미적용, 1 : 비밀글 적용 ]')->default(0);
+            $table->unsignedTinyInteger('is_editor')->comment('에디터 사용하여 작성 여부 [ 0 : 미사용, 1 : 사용 ]')->default(0);
             $table->string('name', 50)->comment('작성자 이름')->nullable();
             $table->string('password')->comment('글 비밀번호')->nullable();
             $table->string('title')->comment('제목');

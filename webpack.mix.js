@@ -20,6 +20,9 @@ mix.js(['resources/assets/js/app.js',
         'node_modules/select2/src/js/jquery.select2.js',
         ], 'public/js/alljs.js')
 
+    .js(['resources/assets/js/admin/admin.js'
+        ], 'public/js/admin')
+
     .scripts(['node_modules/fastclick/lib/fastclick.js',
             'node_modules/jquery-tabby/jquery.textarea.js',
             'node_modules/autosize/dist/autosize.js',
@@ -30,7 +33,7 @@ mix.js(['resources/assets/js/app.js',
 
     .sass('resources/assets/sass/app.scss', 'public/css/allsass.css')
 
-    .sass('resources/assets/sass/admin.scss', 'public/css')
+    .sass('resources/assets/sass/admin.scss', 'public/css/admin')
 
     .styles(['resources/assets/vendor/earthsong.css',
         ], 'public/css/allstyles.css')

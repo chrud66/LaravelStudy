@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +8,7 @@
 
     <title> @yield('title')</title>
 
-    <link rel="stylesheet" href="{{ mix('css/admin.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/admin/admin.css') }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     <style>
         body {
@@ -40,7 +39,8 @@
         </div>
         @include('Admin.layouts.partial.footer')
     </div>
-    <script src="{{ mix('js/app.js') }}"></script>
+    <div class="dim"></div>
+    <script src="{{ mix('js/admin/admin.js') }}"></script>
     @yield('script')
     @yield('script2')
 </body>

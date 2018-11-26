@@ -43,5 +43,8 @@ return [
     'indent'      => 'fas fa-indent',
     'outdent'     => 'fas fa-outdent',
     'menubar'     => 'fas fa-bars',
+    'arrow-left'  => 'fas fa-angle-left',
     'arrow-right' => 'fas fa-angle-right',
+    'arrow-up'    => 'fas fa-angle-up',
+    'arrow-down'  => 'fas fa-angle-down',
 ];

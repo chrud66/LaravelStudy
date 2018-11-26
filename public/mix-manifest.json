@@ -1,7 +1,8 @@
 {
     "/js/alljs.js": "/js/alljs.js?id=e1026a56bce489f348df",
     "/css/allsass.css": "/css/allsass.css?id=7f13a52d6f034b71211d",
-    "/css/admin.css": "/css/admin.css?id=b8d2f2956ef198fbbb72",
+    "/css/admin/admin.css": "/css/admin/admin.css?id=643b9d9759df7f1f766e",
+    "/js/admin/admin.js": "/js/admin/admin.js?id=1f71cbddc5de1148f127",
     "/js/allscripts.js": "/js/allscripts.js?id=7a26a0d0c5f307c69f31",
     "/css/allstyles.css": "/css/allstyles.css?id=8b389b8e374b20ad33f7",
     "/js/app.js": "/js/app.js?id=766db158c9077e894306",
