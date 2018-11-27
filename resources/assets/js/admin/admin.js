@@ -6,7 +6,7 @@ $(document).ready(function () {
 
     /* 사이드바 */
     $menubar.on('admin.menubar.open', function () {
-        $sidebar.addClass('open');
+        $menubar.addClass('open');
         $dim.show();
         $('body').css('overflow', 'hidden');
         $('html').css('position', 'fixed');

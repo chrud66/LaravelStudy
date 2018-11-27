@@ -34,8 +34,27 @@
         @include('Admin.layouts.partial.navigation')
         @include('layouts.partial.flash_message')
 
-        <div class="container" id="app">
-            @yield('content')
+        <div class="transition" id="content">
+            <div class="ct">
+                @section('page_head')
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2>
+                            @section('page_title')
+                            관리자 페이지
+                            @show
+                        </h2>
+                        <small>
+                            @section('page_description')
+                                관리자 페이지
+                            @show
+                        </small>
+                    </div>
+                </div>
+
+                @show
+                @yield('content')
+            </div>
         </div>
         @include('Admin.layouts.partial.footer')
     </div>

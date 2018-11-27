@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
 // Common
-@import "common";
+//@import "common";
 // Variables
 @import "variables";
 
@@ -22,10 +22,6 @@
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
-/* common */
-@import "common";
-//mediaqueries Style
-@import "mediaqueries";
 
 * {
   -webkit-box-sizing: border-box;
@@ -155,7 +151,10 @@ header .btn-site-home {
 }
 
 header .right-menu {
-  height:64px
+  height:64px;
+  position: absolute;
+  right: 0;
+  top: 0
 }
 
 header .btn-slide i,
@@ -172,9 +171,19 @@ header .btn-site-home i:hover {
 }
 
 header .right-menu {
-  position: absolute;
-  right: 0;
-  top: 0
+  padding-right: 16px;
+}
+
+header .right-menu .navbar-nav > .dropdown > .nav-link {
+  display: table;
+  padding: 0 16px;
+  font-size: 14px
+}
+
+header .right-menu .navbar-nav .dropdown > .nav-link > div {
+  height: 64px;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 header .dropdown-toggle-split {
@@ -405,6 +414,17 @@ aside.open {
   margin-left: 0
 }
 
+#content {
+  position: relative;
+  clear: both;
+  min-height: 100%;
+  margin: -64px 0 -47px 0;
+  background-color: #F1F2F6
+}
+
+.ct {
+  padding: 64px 0 47px
+}
 
 div.footer {
   position: relative;
@@ -429,8 +449,12 @@ div.footer a {
     left: 0
   }
 
-  div.footer {
-    margin-left:240px
+  #content {
+    margin-left: 240px
+  }
+
+  .footer {
+    margin-left: 240px
   }
 
   .sidebar-collapse .dim {

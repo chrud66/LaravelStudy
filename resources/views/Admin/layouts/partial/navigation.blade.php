@@ -36,7 +36,7 @@
                 <li>
                     <a href="#">자유게시판</a>
                 </li>
-                <li class="sub-depth">
+                <!--li class="sub-depth">
                     <a href="#">회원게시판</a>
                     <button type="button" class="btn-link toggle">
                         {!! icon('arrow-right', 'admin-icon') !!}
@@ -49,7 +49,7 @@
                             <a href="#">테스트 2</a>
                         </li>
                     </ul>
-                </li>
+                </li-->
             </ul>
         </li>
     </ul>
