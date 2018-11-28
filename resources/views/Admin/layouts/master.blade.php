@@ -36,23 +36,41 @@
 
         <div class="transition" id="content">
             <div class="ct">
-                @section('page_head')
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h2>
+                <div class="title-area container-fluid">
+                    @section('page_head')
+                    <div class="row">
+                        <div class="col-sm-12">
                             @section('page_title')
-                            관리자 페이지
+                                <h2>
+                                    @section('page_title_txt')
+                                        관리자 페이지
+                                    @show
+                                </h2>
                             @show
-                        </h2>
-                        <small>
                             @section('page_description')
-                                관리자 페이지
+                                <small>
+                                    @section('page_description_txt')
+                                        관리자 페이지 설명
+                                    @show
+                                </small>
                             @show
-                        </small>
+                        </div>
                     </div>
+                    <div class="row locate">
+                        <div class="col-sm-12">
+                            <ul>
+                                <li>
+                                    <a href="{{ route('admin.') }}">Home</a>
+                                </li>
+                                @section('locate')
+                                @show
+                                @yield('add_locate')
+                            </ul>
+                        </div>
+                    </div>
+                    @show
                 </div>
 
-                @show
                 @yield('content')
             </div>
         </div>

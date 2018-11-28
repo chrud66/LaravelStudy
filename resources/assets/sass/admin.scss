@@ -3,6 +3,7 @@
 
 // Common
 //@import "common";
+@import 'adminCommon';
 // Variables
 @import "variables";
 
@@ -17,6 +18,8 @@
 //@import "node_modules/font-awesome/scss/font-awesome";
 //select2
 @import "node_modules/select2/src/scss/core";
+
+@import 'adminCommon';
 
 .navbar-laravel {
   background-color: #fff;
@@ -34,6 +37,55 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box
+}
+
+html {
+  font-size: 10px;
+  -webkit-tap-highlight-color: transparent
+}
+
+body {
+  //font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: '나눔바른고딕',NanumBarunGothic,ng,'맑은 고딕','Malgun Gothic','돋움',Dotum, Arial, sans-serif;
+  font-size: 14px;
+  //line-height: 1.42857;
+  color: #333;
+  background-color: #fff
+}
+
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit
+}
+
+a {
+  color: #6F8DFF;
+  text-decoration: none;
+  cursor: pointer
+}
+
+a:hover,
+a:focus {
+  color: #2350ff;
+  text-decoration: underline
+}
+
+a:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px
+}
+
+figure {
+  margin: 0
+}
+
+img {
+  vertical-align: middle
 }
 
 html {
@@ -58,6 +110,12 @@ body,
   right: 0;
   min-height: 100%;
   height: 100%;
+  margin: 0;
+  padding: 0
+}
+
+.panel .panel-heading .txt_tit,
+.locate ul {
   margin: 0;
   padding: 0
 }
@@ -426,6 +484,87 @@ aside.open {
   padding: 64px 0 47px
 }
 
+.title-area {
+  position: relative;
+  margin-bottom: 22px;
+  background-color: #fff;
+  box-shadow: 0 0px 3px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0px 3px rgba(0, 0, 0, 0.3)
+}
+
+.title-area .title-content {
+  position: relative;
+  padding: 24px
+}
+
+.title-area .tit_bottom {
+  margin: 24px -24px 0;
+  padding: 15px 24px 0;
+  border-top: 1px solid #e4e4e4
+}
+
+.title-area .row:first-child div[class*="col-"] {
+  padding-top: 24px;
+  padding-bottom: 24px
+}
+
+.title-area .row:first-child div[class*="col-"]:before {
+  content: " ";
+  display: table
+}
+
+.title-area .row:first-child div[class*="col-"]:after {
+  content: " ";
+  display: table;
+  clear: both
+}
+
+.title-area h2 {
+  font-size: 28px;
+  line-height: 40px;
+  font-weight: normal
+}
+
+.title-area h2 a {
+  color: #2c2e37
+}
+
+.title-area h2 i {
+  margin-right: 18px;
+  color: #8E8E93
+}
+
+.title-area h2+small {
+  display: block;
+  margin-top: 4px;
+  font-size: 14px;
+  color: #8e8e93;
+  line-height: 22px
+}
+
+.title-area .row.locate {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-top: 1px solid #e4e4e4
+}
+
+.title-area .locate li {
+  display: inline-block;
+  color: #8e8e93;
+  font-size: 12px
+}
+
+.title-area .locate li a {
+  display: inline-block;
+  padding: 0 5px;
+  color: #2c2e37
+}
+
+.title-area .locate li .admin-icon {
+  color: #8e8e93;
+  font-size: 10px
+}
+
 div.footer {
   position: relative;
   height: 47px;
@@ -453,7 +592,7 @@ div.footer a {
     margin-left: 240px
   }
 
-  .footer {
+  div.footer {
     margin-left: 240px
   }
 
