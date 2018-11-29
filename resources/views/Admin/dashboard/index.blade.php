@@ -74,16 +74,19 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6 col-xs-12 mb-5">
+        <div class="col-md-12 col-xs-12 mb-5">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title h1 font-weight-bold">주간 접속자</h5>
-                    <p class="card-text">
-                        text
-                    </p>
+                    <div class="card-text">
+                        <div class="col-md-4 col-lg-4">
+                            <canvas id="user-chart"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <!--
         <div class="col-md-6 col-xs-12 mb-5">
             <div class="card">
                 <div class="card-body">
@@ -102,6 +105,29 @@
                 </div>
             </div>
         </div>
+        -->
     </div>
 </div>
+@endsection
+
+@section('script')
+<script src="/js/chart/Chart.min.js"></script>
+<script>
+var ctx = $('#user-chart');
+var data = {
+    datasets: [{
+        data: [10, 20],
+        backgroundColor: ['#1ca8dd', '#1bc98e'],
+        labels: ['신규 회원', '탈퇴 회원']
+    }],
+
+    //labels: [ '신규 회원','탈퇴 회원']
+};
+
+
+var newUserChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: data
+});
+</script>
 @endsection
