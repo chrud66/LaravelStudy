@@ -47,4 +47,5 @@ return [
     'arrow-right' => 'fas fa-angle-right',
     'arrow-up'    => 'fas fa-angle-up',
     'arrow-down'  => 'fas fa-angle-down',
+    'redo'        => 'fas fa-redo-alt'
 ];

@@ -71,13 +71,16 @@
                     @show
                 </div>
 
-                @yield('content')
+                <div class="container">
+                    @yield('content')
+                </div>
             </div>
         </div>
         @include('Admin.layouts.partial.footer')
     </div>
     <div class="dim"></div>
     <script src="{{ mix('js/admin/admin.js') }}"></script>
+    <script src="{{ mix('js/allscripts.js') }}"></script>
     @yield('script')
     @yield('script2')
 </body>

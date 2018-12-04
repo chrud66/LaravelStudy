@@ -12038,6 +12038,17 @@ html {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.flash_message,
+.js-flash-message {
+  display: inline-block;
+  position: fixed;
+  bottom: 50px;
+  right: 15px;
+  max-width: 450px;
+  opacity: .8;
+  z-index: 9999;
+}
+
 * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -12106,17 +12117,12 @@ html {
   padding: 0;
 }
 
-body {
-  color: #333;
-  background-color: #fff;
-}
-
 body,
 .admin-wrap {
   position: relative;
   left: 0;
   right: 0;
-  min-height: 100%;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
 }
@@ -12294,7 +12300,7 @@ aside {
   top: 0;
   bottom: 0;
   width: 240px;
-  min-height: 100%;
+  min-height: 100vh;
   background-color: #323232;
   z-index: 999;
   height: auto;
@@ -12477,7 +12483,7 @@ aside.open {
 #content {
   position: relative;
   clear: both;
-  min-height: 100%;
+  min-height: 100vh;
   margin: -64px 0 -47px 0;
   background-color: #F1F2F6;
 }
@@ -12578,6 +12584,33 @@ div.footer {
 
 div.footer a {
   color: #2c8beb;
+}
+
+.btn-rotate i {
+  -webkit-animation: rotate 1s infinite linear;
+  animation: rotate 1s infinite linear;
+}
+
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
 }
 
 @media (min-width: 1068px) {

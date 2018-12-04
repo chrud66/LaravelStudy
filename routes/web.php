@@ -94,6 +94,7 @@ Route::name('admin.')->namespace('Admin')->prefix('Admin')->middleware(['auth'])
     });
 
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('dashboard/get-user-data', 'DashboardController@getUserData')->name('dashboard.getUserData');
 });
 /*Route::group(['middleware' => 'auth', 'namespace' => 'Admin','prefix' => 'Admin', 'as' => 'admin.'], function () {
 

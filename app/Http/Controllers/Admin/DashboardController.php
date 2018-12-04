@@ -26,6 +26,13 @@ class DashboardController extends Controller
         return view('Admin.dashboard.index', compact('storageData'));
     }
 
+    public function getUserData()
+    {
+        $data = [100, 233];
+
+        return response()->json($data);
+    }
+
     private function storageExchange($bytes)
     {
         $prefix = array('B', 'KB', 'MB', 'GB', 'TB', 'EB', 'ZB', 'YB');
