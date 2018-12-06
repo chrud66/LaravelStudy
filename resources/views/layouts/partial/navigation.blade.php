@@ -36,6 +36,12 @@
                             {!! icon('user') !!} {{ Auth::user()->name }} <b class="caret"></b>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
+                            @hasanyrole('최고 관리자|관리자')
+                            <a href="{{ route('admin.dashboard') }}" class="dropdown-item">
+                               {!! icon('setting') !!} 관리자 페이지
+                            </a>
+                            @endhasanyrole
+
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); $('#logout-form').submit();">{!! icon('logout') !!} {{ __('auth.title_logout') }}</a>
 
                             <form action="{{ route('logout') }}" id="logout-form" method="POST" style="display: none">

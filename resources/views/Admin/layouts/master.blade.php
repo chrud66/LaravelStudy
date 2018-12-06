@@ -35,7 +35,7 @@
         @include('layouts.partial.flash_message')
 
         <div class="transition" id="content">
-            <div class="ct">
+            <div class="ct container">
                 <div class="title-area container-fluid">
                     @section('page_head')
                     <div class="row">
@@ -71,9 +71,7 @@
                     @show
                 </div>
 
-                <div class="container">
-                    @yield('content')
-                </div>
+                @yield('content')
             </div>
         </div>
         @include('Admin.layouts.partial.footer')

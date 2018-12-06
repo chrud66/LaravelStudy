@@ -87,6 +87,12 @@ class Handler extends ExceptionHandler
                     'description' => 'Sorry, the page or resource trying to view does not exist.'
                 ]), 404);
             }
+
+            if ($exception instanceof \Spatie\Permission\Exceptions\UnauthorizedException) {
+                flash()->error('접근권한이 없습니다.');
+                return back();
+                //abort(403, '접근 권한이 없습니다.');
+            }
         }
         //예외 처리 테스트 추가 끝
 

@@ -88,13 +88,16 @@ Route::post('images-to-pdf/file-upload', 'ImagesToPdfController@fileUpload')->na
 Route::delete('images-to-pdf/file-destroy', 'ImagesToPdfController@fileDestroy')->name('images-to-pdf.file-destory');
 
 /* Admin Page */
-Route::name('admin.')->namespace('Admin')->prefix('Admin')->middleware(['auth'])->group(function () {
+//Route::name('admin.')->namespace('Admin')->prefix('Admin')->middleware(['auth'])->group(function () {
+Route::name('admin.')->namespace('Admin')->prefix('Admin')->middleware(['auth', 'role:최고 관리자|관리자'])->group(function () {
     Route::get('/', function () {
         return redirect()->route('admin.dashboard');
     });
 
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
     Route::get('dashboard/get-user-data', 'DashboardController@getUserData')->name('dashboard.getUserData');
+    Route::get('dashboard/get-site-data', 'DashboardController@getSiteData')->name('dashboard.getSiteData');
+    Route::get('dashboard/get-connector-data', 'DashboardController@getConnectorData')->name('dashboard.getConnectorData');
 });
 /*Route::group(['middleware' => 'auth', 'namespace' => 'Admin','prefix' => 'Admin', 'as' => 'admin.'], function () {
 
