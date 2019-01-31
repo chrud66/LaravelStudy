@@ -34,27 +34,33 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password')
         ]);
 
-        factory(App\User::class, 9)->create();
-        $this->command->info('users table seeded');
+        /*factory(App\User::class, 9)->create();
+        $this->command->info('users table seeded');*/
 
         /**
          * Seeding roles table
          */
         Spatie\Permission\Models\Role::truncate();
         DB::table('model_has_roles')->truncate();
-        $adminRole = Spatie\Permission\Models\Role::create([
-            'name' => 'admin'
+        $superAdminRole = Spatie\Permission\Models\Role::create([
+            'name' => '최고 관리자'
         ]);
-        $memberRole = Spatie\Permission\Models\Role::create([
-            'name' => 'member'
+        $adminRole = Spatie\Permission\Models\Role::create([
+            'name' => '관리자'
+        ]);
+        $regularRole = Spatie\Permission\Models\Role::create([
+            'name' => '정회원'
+        ]);
+        $associateRole = Spatie\Permission\Models\Role::create([
+            'name' => '준회원'
         ]);
 
-        App\User::where('email', '!=', 'chrud66@example.com')->get()->map(function ($user) use ($memberRole) {
-            $user->assignRole($memberRole);
+        App\User::where('email', '!=', 'chrud66@example.com')->get()->map(function ($user) use ($regularRole) {
+            $user->assignRole($regularRole);
         });
 
-        App\User::whereEmail('chrud66@example.com')->get()->map(function ($user) use ($adminRole) {
-            $user->assignRole($adminRole);
+        App\User::whereEmail('chrud66@example.com')->get()->map(function ($user) use ($superAdminRole) {
+            $user->assignRole($superAdminRole);
         });
         $this->command->info('roles table seeded');
 
@@ -115,15 +121,17 @@ class DatabaseSeeder extends Seeder
             );
         });
 
-        $files = App\Attachment::pluck('name');
+        //$files = App\Attachment::pluck('name');
 
         if (!File::isDirectory(attachment_path())) {
             File::makeDirectory(attachment_path(), 777, true);
         }
 
+        /*
         foreach ($files as $file) {
             File::put(attachment_path($file), '');
         }
+        */
 
         $this->command->info('attachments table seeded');
 

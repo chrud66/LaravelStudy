@@ -94,17 +94,20 @@ Route::name('admin.')->namespace('Admin')->prefix('Admin')->middleware(['auth', 
         return redirect()->route('admin.dashboard');
     });
 
-    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
-    Route::get('dashboard/get-user-data', 'DashboardController@getUserData')->name('dashboard.getUserData');
-    Route::get('dashboard/get-site-data', 'DashboardController@getSiteData')->name('dashboard.getSiteData');
-    Route::get('dashboard/get-connector-data', 'DashboardController@getConnectorData')->name('dashboard.getConnectorData');
+    Route::name('dashboard.')->namespace('dashboard')->prefix('dashboard')->group(function () {
+        Route::get('/', 'DashboardController@index')->name('index');
+        Route::get('user-chart-data', 'DashboardController@getUserChartData')->name('userChartData');
+        Route::get('site-chart-data', 'DashboardController@getSiteChartData')->name('siteChartData');
+        Route::get('connector-chart-data', 'DashboardController@getConnectorChartData')->name('connectorChartData');
+    });
+
+    Route::name('board.')->namespace('board')->prefix('board')->group(function () {
+        Route::namespace('config')->group(function () {
+            Route::resource('config', 'ConfigController');
+        });
+    });
 });
-/*Route::group(['middleware' => 'auth', 'namespace' => 'Admin','prefix' => 'Admin', 'as' => 'admin.'], function () {
 
-
-
-});
-*/
 /* 개인정보처리방침 */
 /*Route::get('privacy', function () {
     return '개인정보처리방침';

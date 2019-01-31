@@ -9,14 +9,20 @@
     </div>
     <p class="list-title">MAIN MENU</p>
     <ul class="snb-list">
-        <li class="on">
-            <a href="{{ route('admin.dashboard') }}">
+        <li class="dashboard {{ request()->is('Admin/dashboard') ? 'on' : '' }}">
+            <a href="{{ route('admin.dashboard.index') }}">
                 {!! icon('menubar', 'admin-icon') !!}
                 대시보드
             </a>
         </li>
-        <li class="config-boards">
-            <a href="#">
+        <li class="config-boards {{ request()->is('Admin/board/config') ? 'on' : '' }}">
+            <a href="{{ route('admin.board.config.index') }}">
+                {!! icon('menubar', 'admin-icon') !!}
+                게시판 설정 관리
+            </a>
+        </li>
+        <li class="config-boards {{ request()->route()->getName() == 'admin.board.config.index' ? 'on' : '' }}">
+            <a href="{{ route('admin.board.config.index') }}">
                 {!! icon('menubar', 'admin-icon') !!}
                 게시판 설정 관리
             </a>

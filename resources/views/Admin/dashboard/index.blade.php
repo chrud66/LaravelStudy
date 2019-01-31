@@ -8,7 +8,7 @@
 @endsection
 
 @section('locate')
-    <li>{!! icon('arrow-right', 'admin-icon') !!}<a href="{{ route('admin.dashboard') }}">대시보드</a></li>
+    <li>{!! icon('arrow-right', 'admin-icon') !!}<a href="{{ route('admin.dashboard.index') }}">대시보드</a></li>
 @endsection
 
 @section('content')
@@ -178,7 +178,7 @@ var newUserChart = new Chart(userCtx, {
 
 var getUserData = function(redoFlag) {
     $.ajax({
-        url: '{{ route("admin.dashboard.getUserData") }}',
+        url: '{{ route("admin.dashboard.userChartData") }}',
         method: 'GET',
         dataType: 'json',
         success: function(data) {
@@ -215,7 +215,7 @@ var newSiteChart = new Chart(siteCtx, {
 
 var getSiteData = function(redoFlag) {
     $.ajax({
-        url: '{{ route("admin.dashboard.getSiteData") }}',
+        url: '{{ route("admin.dashboard.siteChartData") }}',
         method: 'GET',
         dataType: 'json',
         success: function(data) {
@@ -261,7 +261,7 @@ var newConnectorChart = new Chart(connectorCtx, {
 
 var getConnectorData = function(redoFlag, chartOption) {
     $.ajax({
-        url: '{{ route("admin.dashboard.getConnectorData") }}',
+        url: '{{ route("admin.dashboard.connectorChartData") }}',
         method: 'GET',
         data: 'chartOption=' + chartOption,
         dataType: 'json',

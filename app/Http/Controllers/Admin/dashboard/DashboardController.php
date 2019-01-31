@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\dashboard;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -27,7 +27,7 @@ class DashboardController extends Controller
         return view('Admin.dashboard.index', compact('storageData'));
     }
 
-    public function getUserData()
+    public function getUserChartData()
     {
         $min = 1;
         $max = 999;
@@ -37,7 +37,7 @@ class DashboardController extends Controller
         return response()->json($data);
     }
 
-    public function getSiteData()
+    public function getSiteChartData()
     {
         $min = 1000;
         $max = 9999;
@@ -47,7 +47,7 @@ class DashboardController extends Controller
         return response()->json($data);
     }
 
-    public function getConnectorData(Request $request)
+    public function getConnectorChartData(Request $request)
     {
         $min = 1000;
         $max = 9999;
