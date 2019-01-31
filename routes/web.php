@@ -91,7 +91,7 @@ Route::delete('images-to-pdf/file-destroy', 'ImagesToPdfController@fileDestroy')
 //Route::name('admin.')->namespace('Admin')->prefix('Admin')->middleware(['auth'])->group(function () {
 Route::name('admin.')->namespace('Admin')->prefix('Admin')->middleware(['auth', 'role:최고 관리자|관리자'])->group(function () {
     Route::get('/', function () {
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('admin.dashboard.index');
     });
 
     Route::name('dashboard.')->namespace('dashboard')->prefix('dashboard')->group(function () {
