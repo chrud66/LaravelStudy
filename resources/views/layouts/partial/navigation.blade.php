@@ -37,7 +37,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             @hasanyrole('최고 관리자|관리자')
-                            <a href="{{ route('admin.dashboard') }}" class="dropdown-item">
+                            <a href="{{ route('admin.dashboard.index') }}" class="dropdown-item">
                                {!! icon('setting') !!} 관리자 페이지
                             </a>
                             @endhasanyrole
