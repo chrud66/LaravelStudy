@@ -46,6 +46,9 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="text-right">
+                        <a class="btn btn-primary" href="{{ route('admin.board.config.create') }}">게시판 생성</a>
+                    </div>
                 </div>
             </div>
         </div>
