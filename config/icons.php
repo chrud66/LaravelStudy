@@ -48,5 +48,6 @@ return [
     'arrow-up'    => 'fas fa-angle-up',
     'arrow-down'  => 'fas fa-angle-down',
     'redo'        => 'fas fa-redo-alt',
-    'setting'     => 'fas fa-cog'
+    'setting'     => 'fas fa-cog',
+    'qr_code'     => 'fas fa-qrcode',
 ];

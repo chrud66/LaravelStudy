@@ -19,7 +19,9 @@ Route::get('home', 'HomeController@index')->name('home');
 
 Route::get('test', function () {
     //echo env('APP_URL');
-    return view('test');
+    phpinfo();
+    exit;
+    //return view('test');
 });
 
 
@@ -86,6 +88,9 @@ Route::resource('images-to-pdf', 'ImagesToPdfController')->only('index', 'show',
 Route::get('images-to-pdf/download/{fileName}', 'ImagesToPdfController@download')->name('images-to-pdf.download');
 Route::post('images-to-pdf/file-upload', 'ImagesToPdfController@fileUpload')->name('images-to-pdf.file-upload');
 Route::delete('images-to-pdf/file-destroy', 'ImagesToPdfController@fileDestroy')->name('images-to-pdf.file-destory');
+
+/* QR Code generate */
+Route::resource('qr-code', 'QrCodeController')->only('index', 'show');
 
 /* Admin Page */
 //Route::name('admin.')->namespace('Admin')->prefix('Admin')->middleware(['auth'])->group(function () {

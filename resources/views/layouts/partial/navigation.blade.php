@@ -12,6 +12,16 @@
 
             <div class="navbar-collapse collapse" id="navbarCollapse">
                 <ul class="navbar-nav ml-auto justify-content-end">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            {!! icon('menubar') !!} 기타 기능 <b class="caret"></b>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="{{ route('qr-code.index') }}">
+                                {!! icon('qr_code') !!}  QR-Code 생성기
+                            </a>
+                        </div>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('pdf-to-img.index') }}">{!! icon('change') !!} Pdf to image</a>
                     </li>
