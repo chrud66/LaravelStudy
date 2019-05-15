@@ -18,7 +18,6 @@
             <label for="qr-type">QR-Code 타입</label>
             <select name="qr-type" id="qr-type" class="form-control">
                 <option value="url" selected="selected">URL 링크</option>
-                <option value="btc">비트코인 전송</option>
                 <option value="email">이메일</option>
                 <option value="geo">지도</option>
                 <option value="phone">전화번호</option>
@@ -28,14 +27,55 @@
         </div>
         <div class="form-group">
             <label for="url">URL 링크</label>
-            <input type="number" class="form-control" id="btc" aria-describedby="btcHelp" placeholder="전송할 비트코인을 입력해주세요" max="100" min="0"  step="0.0001"/>
-            <small id="btcHelp" class="form-text text-muted">전송할 비트코인을 입력해주세요. example : 0.0034</small>
+            <input type="url" class="form-control" id="url" aria-describedby="urlHelp" placeholder="URL을 입력해주세요" required/>
+            <small id="urlHelp" class="form-text text-muted">URL을 입력하세요. example : http://www.naver.com</small>
         </div>
         <div class="form-group">
-            <label for="btc">비트코인 전송</label>
-            <input type="number" class="form-control" id="btc" aria-describedby="btcHelp" placeholder="전송할 비트코인을 입력해주세요" max="100" min="0"  step="0.0001"/>
-            <small id="btcHelp" class="form-text text-muted">전송할 비트코인을 입력해주세요. example : 0.0034</small>
+            <label for="email">이메일</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="이메일을 입력해주세요" required/>
+            <small id="emailHelp" class="form-text text-muted">이메일을 입력하세요. example : abcd@gmail.com</small>
         </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col">
+                    <label for="geo1">위도</label>
+                    <input type="number" class="form-control" id="geo1" aria-describedby="geo1Help" placeholder="위도를 입력해주세요" required/>
+                    <small id="geo1Help" class="form-text text-muted">위도를 입력하세요. example : 37.822214</small>
+                </div>
+                <div class="col">
+                    <label for="geo2">경도</label>
+                    <input type="number" class="form-control" id="geo2" aria-describedby="geo2Help" placeholder="경도를 입력해주세요" required/>
+                    <small id="geo2Help" class="form-text text-muted">경도를 입력하세요. example : -122.481769</small>
+                </div>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone">전화번호</label>
+            <input type="tel" class="form-control" id="phone" aria-describedby="phoneHelp" placeholder="전화번호를 입력해주세요" required/>
+            <small id="phoneHelp" class="form-text text-muted">전화번호를 입력하세요. example : 010-1234-5678</small>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col">
+                    <label for="sms1">문자메세지 번호</label>
+                    <input type="tel" class="form-control" id="sms1" aria-describedby="sms1Help" placeholder="문자를 보낼 번호를 입력하세요" required/>
+                    <small id="sms1Help" class="form-text text-muted">문자를 보낼 번호를 입력하세요. example : 010-1234-5678</small>
+                </div>
+                <div class="col">
+                    <label for="sms2">문자메세지 내용</label>
+                    <input type="text" class="form-control" id="sms2" aria-describedby="sms2Help" placeholder="문자메세지 내용을 입력해주세요" required/>
+                    <small id="sms2Help" class="form-text text-muted">문자메세지 내용을 입력하세요.</small>
+                </div>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="sms">문자메세지</label>
+            <input type="tel" class="form-control" id="sms" aria-describedby="smsHelp" placeholder="전화번호를 입력해주세요" required/>
+            <small id="phoneHelp" class="form-text text-muted">전화번호를 입력하세요. example : 010-1234-5678</small>
+        </div>
+
 
         <div class="form-group">
             <p class="text-center">
