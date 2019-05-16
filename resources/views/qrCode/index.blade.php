@@ -39,6 +39,7 @@
                 <button type="submit" class="btn btn-primary my-submit">
                     {!! icon('plane') !!} {{ __('common.post') }}
                 </button>
+                asdfasdf
             </p>
         </div>
     </form>
