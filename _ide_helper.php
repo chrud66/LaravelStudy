@@ -19047,11 +19047,11 @@ namespace SimpleSoftwareIO\QrCode\Facades {
     class QrCode {
         
         /**
-         * Generates a QrCode.
+         * Generates a qrCode.
          *
-         * @param string $text The text to be converted into a QrCode
-         * @param null|string $filename The filename and path to save the QrCode file
-         * @return string|void Returns a QrCode string depending on the format, or saves to a file.
+         * @param string $text The text to be converted into a qrCode
+         * @param null|string $filename The filename and path to save the qrCode file
+         * @return string|void Returns a qrCode string depending on the format, or saves to a file.
          * @static 
          */ 
         public static function generate($text, $filename = null)
@@ -19061,7 +19061,7 @@ namespace SimpleSoftwareIO\QrCode\Facades {
         }
         
         /**
-         * Merges an image with the center of the QrCode.
+         * Merges an image with the center of the qrCode.
          *
          * @param $filepath string The filepath to an image
          * @param $percentage float The amount that the merged image should be placed over the qrcode.
@@ -19076,7 +19076,7 @@ namespace SimpleSoftwareIO\QrCode\Facades {
         }
         
         /**
-         * Merges an image string with the center of the QrCode, does not check for correct format.
+         * Merges an image string with the center of the qrCode, does not check for correct format.
          *
          * @param $content string The string contents of an image.
          * @param $percentage float The amount that the merged image should be placed over the qrcode.
@@ -19090,7 +19090,7 @@ namespace SimpleSoftwareIO\QrCode\Facades {
         }
         
         /**
-         * Switches the format of the outputted QrCode or defaults to SVG.
+         * Switches the format of the outputted qrCode or defaults to SVG.
          *
          * @param string $format The desired format.
          * @throws \InvalidArgumentException
@@ -19104,9 +19104,9 @@ namespace SimpleSoftwareIO\QrCode\Facades {
         }
         
         /**
-         * Changes the size of the QrCode.
+         * Changes the size of the qrCode.
          *
-         * @param int $pixels The size of the QrCode in pixels
+         * @param int $pixels The size of the qrCode in pixels
          * @return \SimpleSoftwareIO\QrCode\BaconQrCodeGenerator 
          * @static 
          */ 
@@ -19117,7 +19117,7 @@ namespace SimpleSoftwareIO\QrCode\Facades {
         }
         
         /**
-         * Changes the foreground color of a QrCode.
+         * Changes the foreground color of a qrCode.
          *
          * @param int $red
          * @param int $green
@@ -19132,7 +19132,7 @@ namespace SimpleSoftwareIO\QrCode\Facades {
         }
         
         /**
-         * Changes the background color of a QrCode.
+         * Changes the background color of a qrCode.
          *
          * @param int $red
          * @param int $green
@@ -19147,7 +19147,7 @@ namespace SimpleSoftwareIO\QrCode\Facades {
         }
         
         /**
-         * Changes the error correction level of a QrCode.
+         * Changes the error correction level of a qrCode.
          *
          * @param string $level Desired error correction level.  L = 7% M = 15% Q = 25% H = 30%
          * @return \SimpleSoftwareIO\QrCode\BaconQrCodeGenerator 
@@ -19160,9 +19160,9 @@ namespace SimpleSoftwareIO\QrCode\Facades {
         }
         
         /**
-         * Creates a margin around the QrCode.
+         * Creates a margin around the qrCode.
          *
-         * @param int $margin The desired margin in pixels around the QrCode
+         * @param int $margin The desired margin in pixels around the qrCode
          * @return \SimpleSoftwareIO\QrCode\BaconQrCodeGenerator 
          * @static 
          */ 

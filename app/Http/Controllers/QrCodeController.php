@@ -13,7 +13,7 @@ class QrCodeController extends Controller
      */
     public function index()
     {
-        return view('QrCode.index');
+        return view('qrCode.index');
     }
 
     /**
