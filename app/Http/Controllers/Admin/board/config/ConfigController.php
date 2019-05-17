@@ -24,7 +24,7 @@ class ConfigController extends Controller
      */
     public function create()
     {
-        //
+        return view('Admin.board.config.create');
     }
 
     /**

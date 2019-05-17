@@ -164,6 +164,10 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         /**
+         * IDE Helper
+         */
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        /**
          * DebugBar
          */
         Barryvdh\Debugbar\ServiceProvider::class,
@@ -209,7 +213,11 @@ return [
         /**
          * ZIP 파일 압축
          */
-        Chumper\Zipper\ZipperServiceProvider::class
+        Chumper\Zipper\ZipperServiceProvider::class,
+        /**
+         * Qr 코드 생성기
+         */
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class
     ],
 
     /*
@@ -291,6 +299,10 @@ return [
          * Zip 파일 압축
          */
         'Zipper' => Chumper\Zipper\Zipper::class,
+        /**
+         * QR코드 생성기
+         */
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
     ],
 
 ];
