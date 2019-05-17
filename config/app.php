@@ -200,7 +200,7 @@ return [
          * JWT Auth
          * 제이슨 웹 토큰 API 인증시 사용
          */
-        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        //Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         /**
          * appkr/api
          * 공부하는거
@@ -293,8 +293,8 @@ return [
          * JWT Auth
          * 제이슨 웹 토큰 API 인증시 사용
          */
-        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
-        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        //'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        //'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         /**
          * Zip 파일 압축
          */
