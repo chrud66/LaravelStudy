@@ -90,7 +90,9 @@ Route::post('images-to-pdf/file-upload', 'ImagesToPdfController@fileUpload')->na
 Route::delete('images-to-pdf/file-destroy', 'ImagesToPdfController@fileDestroy')->name('images-to-pdf.file-destory');
 
 /* QR Code generate */
-Route::resource('qr-code', 'QrCodeController')->only('index', 'show');
+Route::resource('qr-code', 'QrCodeController')->only('index');
+Route::get('qr-code/form/{name}', 'QrCodeController@getForm')->name('qr-code-form');
+Route::post('qr-code/make', 'QrCodeController@generator')->name('qr-code-generator');
 
 /* Admin Page */
 //Route::name('admin.')->namespace('Admin')->prefix('Admin')->middleware(['auth'])->group(function () {

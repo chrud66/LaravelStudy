@@ -11,7 +11,7 @@
 </div>
 
 <div class="container__forum">
-    <form action="{{ route('articles.store') }}" method="POST" role="form" class="form__forum">
+    <form action="{{ route('qr-code-generator') }}" method="POST" role="form" class="form__forum">
         {!! csrf_field() !!}
 
         <div class="form-group">
@@ -39,7 +39,6 @@
                 <button type="submit" class="btn btn-primary my-submit">
                     {!! icon('plane') !!} {{ __('common.post') }}
                 </button>
-                asdfasdf
             </p>
         </div>
     </form>
@@ -48,11 +47,20 @@
 
 @section("script")
 <script type="application/javascript">
-    $getInputForm = function ($val) {
+    var getInputForm = function (val) {
+        $('div#inputArea').html('<div class="progress mb-3"><div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%"></div></div>');
 
+        fetch('{{ route('qr-code-form', '') }}/'+val)
+        .then((response) => {
+            //console.log(response.text());
+            return response.text();
+        }).then((data) => {
+            $('div#inputArea').html(data);
+        });
     };
+
     $("select#qr-type").change(function () {
-        $getInputForm($val);
+        getInputForm(this.value);
     })
 </script>
 @endsection
