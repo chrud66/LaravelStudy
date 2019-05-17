@@ -14,14 +14,18 @@
     @endforeach
 @endif
 
-@if ($errors->has(null))
+@if ($errors->any())
 <div class="container">
     <div class="alert alert-danger alert-dismissable flash-message" role="alert">
         <button type="button" class="close" data-dismiss="alert">
             <span aria-hidden="true">&times;</span>
             <span class="sr-only">Close</span>
         </button>
-        {{ __('common.msg_whoops') }}
+        @if($errors->getBag('default')->first())
+            {{ $errors->getBag('default')->first() }}
+        @else
+            {{ __('common.msg_whoops') }}
+        @endif
     </div>
 </div>
 @endif

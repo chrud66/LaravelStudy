@@ -37,7 +37,7 @@
                 </a>
 
                 <button type="submit" class="btn btn-primary my-submit">
-                    {!! icon('plane') !!} {{ __('common.post') }}
+                    {!! icon('plane') !!} 생성하기 {{-- __('common.post') --}}
                 </button>
             </p>
         </div>

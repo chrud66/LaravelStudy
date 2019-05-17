@@ -24,32 +24,40 @@ class QrCodeRequest extends FormRequest
     public function rules()
     {
         $qrType = $this->request->get('qr-type');
-        $rules = [];
+        $rules = ['qr-type' => 'required|in:url,email,geo,phone,sms,wifi'];
 
         switch ($qrType) {
             case 'url':
-                $rules = ['url' => 'required|url'];
+                $rules[$qrType] = 'required|url';
                 break;
             case 'email':
+                $rules[$qrType] = 'required|numeric';
                 break;
             case 'geo':
+                $rules[$qrType.'1'] = 'required|numeric';
+                $rules[$qrType.'2'] = 'required|numeric';
                 break;
             case 'phone':
+                $rules[$qrType] = 'required|numeric';
                 break;
             case 'sms':
+                $rules[$qrType.'1'] = 'required|numeric';
+                $rules[$qrType.'2'] = 'required|string';
                 break;
             case 'wifi':
+                $rules[$qrType] = 'required|string';
                 break;
         }
 
         return $rules;
     }
 
-    public function messages()
+public function messages()
     {
-        flash()->error('필수 값이 누락되었습니다.');
+        flash()->error('잘못된 타입의 요청입니다.');
         return [
-            'title.required' => '필수 값이 누락되었습니다.'
+            'qr-type.required' => '잘못된 타입 요청입니다.',
+            'url.numeric' => '잘못된 형식의 값입니다.'
         ];
     }
 }

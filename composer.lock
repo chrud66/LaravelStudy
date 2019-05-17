@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4e679e671cd66799bae8336fc3ec78f4",
+    "content-hash": "5961eab304fd3d74acc93eb0103b5bd1",
     "packages": [
         {
             "name": "appkr/api",

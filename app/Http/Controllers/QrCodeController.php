@@ -19,7 +19,7 @@ class QrCodeController extends Controller
 
     public function generator(QrCodeRequest $request)
     {
-        dd($request->input());
+        return view('qrCode.show', compact($request->input()));
     }
 
     public function getForm($name)
